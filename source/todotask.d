@@ -24,12 +24,6 @@ struct Task
 // TODO: Nix the Task strruct and incorporate it into this class
 class TodoTask
 {
-	Task task;
-
-	ulong lineNumber;
-	string type;
-	string message;
-
 	bool createTask(ulong lineNum, string str)
 	{
 		auto r = ctRegex!(r"([A-Z]+):(.*)", "g"); // INFO: The first match catches the type and the second the message.
@@ -37,9 +31,9 @@ class TodoTask
 
 		if(m)
 		{
-			lineNumber = lineNum;
-			type = to!string(strip(m.captures[1]));
-			message = to!string(strip(m.captures[2]));
+			lineNumber_ = lineNum;
+			type_ = to!string(strip(m.captures[1]));
+			message_ = to!string(strip(m.captures[2]));
 			return true;
 		}
 		else
@@ -47,4 +41,24 @@ class TodoTask
 			return false;
 		}
 	}
+
+	@property ulong lineNumber() const
+	{
+		return lineNumber_;
+	}
+
+	@property string type() const
+	{
+		return type_;
+	}
+
+	@property string message() const
+	{
+		return message_;
+	}
+
+private:
+	ulong lineNumber_;
+	string type_;
+	string message_;
 }
