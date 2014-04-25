@@ -14,14 +14,6 @@ enum AnnotationType
 	errors
 }
 
-struct Task
-{
-	ulong lineNumber;
-	string type;
-	string message;
-	bool isValid;
-}
-// TODO: Nix the Task strruct and incorporate it into this class
 class TodoTask
 {
 	bool createTask(ulong lineNum, string str)
