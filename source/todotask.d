@@ -16,13 +16,14 @@ enum AnnotationType
 
 class TodoTask
 {
-	bool createTask(ulong lineNum, string str)
+	bool createTask(string fileName, ulong lineNum, string str)
 	{
 		auto r = ctRegex!(r"([A-Z]+):(.*)", "g"); // INFO: The first match catches the type and the second the message.
 		auto m = matchAll(str, r);
 
 		if(m)
 		{
+			fileName_ = fileName;
 			lineNumber_ = lineNum;
 			type_ = to!string(strip(m.captures[1]));
 			message_ = to!string(strip(m.captures[2]));
@@ -32,6 +33,11 @@ class TodoTask
 		{
 			return false;
 		}
+	}
+
+	@property string fileName() const
+	{
+		return fileName_;
 	}
 
 	@property ulong lineNumber() const
@@ -50,6 +56,7 @@ class TodoTask
 	}
 
 private:
+	string fileName_;
 	ulong lineNumber_;
 	string type_;
 	string message_;

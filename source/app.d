@@ -13,12 +13,13 @@ import todotask;
 void main()
 {
 	TodoTask[] tasks;
+	string fileName = "TestComments.lua";
 
-	foreach(ulong i, string line; File("TestComments.lua").lines)
+	foreach(ulong i, string line; File(fileName).lines)
 	{
 		auto task = new TodoTask;
 
-		bool isValidTask = task.createTask(i + 1, line);
+		bool isValidTask = task.createTask(fileName, i + 1, line);
 
 		if(isValidTask)
 		{
@@ -26,8 +27,8 @@ void main()
 		}
 	}
 
-/*	auto writer = todofilewriter.createFileWriter(TodoFileFormats.json);
-	writer.write();
+	auto writer = todofilewriter.createFileWriter(TodoFileFormats.html);
+/*	writer.write();
 	writeln(thisExePath());
 
 	foreach(DirEntry e; dirEntries(".", SpanMode.breadth))
@@ -41,6 +42,8 @@ void main()
 
 	foreach(task; tasks)
 	{
-		writeln(task.lineNumber, task.type, task.message);
+		writer.write(task);
+
+		//writeln(task.lineNumber, task.type, task.message);
 	}
 }

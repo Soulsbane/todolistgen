@@ -1,39 +1,40 @@
 module todofilewriter;
 
 import todofileformats;
+import todotask;
 import std.stdio;
 
 interface TodoFileWriter
 {
-	void write();
-	void writeFileName();
-	void writeType();
-	void writeMessage();
-	void writeLineNumber();
+	void write(TodoTask task);
+	void writeFileName(string fileName);
+	void writeType(string type);
+	void writeMessage(string message);
+	void writeLineNumber(ulong lineNumber);
 }
 
 class HtmlTodoFileWriter : TodoFileWriter
 {
-	void write()
+	void write(TodoTask task)
 	{
-		writeln("hello HtmlTodoFileWriter.");
+		writeln(task.fileName, task.lineNumber, task.type, task.message);
 	}
 
-	void writeFileName()
-	{
-
-	}
-
-	void writeLineNumber()
-	{
-
-	}
-	void writeType()
+	void writeFileName(string fileName)
 	{
 
 	}
 
-	void writeMessage()
+	void writeLineNumber(ulong lineNumber)
+	{
+
+	}
+	void writeType(string type)
+	{
+
+	}
+
+	void writeMessage(string message)
 	{
 
 	}
@@ -41,27 +42,27 @@ class HtmlTodoFileWriter : TodoFileWriter
 
 class JsonTodoFileWriter : TodoFileWriter
 {
-	void write()
+	void write(TodoTask task)
 	{
 		writeln("hello JsonTodoFileWriter.");
 	}
 
-	void writeFileName()
+	void writeFileName(string fileName)
 	{
 
 	}
 
-	void writeType()
+	void writeType(string type)
 	{
 
 	}
 
-	void writeLineNumber()
+	void writeLineNumber(ulong lineNumber)
 	{
 
 	}
 
-	void writeMessage()
+	void writeMessage(string message)
 	{
 
 	}
@@ -69,27 +70,27 @@ class JsonTodoFileWriter : TodoFileWriter
 
 class CsvTodoFileWriter : TodoFileWriter
 {
-	void write()
+	void write(TodoTask task)
 	{
 		writeln("hello CsvTodoFileWriter.");
 	}
 
-	void writeFileName()
+	void writeFileName(string fileName)
 	{
 
 	}
 
-	void writeType()
+	void writeType(string type)
 	{
 
 	}
 
-	void writeLineNumber()
+	void writeLineNumber(ulong lineNumber)
 	{
 
 	}
 
-	void writeMessage()
+	void writeMessage(string message)
 	{
 
 	}
