@@ -1,6 +1,5 @@
 module todofilewriter;
 
-import todofileformats;
 import todotask;
 import std.stdio;
 
@@ -95,15 +94,18 @@ class CsvTodoFileWriter : TodoFileWriter
 
 	}
 }
-TodoFileWriter createFileWriter(TodoFileFormats id)
+
+TodoFileWriter createFileWriter(string objStr)
 {
-	final switch(id)
+	auto obj = Object.factory(__MODULE__ ~ "." ~ objStr);
+
+	if(obj is null)
 	{
-		case TodoFileFormats.json:
-			return new JsonTodoFileWriter;
-		case TodoFileFormats.csv:
-			return new CsvTodoFileWriter;
-		case TodoFileFormats.html:
-			return new HtmlTodoFileWriter;
+		return new HtmlTodoFileWriter;
+	}
+	else
+	{
+		return cast(TodoFileWriter)obj;
+
 	}
 }

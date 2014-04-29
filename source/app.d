@@ -27,7 +27,6 @@ void main()
 		}
 	}
 
-	auto writer = todofilewriter.createFileWriter(TodoFileFormats.html);
 /*	writer.write();
 	writeln(thisExePath());
 
@@ -39,11 +38,10 @@ void main()
 		}
 	}
 */
-
+	auto writer = todofilewriter.createFileWriter("CsvTodoFileWriters");
 	foreach(task; tasks)
 	{
 		writer.write(task);
-
-		//writeln(task.lineNumber, task.type, task.message);
 	}
 }
+
