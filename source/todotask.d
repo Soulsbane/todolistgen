@@ -1,11 +1,8 @@
 module todotask;
-import std.stdio;
-import std.algorithm;
+
 import std.string;
 import std.regex;
 import std.conv;
-import std.file;
-import std.typecons;
 
 enum AnnotationType
 {
