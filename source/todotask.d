@@ -4,13 +4,6 @@ import std.string;
 import std.regex;
 import std.conv;
 
-enum AnnotationType
-{
-	warnings,
-	notes,
-	errors
-}
-
 class TodoTask
 {
 	bool createTask(string fileName, ulong lineNum, string str)
