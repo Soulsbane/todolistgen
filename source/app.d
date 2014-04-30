@@ -8,25 +8,11 @@ import std.typecons;
 
 import todofileformats;
 import todofilewriter;
+import todofilereader;
 import todotask;
 
 void main()
 {
-	TodoTask[] tasks;
-	string fileName = "TestComments.lua";
-
-	foreach(ulong i, string line; File(fileName).lines)
-	{
-		auto task = new TodoTask;
-
-		bool isValidTask = task.createTask(fileName, i + 1, line);
-
-		if(isValidTask)
-		{
-			tasks ~= task;
-		}
-	}
-
 /*	writer.write();
 	writeln(thisExePath());
 
@@ -38,7 +24,11 @@ void main()
 		}
 	}
 */
+	auto reader = new TodoFileReader;
 	auto writer = todofilewriter.createFileWriter("CsvTodoFileWriters");
+
+	auto tasks = reader.readFile("TestComments.lua");
+
 	foreach(task; tasks)
 	{
 		writer.write(task);
