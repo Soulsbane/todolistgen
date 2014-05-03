@@ -1,15 +1,27 @@
 import std.stdio;
 import std.string;
 import std.file;
+import std.getopt;
 
 import todofilewriter;
 import todofilereader;
 import todotask;
 
-void main()
+void processFile(string fileName)
 {
-/*	writer.write();
-	writeln(thisExePath());
+	auto reader = new TodoFileReader;
+	auto writer = todofilewriter.createFileWriter("CsvTodoFileWriters");
+	auto tasks = reader.readFile(fileName);
+
+	foreach(task; tasks)
+	{
+		writer.write(task);
+	}
+}
+
+void processDir(string option, string value)
+{
+	writeln("Processing dir: ", value);
 
 	foreach(DirEntry e; dirEntries(".", SpanMode.breadth))
 	{
@@ -18,15 +30,24 @@ void main()
 			writeln(e.name);
 		}
 	}
-*/
-	auto reader = new TodoFileReader;
-	auto writer = todofilewriter.createFileWriter("CsvTodoFileWriters");
+}
 
-	auto tasks = reader.readFile("TestComments.lua");
+void handleArguments(string[] args)
+{
+	getopt(args, std.getopt.config.passThrough, "help", &printHelp, "dir", &processDir);
 
-	foreach(task; tasks)
-	{
-		writer.write(task);
+	if(args.length > 1) { //NOTE: If there is only one argument then we assume the user wants one file processed.
+		processFile(args[1]);
 	}
 }
 
+void printHelp()
+{
+	writeln("Help me obiwan...");
+}
+
+void main(string[] args)
+{
+	writeln(thisExePath());
+	handleArguments(args);
+}
