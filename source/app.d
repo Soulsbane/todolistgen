@@ -2,6 +2,7 @@ import std.stdio;
 import std.string;
 import std.file;
 import std.getopt;
+import std.path;
 
 import todofilewriter;
 import todofilereader;
@@ -21,13 +22,20 @@ void processFile(string fileName)
 
 void processDir(string option, string value)
 {
-	writeln("Processing dir: ", value);
-
-	foreach(DirEntry e; dirEntries(".", SpanMode.breadth))
+	foreach(DirEntry e; dirEntries(value, SpanMode.breadth))
 	{
-		if(!e.isDir)
+		if(e.isFile)
 		{
-			writeln(e.name);
+			auto name = buildNormalizedPath(e.name);
+
+			if(name.startsWith("."))
+			{
+				continue;
+			}
+			else
+			{
+				processFile(name);
+			}
 		}
 	}
 }
@@ -48,6 +56,6 @@ void printHelp()
 
 void main(string[] args)
 {
-	writeln(thisExePath());
+	//writeln(thisExePath());
 	handleArguments(args);
 }
