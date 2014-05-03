@@ -106,6 +106,5 @@ TodoFileWriter createFileWriter(string objStr)
 	else
 	{
 		return cast(TodoFileWriter)obj;
-
 	}
 }
