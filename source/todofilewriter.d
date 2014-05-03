@@ -95,6 +95,34 @@ class CsvTodoFileWriter : TodoFileWriter
 	}
 }
 
+class MarkdownTodoFileWriter : TodoFileWriter
+{
+	void write(TodoTask task)
+	{
+		writeln("hello MarkdownTodoFileWriter.");
+	}
+
+	void writeFileName(string fileName)
+	{
+
+	}
+
+	void writeType(string type)
+	{
+
+	}
+
+	void writeLineNumber(ulong lineNumber)
+	{
+
+	}
+
+	void writeMessage(string message)
+	{
+
+	}
+}
+
 TodoFileWriter createFileWriter(string objStr)
 {
 	auto obj = Object.factory(__MODULE__ ~ "." ~ objStr);
