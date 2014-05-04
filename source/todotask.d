@@ -17,6 +17,7 @@ class TodoTask
 			lineNumber_ = lineNum;
 			type_ = to!string(strip(m.captures[1]));
 			message_ = to!string(strip(m.captures[2]));
+
 			return true;
 		}
 		else

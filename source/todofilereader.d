@@ -1,6 +1,8 @@
 module todofilereader;
 
 import std.stdio;
+import std.encoding;
+
 import todotask;
 
 class TodoFileReader
@@ -11,13 +13,15 @@ class TodoFileReader
 
 		foreach(ulong i, string line; File(fileName, "r").lines)
 		{
-			auto task = new TodoTask;
-			// FIXME: Things blow up if the file is non text.
-			bool isValidTask = task.createTask(fileName, i + 1, line);
-
-			if(isValidTask)
+			if(line.isValid()) // INFO: Make sure the line is actually text.
 			{
-				tasks ~= task;
+				auto task = new TodoTask;
+
+				bool isValidTask = task.createTask(fileName, i + 1, line);
+				if(isValidTask)
+				{
+					tasks ~= task;
+				}
 			}
 		}
 		return tasks;
