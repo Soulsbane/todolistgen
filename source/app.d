@@ -8,10 +8,14 @@ import todofilewriter;
 import todofilereader;
 import todotask;
 
+private string dir = ".";
+private string pattern = "*.*";
+private string outputFormat = "HtmlTodoFileWriter";
+
 void processFile(string fileName)
 {
 	auto reader = new TodoFileReader;
-	auto writer = todofilewriter.createFileWriter("CsvTodoFileWriters");
+	auto writer = todofilewriter.createFileWriter(outputFormat);
 	auto tasks = reader.readFile(fileName);
 
 	foreach(task; tasks)
@@ -20,9 +24,9 @@ void processFile(string fileName)
 	}
 }
 
-void processDir(string option, string value)
+void processDir()
 {
-	foreach(DirEntry e; dirEntries(value, SpanMode.breadth))
+	foreach(DirEntry e; dirEntries(dir, pattern, SpanMode.breadth))
 	{
 		if(e.isFile)
 		{
@@ -42,10 +46,14 @@ void processDir(string option, string value)
 
 void handleArguments(string[] args)
 {
-	getopt(args, std.getopt.config.passThrough, "help", &printHelp, "dir", &processDir);
+	getopt(args, std.getopt.config.passThrough, "help", &printHelp, "dir", &dir, "pattern", &pattern, "format", &outputFormat);
 
-	if(args.length > 1) { //NOTE: If there is only one argument then we assume the user wants one file processed.
+	if(args.length == 2) { //NOTE: If there is only one argument then we assume the user wants one file processed.
 		processFile(args[1]);
+	}
+	else
+	{
+		processDir();
 	}
 }
 
