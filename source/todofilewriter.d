@@ -1,7 +1,10 @@
 module todofilewriter;
 
-import todotask;
 import std.stdio;
+import std.algorithm;
+import std.string;
+
+import todotask;
 
 interface TodoFileWriter
 {
@@ -123,9 +126,30 @@ class MarkdownTodoFileWriter : TodoFileWriter
 	}
 }
 
-TodoFileWriter createFileWriter(string objStr)
+TodoFileWriter createFileWriter(string outputFormat)
 {
-	auto obj = Object.factory(__MODULE__ ~ "." ~ objStr);
+	string className;
+
+	foreach(mod; ModuleInfo) {
+		foreach(cla; mod.localClasses) {
+			foreach(inter; cla.interfaces)
+			{
+				auto info = inter.classinfo;
+				if(info.name == "todofilewriter.TodoFileWriter")
+				{
+					if(outputFormat != "HtmlTodoFileWriter")
+					{
+						if(cla.name.startsWith(__MODULE__ ~ "." ~ outputFormat.capitalize))
+						{
+							className = cla.name;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	auto obj = Object.factory(className);
 
 	if(obj is null)
 	{
