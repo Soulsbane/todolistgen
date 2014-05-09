@@ -126,6 +126,33 @@ class MarkdownTodoFileWriter : TodoFileWriter
 	}
 }
 
+class StdoutTodoFileWriter : TodoFileWriter
+{
+	void write(TodoTask task)
+	{
+		writeln("StdoutTodoFileWriter: ", task.fileName, task.lineNumber, task.type, task.message);
+	}
+
+	void writeFileName(string fileName)
+	{
+
+	}
+
+	void writeLineNumber(ulong lineNumber)
+	{
+
+	}
+	void writeType(string type)
+	{
+
+	}
+
+	void writeMessage(string message)
+	{
+
+	}
+}
+
 TodoFileWriter createFileWriter(string outputFormat)
 {
 	string className;
@@ -137,7 +164,7 @@ TodoFileWriter createFileWriter(string outputFormat)
 				auto info = inter.classinfo;
 				if(info.name == "todofilewriter.TodoFileWriter")
 				{
-					if(outputFormat != "HtmlTodoFileWriter")
+					if(outputFormat != "StdoutTodoFileWriter")
 					{
 						if(cla.name.startsWith(__MODULE__ ~ "." ~ outputFormat.capitalize))
 						{
@@ -153,7 +180,7 @@ TodoFileWriter createFileWriter(string outputFormat)
 
 	if(obj is null)
 	{
-		return new HtmlTodoFileWriter;
+		return new StdoutTodoFileWriter;
 	}
 	else
 	{

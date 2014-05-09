@@ -10,7 +10,7 @@ import todotask;
 
 private string dir = ".";
 private string pattern = "*.*";
-private string outputFormat = "HtmlTodoFileWriter";
+private string outputFormat = "StdoutTodoFileWriter";
 
 void processFile(string fileName)
 {
