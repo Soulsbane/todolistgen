@@ -1,10 +1,10 @@
 {
 	"name": "todolistgen",
-	"description": "An example project skeleton",
-	"homepage": "http://example.org",
-	"copyright": "Copyright © 2000, Your Name",
+	"description": "Generates a todo list from various sources and outputs in various formats(markdown, json, html, csv etc.",
+	"homepage": "http://raijinsoft.com",
+	"copyright": "Copyright © 2014, Paul Crane",
 	"authors": [
-		"Your Name"
+		"Paul Crane"
 	],
 	"dependencies": {
 	  "luad": "~master"
