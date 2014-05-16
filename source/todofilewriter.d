@@ -130,7 +130,7 @@ class StdoutTodoFileWriter : TodoFileWriter
 {
 	void write(TodoTask task)
 	{
-		writeln("StdoutTodoFileWriter: ", task.fileName, task.lineNumber, task.type, task.message);
+		writefln("%s| %d| %s| %s", task.fileName, task.lineNumber, task.type, task.message);
 	}
 
 	void writeFileName(string fileName)
