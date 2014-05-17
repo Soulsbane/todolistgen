@@ -19,6 +19,7 @@ class TodoTask
 	{
 		auto r = ctRegex!(r"([A-Z]+):(.*)", "g"); // INFO: The first match catches the type and the second the message.
 		auto m = matchAll(str, r);
+		alias Tuple!(Task, "task", bool, "isValidTask") ReturnValues;
 
 		if(m)
 		{
@@ -29,12 +30,12 @@ class TodoTask
 			task.type = to!string(strip(m.captures[1]));
 			task.message = to!string(strip(m.captures[2]));
 
-			return tuple(task, true);
+			return ReturnValues(task, true);
 		}
 		else
 		{
 			Task task;
-			return tuple(task, false);
+			return ReturnValues(task, false);
 		}
 	}
 }
