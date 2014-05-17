@@ -4,11 +4,13 @@ import std.stdio;
 import std.algorithm;
 import std.string;
 
+import luad.all;
+
 import todotask;
 
 interface TodoFileWriter
 {
-	void write(TodoTask task);
+	void write(Task task);
 	void writeFileName(string fileName);
 	void writeType(string type);
 	void writeMessage(string message);
@@ -17,7 +19,7 @@ interface TodoFileWriter
 
 class HtmlTodoFileWriter : TodoFileWriter
 {
-	void write(TodoTask task)
+	void write(Task task)
 	{
 		writeln(task.fileName, task.lineNumber, task.type, task.message);
 	}
@@ -44,7 +46,7 @@ class HtmlTodoFileWriter : TodoFileWriter
 
 class JsonTodoFileWriter : TodoFileWriter
 {
-	void write(TodoTask task)
+	void write(Task task)
 	{
 		writeln("hello JsonTodoFileWriter.");
 	}
@@ -72,7 +74,7 @@ class JsonTodoFileWriter : TodoFileWriter
 
 class CsvTodoFileWriter : TodoFileWriter
 {
-	void write(TodoTask task)
+	void write(Task task)
 	{
 		writeln("hello CsvTodoFileWriter.");
 	}
@@ -100,7 +102,7 @@ class CsvTodoFileWriter : TodoFileWriter
 
 class MarkdownTodoFileWriter : TodoFileWriter
 {
-	void write(TodoTask task)
+	void write(Task task)
 	{
 		writeln("hello MarkdownTodoFileWriter.");
 	}
@@ -128,9 +130,40 @@ class MarkdownTodoFileWriter : TodoFileWriter
 
 class StdoutTodoFileWriter : TodoFileWriter
 {
-	void write(TodoTask task)
+	void write(Task task)
 	{
 		writefln("%s| %d| %s| %s", task.fileName, task.lineNumber, task.type, task.message);
+	}
+
+	void writeFileName(string fileName)
+	{
+
+	}
+
+	void writeLineNumber(ulong lineNumber)
+	{
+
+	}
+	void writeType(string type)
+	{
+
+	}
+
+	void writeMessage(string message)
+	{
+
+	}
+}
+
+class LuaTodoFileWriter : TodoFileWriter
+{
+	void write(Task task)
+	{
+		auto lua = new LuaState;
+		lua.openLibs();
+		lua.doFile("./apitest.lua");
+		auto ProcessTask = lua.get!LuaFunction("ProcessTask");
+		ProcessTask(task.fileName, task.lineNumber, task.type, task.message);
 	}
 
 	void writeFileName(string fileName)

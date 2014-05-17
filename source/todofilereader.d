@@ -7,9 +7,9 @@ import todotask;
 
 class TodoFileReader
 {
-	TodoTask[] readFile(string fileName)
+	Task[] readFile(string fileName)
 	{
-		TodoTask[] tasks;
+		Task[] tasks;
 
 		foreach(ulong i, string line; File(fileName, "r").lines)
 		{
@@ -17,10 +17,11 @@ class TodoFileReader
 			{
 				auto task = new TodoTask;
 
-				bool isValidTask = task.createTask(fileName, i + 1, line);
-				if(isValidTask)
+				auto isValidTask = task.createTask(fileName, i + 1, line);
+
+				if(isValidTask[1])
 				{
-					tasks ~= task;
+					tasks ~= isValidTask[0];
 				}
 			}
 		}
