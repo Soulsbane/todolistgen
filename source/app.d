@@ -4,23 +4,23 @@ import std.file;
 import std.getopt;
 import std.path;
 
-import todofilewriter;
 import todofilereader;
 import todotask;
+import luaaddon;
 
 private string dir = ".";
 private string pattern = "*.*";
-private string outputFormat = "StdoutTodoFileWriter";
+private string outputFormat = "stdout";
 
 void processFile(string fileName)
 {
 	auto reader = new TodoFileReader;
-	auto writer = todofilewriter.createFileWriter(outputFormat);
+	auto addon = luaaddon.createAddon(outputFormat);
 	auto tasks = reader.readFile(fileName);
 
 	foreach(task; tasks)
 	{
-		writer.write(task);
+		addon.processTask(task);
 	}
 }
 
