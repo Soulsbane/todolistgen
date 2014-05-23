@@ -20,8 +20,10 @@ void processFile(string fileName)
 
 	foreach(task; tasks)
 	{
-		addon.processTask(task);
+		// TODO: Check for existence of function or a config variable to process each task.
+		//addon.processTask(task);
 	}
+	addon.processTasks(tasks);
 }
 
 void processDir()

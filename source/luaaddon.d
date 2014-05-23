@@ -25,6 +25,12 @@ class LuaAddon
 		config = task;
 		ProcessTask(config);
 	}
+
+	void processTasks(Task[] tasks)
+	{
+		auto ProcessTasks = lua.get!LuaFunction("ProcessTasks");
+		ProcessTasks(lua.newTable(tasks));
+	}
 private:
 	LuaState lua;
 }
