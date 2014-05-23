@@ -19,8 +19,11 @@ class LuaAddon
 
 	void processTask(Task task)
 	{
+		auto config = lua.globals.toStruct!Task();
 		auto ProcessTask = lua.get!LuaFunction("ProcessTask");
-		ProcessTask(task.fileName, task.lineNumber, task.type, task.message);
+
+		config = task;
+		ProcessTask(config);
 	}
 private:
 	LuaState lua;
