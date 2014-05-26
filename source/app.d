@@ -18,11 +18,6 @@ void processFile(string fileName)
 	auto addon = luaaddon.createAddon(outputFormat);
 	auto tasks = reader.readFile(fileName);
 
-	foreach(task; tasks)
-	{
-		// TODO: Check for existence of function or a config variable to process each task.
-		//addon.processTask(task);
-	}
 	addon.processTasks(tasks);
 }
 

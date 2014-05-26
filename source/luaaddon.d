@@ -17,18 +17,9 @@ class LuaAddon
 		lua.doFile(fileName);
 	}
 
-	void processTask(Task task)
-	{
-		auto config = lua.globals.toStruct!Task();
-		auto ProcessTask = lua.get!LuaFunction("ProcessTask");
-
-		config = task;
-		ProcessTask(config);
-	}
-
 	void processTasks(Task[] tasks)
 	{
-		auto ProcessTasks = lua.get!LuaFunction("ProcessTasks");
+		auto ProcessTasks = lua.get!LuaFunction("ProcessTasks"); // TODO: Move the intialization to constructor?
 		ProcessTasks(lua.newTable(tasks));
 	}
 private:
