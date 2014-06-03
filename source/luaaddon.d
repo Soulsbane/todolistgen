@@ -15,16 +15,15 @@ class LuaAddon
 		lua = new LuaState;
 		lua.openLibs();
 		lua.doFile(fileName);
-		ProcessTasks = lua.get!LuaFunction("ProcessTasks");
 	}
 
 	void processTasks(Task[] tasks)
 	{
+		auto ProcessTasks = lua.get!LuaFunction("ProcessTasks");
 		ProcessTasks(lua.newTable(tasks));
 	}
 private:
 	LuaState lua;
-	LuaFunction ProcessTasks;
 }
 
 LuaAddon createAddon(string outputFormat)
