@@ -16,9 +16,10 @@ private string outputFormat = "stdout";
 void processFile(string fileName)
 {
 	auto reader = new TodoFileReader;
-	auto addon = luaaddon.createAddon(outputFormat);
+	auto addon = new LuaAddon;
 	auto tasks = reader.readFile(fileName);
 
+	addon.create(outputFormat);
 	addon.processTasks(tasks);
 }
 

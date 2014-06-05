@@ -10,35 +10,30 @@ import todotask;
 
 class LuaAddon
 {
-	this(string fileName)
-	{
-		lua = new LuaState;
-		lua.openLibs();
-		lua.doFile(fileName);
-	}
-
 	void processTasks(Task[] tasks)
 	{
 		auto ProcessTasks = lua.get!LuaFunction("ProcessTasks");
 		ProcessTasks(lua.newTable(tasks));
 	}
-private:
-	LuaState lua;
-}
 
-LuaAddon createAddon(string outputFormat)
-{
-	string fileName;
-
-	foreach(DirEntry e; dirEntries("addons", "*.lua", SpanMode.breadth))
+	void create(string outputFormat)
 	{
-		if(e.isFile)
+		string fileName;
+
+		foreach(DirEntry e; dirEntries("addons", "*.lua", SpanMode.breadth))
 		{
-			if(outputFormat == e.name.baseName.stripExtension)
+			if(e.isFile)
 			{
-				fileName = e.name;
+				if(outputFormat == e.name.baseName.stripExtension)
+				{
+					fileName = e.name;
+				}
 			}
 		}
+		lua = new LuaState;
+		lua.openLibs();
+		lua.doFile(fileName);
 	}
-	return new LuaAddon(fileName);
+private:
+	LuaState lua;
 }
