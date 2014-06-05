@@ -3,6 +3,7 @@ import std.string;
 import std.file;
 import std.getopt;
 import std.path;
+import std.algorithm;
 
 import todofilereader;
 import todotask;
@@ -28,7 +29,6 @@ void processDir()
 		if(e.isFile)
 		{
 			auto name = buildNormalizedPath(e.name);
-
 			if(name.startsWith("."))
 			{
 				continue;
@@ -43,13 +43,23 @@ void processDir()
 
 void handleArguments(string[] args)
 {
-	getopt(args, std.getopt.config.passThrough, "help", &printHelp, "dir", &dir, "pattern", &pattern, "format", &outputFormat);
-
-	if(args.length == 2) { //NOTE: If there is only one argument then we assume the user wants one file processed.
-		processFile(args[1]);
+	if(args.length > 1)
+	{
+		if(args[1].startsWith("--"))
+		{
+			getopt(args, std.getopt.config.passThrough, "help", &printHelp, "dir", &dir, "pattern", &pattern, "format", &outputFormat);
+			processDir();
+		}
+		else
+		{
+			writeln("Processing file...", args[1]);
+			getopt(args, std.getopt.config.passThrough, "help", &printHelp, "dir", &dir, "pattern", &pattern, "format", &outputFormat);
+			processFile(args[1]);
+		}
 	}
 	else
 	{
+		getopt(args, std.getopt.config.passThrough, "help", &printHelp, "dir", &dir, "pattern", &pattern, "format", &outputFormat);
 		processDir();
 	}
 }
