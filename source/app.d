@@ -17,8 +17,8 @@ void processFile(string fileName)
 {
 	auto reader = new TodoFileReader;
 	auto addon = new LuaAddon;
-	auto tasks = reader.readFile(fileName);
-
+	auto tasks = reader.readFile(fileName); // FIXME: Since processTasks is called for each file the output will be destroyed unless file is set to append. Really need a global tasks that can be concated to
+											// FIXME: Instead of having processDir call processFile have it do it's own thing.
 	addon.create(outputFormat);
 	addon.processTasks(tasks);
 }
@@ -72,6 +72,5 @@ void printHelp()
 
 void main(string[] args)
 {
-	//writeln(thisExePath());
 	handleArguments(args);
 }

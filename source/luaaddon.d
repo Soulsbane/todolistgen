@@ -32,8 +32,18 @@ class LuaAddon
 		}
 		lua = new LuaState;
 		lua.openLibs();
+		lua["api"] = lua.registerType!Api;
 		lua.doFile(fileName);
 	}
 private:
 	LuaState lua;
 }
+
+class Api
+{
+	static string getOutputPath()
+	{
+		return dirName(thisExePath());
+	}
+}
+
