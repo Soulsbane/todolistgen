@@ -17,14 +17,18 @@ void processFile(string fileName)
 {
 	auto reader = new TodoFileReader;
 	auto addon = new LuaAddon;
-	auto tasks = reader.readFile(fileName); // FIXME: Since processTasks is called for each file the output will be destroyed unless file is set to append. Really need a global tasks that can be concated to
-											// FIXME: Instead of having processDir call processFile have it do it's own thing.
+	auto tasks = reader.readFile(fileName);
+
 	addon.create(outputFormat);
 	addon.processTasks(tasks);
 }
 
 void processDir()
 {
+	auto reader = new TodoFileReader;
+	auto addon = new LuaAddon;
+	Task[] tasks;
+
 	foreach(DirEntry e; dirEntries(dir, pattern, SpanMode.breadth))
 	{
 		if(e.isFile)
@@ -36,10 +40,14 @@ void processDir()
 			}
 			else
 			{
-				processFile(name);
+				//processFile(name);
+				tasks ~= reader.readFile(name);
 			}
 		}
 	}
+
+	addon.create(outputFormat);
+	addon.processTasks(tasks);
 }
 
 void handleArguments(string[] args)

@@ -1,0 +1,11 @@
+
+TestComments.lua	1	INFO	This is a quote test
+TestComments.lua	2	INFO	This is a semicolon test
+TestComments.lua	6	NOTE	Checkbutton's seem to only align with the checkbox not the checkbox plus text. ClearAllPoints may not even be needed. Needs further investigation.
+TestComments.lua	14	INFO	Panel is automatically created when including SimpleOptions.lua in your TOC.
+TestComments.lua	23	FIXME	This entire project
+README.md	3	NOTE	At the moment this program only outputs the results to standand output.
+source/app.d	20	FIXME	Since processTasks is called for each file the output will be destroyed unless file is set to append. Really need a global tasks that can be concated to
+source/app.d	21	FIXME	Instead of having processDir call processFile have it do it's own thing.
+source/todofilereader.d	18	INFO	Make sure the line is actually text.
+source/todotask.d	20	INFO	The first match catches the tag and the second the message.
