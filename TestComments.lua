@@ -4,7 +4,7 @@
 -- Attach Methods
 ---------------------------------------
 --NOTE: Checkbutton's seem to only align with the checkbox not the checkbox plus text. ClearAllPoints may not even be needed. Needs further investigation.
-
+--NOTE A comment without a colon.
 function Options:AttachRight(frame, attachedTo, offset)
 	local offset = offset or -30
 

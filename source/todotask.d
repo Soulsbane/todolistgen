@@ -5,6 +5,8 @@ import std.regex;
 import std.conv;
 import std.typecons;
 
+alias Tuple!(Task, "task", bool, "isValidTask") ReturnValues;
+
 struct Task
 {
 	string fileName;
@@ -19,7 +21,6 @@ class TodoTask
 	{
 		auto r = ctRegex!(r"([A-Z]+):(.*)", "g"); // INFO: The first match catches the tag and the second the message.
 		auto m = matchAll(str, r);
-		alias Tuple!(Task, "task", bool, "isValidTask") ReturnValues;
 		Task task;
 
 		if(m)

@@ -40,7 +40,6 @@ void processDir()
 			}
 			else
 			{
-				//processFile(name);
 				tasks ~= reader.readFile(name);
 			}
 		}
