@@ -19,7 +19,7 @@ class TodoTask
 {
 	auto createTask(string fileName, ulong lineNum, string str)
 	{
-		auto r = ctRegex!(r"([A-Z]+):(.*)", "g"); // INFO: The first match catches the tag and the second the message.
+		auto r = regex(r"([A-Z]+):(.*)", "g"); // INFO: The first match catches the tag and the second the message.
 		auto m = matchAll(str, r);
 		Task task;
 
