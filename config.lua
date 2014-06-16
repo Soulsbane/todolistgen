@@ -1,0 +1,1 @@
+TodoTaskPattern = "([A-Z]+):(.*)"
