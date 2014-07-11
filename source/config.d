@@ -6,10 +6,9 @@ import luad.all;
 struct ConfigVars
 {
 	string TodoTaskPattern;
-	string Hello;
 }
 
-class Config
+struct Config
 {
 	auto load(string fileName = "./config.lua")
 	{
@@ -17,8 +16,10 @@ class Config
 		auto lua = new LuaState;
 
 		lua.doString(text);
-		auto config = lua.globals.toStruct!ConfigVars();
+		vars = lua.globals.toStruct!ConfigVars();
 
-		return config;
+		return vars;
 	}
+private:
+	static ConfigVars vars;
 }
