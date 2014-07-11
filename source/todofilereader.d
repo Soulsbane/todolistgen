@@ -21,7 +21,7 @@ class TodoFileReader
 			{
 				auto task = createTask(fileName, i + 1, line);
 
-				if(Task.init != task)
+				if(Task.init != task) // INFO: If the returned task contains nothing but default values then don't add it to task array.
 				{
 					tasks ~= task;
 				}
