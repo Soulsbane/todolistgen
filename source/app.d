@@ -8,6 +8,7 @@ import std.algorithm;
 import todofilereader;
 import todotask;
 import luaaddon;
+import args;
 
 private string dir = ".";
 private string pattern = "*.*";

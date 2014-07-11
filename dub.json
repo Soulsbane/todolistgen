@@ -7,6 +7,7 @@
 		"Paul Crane"
 	],
 	"dependencies": {
-	  "luad": "~master"
+	  "luad": "~master",
+	  "docopt": ">=0.6.1-b.1"
 	}
 }
