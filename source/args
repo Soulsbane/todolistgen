@@ -1,1 +1,15 @@
- 
+Todolistgen Options.
+
+    Usage:
+      todolistgen
+      todolistgen <filename>
+      todolistgen <filename> [--dir=<dir>] [--format=<format>]
+      todolistgen -h | --help
+      todolistgen --version
+
+    Options:
+      -h --help     Show help.
+      --version     Show version.
+      --dir=<dir>   Directory [default: .].
+      --format=<json|html|markdown|csv|stdout>   Format [default: stdout].
+
