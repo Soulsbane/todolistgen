@@ -80,5 +80,6 @@ void printHelp()
 
 void main(string[] args)
 {
-	handleArguments(args);
+	//handleArguments(args);
+	auto arguments = getArgs(args);
 }

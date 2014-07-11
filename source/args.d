@@ -21,3 +21,9 @@ string loadArgsFile(string name = "./source/args")
     }
     return argsText;
 }
+
+auto getArgs(string[] args)
+{
+	string argsText = loadArgsFile();
+	return docopt.docopt(argsText, args[1..$], true, "0.3.0");
+}
