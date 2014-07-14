@@ -4,6 +4,7 @@ import std.file;
 import std.getopt;
 import std.path;
 import std.algorithm;
+import std.conv;
 
 import todofilereader;
 import todotask;
@@ -50,7 +51,7 @@ void processDir()
 	addon.processTasks(tasks);
 }
 
-void handleArguments(string[] args)
+void oldhandleArguments(string[] args)
 {
 	if(args.length > 1)
 	{
@@ -73,6 +74,26 @@ void handleArguments(string[] args)
 	}
 }
 
+void handleArguments(string[] args)
+{
+	auto arguments = new Args(args);
+
+	/*writeln(arguments);
+	writeln(arguments["--format"]);
+	writeln(arguments["--dir"]);*/
+
+	if(args.length > 1)
+	{
+		string fileName = arguments.get("<filename>");
+		writeln("Processing file...", fileName);
+		processFile(fileName);
+	}
+	else
+	{
+		processDir();
+	}
+}
+
 void printHelp()
 {
 	writeln("Help me obiwan...");
@@ -80,6 +101,5 @@ void printHelp()
 
 void main(string[] args)
 {
-	//handleArguments(args);
-	auto arguments = getArgs(args);
+	handleArguments(args);
 }
