@@ -2,6 +2,7 @@ Todolistgen Options.
 
     Usage:
       todolistgen
+      todolistgen [--dir=<dir>] [--format=<format>]
       todolistgen <filename>
       todolistgen <filename> [--dir=<dir>] [--format=<format>]
       todolistgen -h | --help
