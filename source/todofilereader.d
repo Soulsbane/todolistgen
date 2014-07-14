@@ -6,6 +6,7 @@ import std.typecons;
 import std.string;
 import std.regex;
 import std.conv;
+import std.file;
 
 import todotask;
 
@@ -15,15 +16,18 @@ class TodoFileReader
 	{
 		Task[] tasks;
 
-		foreach(ulong i, string line; File(fileName, "r").lines)
+		if(exists(fileName))
 		{
-			if(line.isValid()) // INFO: Make sure the line is actually text.
+			foreach(ulong i, string line; File(fileName, "r").lines)
 			{
-				auto task = createTask(fileName, i + 1, line);
-
-				if(Task.init != task) // INFO: If the returned task contains nothing but default values then don't add it to task array.
+				if(line.isValid()) // INFO: Make sure the line is actually text.
 				{
-					tasks ~= task;
+					auto task = createTask(fileName, i + 1, line);
+
+					if(Task.init != task) // INFO: If the returned task contains nothing but default values then don't add it to task array.
+					{
+						tasks ~= task;
+					}
 				}
 			}
 		}
