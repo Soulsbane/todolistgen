@@ -54,29 +54,6 @@ void processDir()
 	addon.processTasks(tasks);
 }
 
-void oldhandleArguments(string[] args)
-{
-	if(args.length > 1)
-	{
-		if(args[1].startsWith("--"))
-		{
-			getopt(args, std.getopt.config.passThrough, "help", &printHelp, "dir", &dir, "pattern", &pattern, "format", &outputFormat);
-			processDir();
-		}
-		else
-		{
-			writeln("Processing file...", args[1]);
-			getopt(args, std.getopt.config.passThrough, "help", &printHelp, "dir", &dir, "pattern", &pattern, "format", &outputFormat);
-			processFile(args[1]);
-		}
-	}
-	else
-	{
-		getopt(args, std.getopt.config.passThrough, "help", &printHelp, "dir", &dir, "pattern", &pattern, "format", &outputFormat);
-		processDir();
-	}
-}
-
 void handleArguments(string[] args)
 {
 	auto arguments = getArgs(args);
