@@ -61,6 +61,7 @@ void handleArguments(string[] args)
 
 	dir = arguments["--dir"].toString;
 	outputFormat = arguments["--format"].toString;
+	pattern = arguments["--pattern"].toString;
 
 	if(!arguments["<filename>"].isNull)
 	{
