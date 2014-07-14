@@ -16,18 +16,15 @@ class TodoFileReader
 	{
 		Task[] tasks;
 
-		if(exists(fileName))
+		foreach(ulong i, string line; File(fileName, "r").lines)
 		{
-			foreach(ulong i, string line; File(fileName, "r").lines)
+			if(line.isValid()) // INFO: Make sure the line is actually text.
 			{
-				if(line.isValid()) // INFO: Make sure the line is actually text.
-				{
-					auto task = createTask(fileName, i + 1, line);
+				auto task = createTask(fileName, i + 1, line);
 
-					if(Task.init != task) // INFO: If the returned task contains nothing but default values then don't add it to task array.
-					{
-						tasks ~= task;
-					}
+				if(Task.init != task) // INFO: If the returned task contains nothing but default values then don't add it to task array.
+				{
+					tasks ~= task;
 				}
 			}
 		}

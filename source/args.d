@@ -29,17 +29,3 @@ auto getArgs(string[] args)
 	string argsText = loadArgsFile();
 	return docopt.docopt(argsText, args[1..$], true, "0.3.0");
 }
-
-class Args
-{
-	this(string[] args)
-	{
-		values = getArgs(args);
-	}
-	T get(T = string)(string key)
-	{
-		return to!T(values[key]);
-	}
-
-	private ArgValue[string] values;
-}

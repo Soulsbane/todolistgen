@@ -17,12 +17,15 @@ private string outputFormat = "stdout";
 
 void processFile(string fileName)
 {
-	auto reader = new TodoFileReader;
-	auto addon = new LuaAddon;
-	auto tasks = reader.readFile(fileName);
+	if(exists(fileName))
+	{
+		auto reader = new TodoFileReader;
+		auto addon = new LuaAddon;
+		auto tasks = reader.readFile(fileName);
 
-	addon.create(outputFormat);
-	addon.processTasks(tasks);
+		addon.create(outputFormat);
+		addon.processTasks(tasks);
+	}
 }
 
 void processDir()
@@ -76,15 +79,14 @@ void oldhandleArguments(string[] args)
 
 void handleArguments(string[] args)
 {
-	auto arguments = new Args(args);
+	auto arguments = getArgs(args);
 
-	/*writeln(arguments);
-	writeln(arguments["--format"]);
-	writeln(arguments["--dir"]);*/
+	dir = arguments["--dir"].toString;
+	outputFormat = arguments["--format"].toString;
 
 	if(args.length > 1)
 	{
-		string fileName = arguments.get("<filename>");
+		string fileName = arguments["<filename>"].toString;
 		writeln("Processing file...", fileName);
 		processFile(fileName);
 	}
