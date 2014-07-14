@@ -23,6 +23,7 @@ void processFile(string fileName)
 		auto addon = new LuaAddon;
 		auto tasks = reader.readFile(fileName);
 
+		writeln("Processing file...", fileName);
 		addon.create(outputFormat);
 		addon.processTasks(tasks);
 	}
@@ -61,10 +62,10 @@ void handleArguments(string[] args)
 	dir = arguments["--dir"].toString;
 	outputFormat = arguments["--format"].toString;
 
-	if(args.length > 1)
+	if(!arguments["<filename>"].isNull)
 	{
 		string fileName = arguments["<filename>"].toString;
-		writeln("Processing file...", fileName);
+
 		processFile(fileName);
 	}
 	else

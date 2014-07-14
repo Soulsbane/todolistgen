@@ -5,7 +5,6 @@ import std.file;
 import std.conv;
 
 import docopt;
-import argvalue;
 
 private string loadArgsFile(string name = "./source/args")
 {
