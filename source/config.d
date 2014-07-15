@@ -1,3 +1,5 @@
+module config;
+
 import std.file;
 import std.stdio;
 
