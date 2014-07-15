@@ -11,11 +11,7 @@ import todotask;
 import luaaddon;
 import args;
 
-private string dir = ".";
-private string pattern = "*.*";
-private string outputFormat = "stdout";
-
-void processFile(string fileName)
+void processFile(string fileName, string dir, string outputFormat, string pattern)
 {
 	if(exists(fileName))
 	{
@@ -29,7 +25,7 @@ void processFile(string fileName)
 	}
 }
 
-void processDir()
+void processDir(string dir, string outputFormat, string pattern)
 {
 	auto reader = new TodoFileReader;
 	auto addon = new LuaAddon;
@@ -58,20 +54,19 @@ void processDir()
 void handleArguments(string[] args)
 {
 	auto arguments = getArgs(args);
-
-	dir = arguments["--dir"].toString;
-	outputFormat = arguments["--format"].toString;
-	pattern = arguments["--pattern"].toString;
+	string dir = arguments["--dir"].toString;
+	string outputFormat = arguments["--format"].toString;
+	string pattern = arguments["--pattern"].toString;
 
 	if(!arguments["<filename>"].isNull)
 	{
 		string fileName = arguments["<filename>"].toString;
 
-		processFile(fileName);
+		processFile(fileName, dir, outputFormat, pattern);
 	}
 	else
 	{
-		processDir();
+		processDir(dir, outputFormat, pattern);
 	}
 }
 
