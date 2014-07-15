@@ -1,7 +1,6 @@
 module config;
 
 import std.file;
-import std.stdio;
 
 import luad.all;
 

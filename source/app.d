@@ -1,10 +1,7 @@
 import std.stdio;
 import std.string;
 import std.file;
-import std.getopt;
 import std.path;
-import std.algorithm;
-import std.conv;
 
 import todofilereader;
 import todotask;

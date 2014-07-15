@@ -1,8 +1,6 @@
 module args;
 
-import std.stdio;
 import std.file;
-import std.conv;
 
 import docopt;
 

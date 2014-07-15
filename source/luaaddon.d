@@ -1,7 +1,5 @@
 module luaaddon;
 
-import std.stdio;
-import std.string;
 import std.file;
 import std.path;
 

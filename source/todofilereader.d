@@ -2,7 +2,6 @@ module todofilereader;
 
 import std.stdio;
 import std.encoding;
-import std.typecons;
 import std.string;
 import std.regex;
 import std.conv;
