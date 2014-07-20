@@ -29,7 +29,7 @@ class LuaAddon
 		}
 		lua = new LuaState;
 		lua.openLibs();
-		lua["api"] = lua.registerType!Api;
+		lua["file"] = lua.registerType!FileAPI;
 		lua.doFile(fileName);
 
 		ProcessTasks = lua.get!LuaFunction("ProcessTasks");
@@ -40,11 +40,10 @@ private:
 	LuaFunction ProcessTasks;
 }
 
-class Api
+class FileAPI
 {
 	static string getOutputPath()
 	{
 		return dirName(thisExePath());
 	}
 }
-
