@@ -7,6 +7,7 @@ import std.regex;
 import std.conv;
 import std.file;
 
+import config;
 import todotask;
 
 class TodoFileReader
@@ -32,7 +33,9 @@ class TodoFileReader
 
 	Task createTask(string fileName, ulong lineNum, string str)
 	{
-		auto r = regex(r"([A-Z]+):(.*)", "g"); // INFO: The first match catches the tag and the second the message.
+		Config cfg;
+		auto vars =	cfg.load();
+		auto r = regex(vars.TodoTaskPattern, "g"); // INFO: The first match catches the tag and the second the message.
 		auto m = matchAll(str, r);
 		Task task;
 
