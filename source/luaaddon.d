@@ -10,6 +10,7 @@ class LuaAddon
 {
 	void processTasks(Task[] tasks)
 	{
+		auto ProcessTasks = lua.get!LuaFunction("ProcessTasks");
 		ProcessTasks(lua.newTable(tasks));
 	}
 
@@ -31,13 +32,9 @@ class LuaAddon
 		lua.openLibs();
 		lua["file"] = lua.registerType!FileAPI;
 		lua.doFile(fileName);
-
-		ProcessTasks = lua.get!LuaFunction("ProcessTasks");
-
 	}
 private:
 	LuaState lua;
-	LuaFunction ProcessTasks;
 }
 
 class FileAPI
