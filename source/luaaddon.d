@@ -28,9 +28,10 @@ class LuaAddon
 				}
 			}
 		}
+
 		lua = new LuaState;
 		lua.openLibs();
-		lua["file"] = lua.registerType!FileAPI;
+		lua["FileAPI"] = lua.registerType!FileAPI();
 		lua.doFile(fileName);
 	}
 private:
@@ -39,7 +40,10 @@ private:
 
 class FileAPI
 {
-	static string getOutputPath()
+public:
+	this() {}
+
+	string getOutputPath()
 	{
 		return dirName(thisExePath());
 	}

@@ -1,5 +1,6 @@
 function ProcessTasks(tasks)
-	local fileName = file.getOutputPath() .. "/todo.csv"
+	local api = FileAPI()
+	local fileName = api:getOutputPath() .. "/todo.csv"
 	local csvFile = io.open(fileName, "w+")
 
 	io.output(csvFile)
