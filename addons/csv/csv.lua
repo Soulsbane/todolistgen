@@ -1,8 +1,7 @@
 function ProcessTasks(tasks)
 	local file = FileAPI()
-	local fileName = file:getOutputPath() .. "/todo.csv"
+	local fileName = file:createFile("todo.csv")
 
-	file:createFile("todo.csv")
 	print("Exporting list to..." .. fileName)
 
 	for i, task in ipairs(tasks) do

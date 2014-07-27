@@ -44,9 +44,12 @@ class FileAPI
 public:
 	this() {}
 
-	void createFile(string fileName) // TODO: Second arg will be open mode. This crashes program if arg isn't passed from lua side
+	string createFile(string fileName) // TODO: Second arg will be open mode. This crashes program if arg isn't passed from lua side
 	{
-		file_ = File(getOutputPath() ~ "/" ~ fileName, "w+"); // TODO: Return the path with filename as string
+		string outputFile = getOutputPath() ~ "/" ~ fileName;
+		file_ = File(outputFile, "w+");
+
+		return outputFile;
 	}
 
 	void writeLine(string line)
