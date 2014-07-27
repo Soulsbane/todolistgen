@@ -1,14 +1,12 @@
 function ProcessTasks(tasks)
-	local api = FileAPI()
-	local fileName = api:getOutputPath() .. "/todo.csv"
-	local csvFile = io.open(fileName, "w+")
+	local file = FileAPI()
+	local fileName = file:getOutputPath() .. "/todo.csv"
 
-	io.output(csvFile)
+	file:createFile("todo.csv")
 	print("Exporting list to..." .. fileName)
 
 	for i, task in ipairs(tasks) do
-		io.write(task.fileName, ",", task.lineNumber, ",", task.tag, ",", task.message, "\n")
+		local output = task.fileName .. "," .. tostring(task.lineNumber) .. "," .. task.tag .. "," .. task.message
+		file:writeLine(output)
 	end
-
-	io.close(csvFile)
 end
