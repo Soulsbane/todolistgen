@@ -67,11 +67,6 @@ void handleArguments(string[] args)
 	}
 }
 
-void printHelp()
-{
-	writeln("Help me obiwan...");
-}
-
 void main(string[] args)
 {
 	handleArguments(args);
