@@ -37,7 +37,7 @@ private:
 	{
 		Config cfg;
 		auto vars =	cfg.load();
-		auto r = regex(getConfigPattern(), "g"); // INFO: The first match catches the tag and the second the message.
+		auto r = regex(getConfigPattern(), "g");
 		auto m = matchAll(str, r);
 		Task task;
 
