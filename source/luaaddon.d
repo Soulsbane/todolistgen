@@ -12,15 +12,15 @@ class LuaAddon
 {
 	void processTasks(Task[] tasks)
 	{
-		auto ProcessTasks = lua.get!LuaFunction("ProcessTasks");
-		ProcessTasks(lua.newTable(tasks));
+		auto ProcessTasks = lua_.get!LuaFunction("ProcessTasks");
+		ProcessTasks(lua_.newTable(tasks));
 	}
 
 	void create(string outputFormat)
 	{
 		string fileName;
 
-		foreach(DirEntry e; dirEntries("addons", "*.lua", SpanMode.breadth))
+		foreach(DirEntry e; dirEntries("addons", "*.lua_", SpanMode.breadth))
 		{
 			if(e.isFile)
 			{
@@ -31,11 +31,11 @@ class LuaAddon
 			}
 		}
 
-		lua = new LuaState;
-		lua.openLibs();
-		lua["FileAPI"] = lua.registerType!FileAPI;
-		lua.doFile(fileName);
+		lua_ = new LuaState;
+		lua_.openLibs();
+		lua_["FileAPI"] = lua_.registerType!FileAPI;
+		lua_.doFile(fileName);
 	}
 private:
-	LuaState lua;
+	LuaState lua_;
 }
