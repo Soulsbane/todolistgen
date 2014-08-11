@@ -20,7 +20,7 @@ class LuaAddon
 	{
 		string fileName;
 
-		foreach(DirEntry e; dirEntries("addons", "*.lua_", SpanMode.breadth))
+		foreach(DirEntry e; dirEntries("addons", "*.lua", SpanMode.breadth))
 		{
 			if(e.isFile)
 			{
