@@ -35,8 +35,6 @@ public:
 private:
 	Task createTask(string fileName, ulong lineNum, string str)
 	{
-		Config cfg;
-		auto vars =	cfg.load();
 		auto r = regex(getConfigPattern(), "g");
 		auto m = matchAll(str, r);
 		Task task;
