@@ -35,16 +35,16 @@ public:
 private:
 	Task createTask(string fileName, ulong lineNum, string str)
 	{
-		auto r = regex(getConfigPattern(), "g");
-		auto m = matchAll(str, r);
+		auto todoTaskPattern = regex(getConfigPattern(), "g");
+		auto match = matchAll(str, todoTaskPattern);
 		Task task;
 
-		if(m)
+		if(match)
 		{
 			task.fileName = fileName;
 			task.lineNumber = lineNum;
-			task.tag = to!string(strip(m.captures[1]));
-			task.message = to!string(strip(m.captures[2]));
+			task.tag = to!string(strip(match.captures[1]));
+			task.message = to!string(strip(match.captures[2]));
 		}
 		return task;
 	}
