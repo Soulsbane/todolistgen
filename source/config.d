@@ -24,16 +24,23 @@ struct Config
 private:
 	static ConfigVars vars;
 }
-/*
-	import luad.all;
-	string text = readText("./config.lua");
-	auto lua = new LuaState;
 
-	lua.doString(text);
-	auto myTable = lua.get!LuaTable("TodoTaskPatterns");
-
-	foreach(string key, bool value; myTable)
+class LuaConfig
+{
+public:
+	void load(string fileName = "./config.lua")
 	{
-		writeln(key, myTable[key]);
+		lua_ = new LuaState;
+		lua_.doFile(fileName);
 	}
-*/
+
+	LuaTable getVariable(string name)
+	{
+		LuaTable variable = lua_.get!LuaTable(name);
+		return variable;
+	}
+
+private:
+	LuaState lua_;
+}
+
