@@ -12,6 +12,7 @@ import todotask;
 
 class TodoFileReader
 {
+public:
 	Task[] readFile(string fileName)
 	{
 		Task[] tasks;
@@ -31,11 +32,12 @@ class TodoFileReader
 		return tasks;
 	}
 
+private:
 	Task createTask(string fileName, ulong lineNum, string str)
 	{
 		Config cfg;
 		auto vars =	cfg.load();
-		auto r = regex(vars.TodoTaskPattern, "g"); // INFO: The first match catches the tag and the second the message.
+		auto r = regex(getConfigPattern(), "g"); // INFO: The first match catches the tag and the second the message.
 		auto m = matchAll(str, r);
 		Task task;
 
@@ -47,5 +49,23 @@ class TodoFileReader
 			task.message = to!string(strip(m.captures[2]));
 		}
 		return task;
+	}
+
+	string getConfigPattern()
+	{
+		auto config = new LuaConfig;
+		config.load();
+		auto variable = config.getVariable("TodoTaskPatterns");
+
+		string found;
+		foreach(string key, bool value; variable)
+		{
+			if(value == true)
+			{
+				found = key;
+			}
+		}
+
+		return found;
 	}
 }
