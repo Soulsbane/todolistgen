@@ -33,18 +33,21 @@ public:
 	}
 
 private:
-	Task createTask(string fileName, ulong lineNum, string str)
+	Task createTask(string curFileName, ulong lineNum, string line)
 	{
 		auto todoTaskPattern = regex(getConfigPattern(), "g");
-		auto match = matchAll(str, todoTaskPattern);
+		auto match = matchAll(line, todoTaskPattern);
 		Task task;
 
 		if(match)
 		{
-			task.fileName = fileName;
-			task.lineNumber = lineNum;
-			task.tag = to!string(strip(match.captures[1]));
-			task.message = to!string(strip(match.captures[2]));
+			with(task)
+			{
+				fileName = curFileName;
+				lineNumber = lineNum;
+				tag = to!string(strip(match.captures[1]));
+				message = to!string(strip(match.captures[2]));
+			}
 		}
 		return task;
 	}
