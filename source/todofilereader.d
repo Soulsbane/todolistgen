@@ -35,7 +35,7 @@ public:
 private:
 	Task createTask(string curFileName, ulong lineNum, string line)
 	{
-		auto todoTaskPattern = regex(getConfigPattern(), "g");
+		auto todoTaskPattern = regex(getConfigPattern(), "g"); // TODO: Add support for multiple patterns
 		auto match = matchAll(line, todoTaskPattern);
 		Task task;
 
