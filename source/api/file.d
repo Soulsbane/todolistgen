@@ -17,6 +17,11 @@ public:
 		return outputFile;
 	}
 
+	void write(string line)
+	{
+		file_.write(line);
+	}
+
 	void writeLine(string line)
 	{
 		file_.writeln(line);
