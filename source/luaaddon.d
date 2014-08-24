@@ -16,7 +16,7 @@ class LuaAddon
 		ProcessTasks(lua_.newTable(tasks));
 	}
 
-	void create(string outputFormat)
+	bool create(string outputFormat)
 	{
 		string fileName;
 
@@ -31,10 +31,17 @@ class LuaAddon
 			}
 		}
 
-		lua_ = new LuaState;
-		lua_.openLibs();
-		lua_["FileAPI"] = lua_.registerType!FileAPI;
-		lua_.doFile(fileName);
+		if(fileName != "")
+		{
+			lua_ = new LuaState;
+			lua_.openLibs();
+			lua_["FileAPI"] = lua_.registerType!FileAPI;
+			lua_.doFile(fileName);
+
+			return true;
+		}
+
+		return false;
 	}
 private:
 	LuaState lua_;

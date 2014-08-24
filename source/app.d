@@ -15,10 +15,19 @@ void processFile(string fileName, string dir, string outputFormat, string patter
 		auto reader = new TodoFileReader;
 		auto addon = new LuaAddon;
 		auto tasks = reader.readFile(fileName);
+		bool created;
 
-		writeln("Processing file...", fileName);
-		addon.create(outputFormat);
-		addon.processTasks(tasks);
+		created = addon.create(outputFormat);
+
+		if(created)
+		{
+			writeln("Processing file...", fileName);
+			addon.processTasks(tasks);
+		}
+		else
+		{
+			writeln("Output format NOT found!!!");
+		}
 	}
 }
 
@@ -27,6 +36,7 @@ void processDir(string dir, string outputFormat, string pattern)
 	auto reader = new TodoFileReader;
 	auto addon = new LuaAddon;
 	Task[] tasks;
+	bool created;
 
 	foreach(DirEntry e; dirEntries(dir, pattern, SpanMode.breadth))
 	{
@@ -44,8 +54,18 @@ void processDir(string dir, string outputFormat, string pattern)
 		}
 	}
 
-	addon.create(outputFormat);
-	addon.processTasks(tasks);
+	/*addon.create(outputFormat);
+	addon.processTasks(tasks);*/
+		created = addon.create(outputFormat);
+
+		if(created)
+		{
+			addon.processTasks(tasks);
+		}
+		else
+		{
+			writeln("Output format NOT found!!!");
+		}
 }
 
 void handleArguments(string[] args)
