@@ -19,9 +19,9 @@ public:
 		return variable;
 	}
 
-	auto getVariable(string name)
+	T getVariable(T = string)(string name)
 	{
-		return lua_[name];
+		return lua_.get!T(name);
 	}
 
 private:
