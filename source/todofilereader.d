@@ -56,7 +56,7 @@ private:
 	{
 		auto config = new LuaConfig;
 		config.load();
-		auto variable = config.getVariable("TodoTaskPatterns");
+		auto variable = config.getTable("TodoTaskPatterns");
 
 		string found;
 		foreach(string key, bool value; variable)

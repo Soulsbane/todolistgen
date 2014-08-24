@@ -13,10 +13,15 @@ public:
 		lua_.doFile(fileName);
 	}
 
-	LuaTable getVariable(string name)
+	LuaTable getTable(string name)
 	{
 		LuaTable variable = lua_.get!LuaTable(name);
 		return variable;
+	}
+
+	auto getVariable(string name)
+	{
+		return lua_[name];
 	}
 
 private:
