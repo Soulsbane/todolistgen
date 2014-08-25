@@ -54,8 +54,6 @@ void processDir(string dir, string outputFormat, string pattern)
 		}
 	}
 
-	/*addon.create(outputFormat);
-	addon.processTasks(tasks);*/
 		created = addon.create(outputFormat);
 
 		if(created)

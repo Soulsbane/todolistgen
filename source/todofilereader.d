@@ -13,6 +13,11 @@ import todotask;
 class TodoFileReader
 {
 public:
+	this()
+	{
+		pattern_ = getConfigPattern();
+	}
+
 	Task[] readFile(string fileName)
 	{
 		Task[] tasks;
@@ -35,7 +40,7 @@ public:
 private:
 	Task createTask(string curFileName, ulong lineNum, string line)
 	{
-		auto todoTaskPattern = regex(getConfigPattern(), "g"); // TODO: Add support for multiple patterns
+		auto todoTaskPattern = regex(pattern_, "g"); // TODO: Add support for multiple patterns
 		auto match = matchAll(line, todoTaskPattern);
 		Task task;
 
@@ -69,4 +74,7 @@ private:
 
 		return found;
 	}
+
+private:
+	string pattern_;
 }

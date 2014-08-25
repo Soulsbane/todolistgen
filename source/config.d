@@ -25,6 +25,6 @@ public:
 	}
 
 private:
-	LuaState lua_;
+	static LuaState lua_;
 }
 
