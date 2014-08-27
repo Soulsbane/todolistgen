@@ -7,9 +7,13 @@ import luad.all;
 class LuaConfig
 {
 public:
-	void load(string fileName = "config.lua")
+	static this()
 	{
 		lua_ = new LuaState;
+	}
+
+	void load(string fileName = "config.lua")
+	{
 		lua_.doFile(fileName);
 	}
 
