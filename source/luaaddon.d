@@ -5,15 +5,16 @@ import std.path;
 
 import luad.all;
 
-import api.file;
 import todotask;
+import luastatebase;
+import api.file;
 
-class LuaAddon
+class LuaAddon : LuaStateBase
 {
 	void processTasks(Task[] tasks)
 	{
-		auto ProcessTasks = lua_.get!LuaFunction("ProcessTasks");
-		ProcessTasks(lua_.newTable(tasks));
+		auto ProcessTasks = super.lua.get!LuaFunction("ProcessTasks");
+		ProcessTasks(super.lua.newTable(tasks));
 	}
 
 	bool create(string outputFormat)
@@ -33,16 +34,11 @@ class LuaAddon
 
 		if(fileName != "")
 		{
-			lua_ = new LuaState;
-			lua_.openLibs();
-			lua_["FileAPI"] = lua_.registerType!FileAPI;
-			lua_.doFile(fileName);
-
+			super.lua["FileAPI"] = this.lua.registerType!FileAPI;
+			super.lua.doFile(fileName);
 			return true;
 		}
 
 		return false;
 	}
-private:
-	LuaState lua_;
 }
