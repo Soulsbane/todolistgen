@@ -68,15 +68,14 @@ void processDir(string dir, string outputFormat, string pattern)
 
 void handleArguments(string[] args)
 {
-	auto arguments = getArgs(args);
-	string dir = arguments["--dir"].toString;
-	string outputFormat = arguments["--format"].toString;
-	string pattern = arguments["--pattern"].toString;
+	auto cmd = new CommandLineArgs(args);
+	string dir = cmd.getValue("dir");
+	string outputFormat = cmd.getValue("format");
+	string pattern = cmd.getValue("pattern");
 
-	if(!arguments["<filename>"].isNull)
+	if(cmd.isValidValue("filename"))
 	{
-		string fileName = arguments["<filename>"].toString;
-
+		string fileName = cmd.getValue("filename");
 		processFile(fileName, dir, outputFormat, pattern);
 	}
 	else
