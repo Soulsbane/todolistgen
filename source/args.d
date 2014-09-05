@@ -13,6 +13,7 @@ public:
 	this(string[] args, bool help = true, string vers = "1.0.0")
 	{
 		string argsText = loadArgsFile();
+		//string argsText = import("args");
 		auto tempArgs = docopt.docopt(argsText, args[1..$], help, vers);
 
 		foreach(key, value; tempArgs)
@@ -33,19 +34,18 @@ public:
 	}
 
 private:
-	string loadArgsFile(string name = "./source/args")
+	string loadArgsFile()
 	{
 		string argsText;
 
 		debug
 		{
 			// INFO: This loads the command line interface at runtime making changes easier to debug.
-			argsText = readText(name);
+			argsText = readText("./source/args");
 		}
 		else
 		{
-			enum eName = name;
-			argsText = import(eName);
+			argsText = import("args");
 		}
 		return argsText;
 	}

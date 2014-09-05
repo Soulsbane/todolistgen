@@ -6,7 +6,7 @@
 	"authors": [
 		"Paul Crane"
 	],
-	"dflags": ["-vcolumns", "-color"],
+	"dflags": ["-vcolumns", "-color", "-Jsource"],
 	"dependencies": {
 		"luad": "~master",
 		"docopt": "~master"
