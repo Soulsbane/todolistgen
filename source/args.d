@@ -10,46 +10,46 @@ import docopt;
 class CommandLineArgs
 {
 public:
-    this(string[] args, bool help = true, string vers = "1.0.0")
-    {
-        string argsText = loadArgsFile();
-        auto tempArgs = docopt.docopt(argsText, args[1..$], help, vers);
+	this(string[] args, bool help = true, string vers = "1.0.0")
+	{
+		string argsText = loadArgsFile();
+		auto tempArgs = docopt.docopt(argsText, args[1..$], help, vers);
 
-        foreach(key, value; tempArgs)
-        {
-            auto argValue = value.value();
-            args_[key.removechars("-<>")] = argValue;
-        }
-    }
+		foreach(key, value; tempArgs)
+		{
+			auto argValue = value.value();
+			args_[key.removechars("-<>")] = argValue;
+		}
+	}
 
-    T getValue(T = string)(string key)
-    {
-        return args_[key].coerce!T;
-    }
+	T getValue(T = string)(string key)
+	{
+		return args_[key].coerce!T;
+	}
 
-    bool isValidValue(string key)
-    {
-        return (args_[key] != null);
-    }
-
-private:
-    string loadArgsFile(string name = "./source/args")
-    {
-        string argsText;
-
-        debug
-        {
-            // INFO: This loads the command line interface at runtime making changes easier to debug.
-            argsText = readText(name);
-        }
-        else
-        {
-            enum eName = name;
-            argsText = import(eName);
-        }
-        return argsText;
-    }
+	bool isValidValue(string key)
+	{
+		return (args_[key] != null);
+	}
 
 private:
-    Variant[string] args_;
+	string loadArgsFile(string name = "./source/args")
+	{
+		string argsText;
+
+		debug
+		{
+			// INFO: This loads the command line interface at runtime making changes easier to debug.
+			argsText = readText(name);
+		}
+		else
+		{
+			enum eName = name;
+			argsText = import(eName);
+		}
+		return argsText;
+	}
+
+private:
+	Variant[string] args_;
 }

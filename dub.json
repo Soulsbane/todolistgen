@@ -8,7 +8,7 @@
 	],
 	"dflags": ["-vcolumns", "-color"],
 	"dependencies": {
-	  "luad": "~master",
-	  "docopt": "~master"
+		"luad": "~master",
+		"docopt": "~master"
 	}
 }
