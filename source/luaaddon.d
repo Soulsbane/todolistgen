@@ -20,8 +20,7 @@ class LuaAddon : LuaStateBase
 	bool create(string outputFormat)
 	{
 		string fileName;
-
-		foreach(DirEntry e; dirEntries("addons", "*.lua", SpanMode.breadth))
+		foreach(DirEntry e; dirEntries(dirName(thisExePath()) ~ "/addons", "*.lua", SpanMode.breadth))
 		{
 			if(e.isFile)
 			{
