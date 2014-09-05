@@ -13,7 +13,6 @@ public:
 	this(string[] args, bool help = true, string vers = "1.0.0")
 	{
 		string argsText = loadArgsFile();
-		//string argsText = import("args");
 		auto tempArgs = docopt.docopt(argsText, args[1..$], help, vers);
 
 		foreach(key, value; tempArgs)
