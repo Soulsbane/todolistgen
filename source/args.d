@@ -1,6 +1,7 @@
 module args;
 
 import std.file;
+import std.path;
 import std.stdio;
 import std.variant;
 import std.string;
@@ -40,7 +41,7 @@ private:
 		debug
 		{
 			// INFO: This loads the command line interface at runtime making changes easier to debug.
-			argsText = readText("./source/args");
+			argsText = readText(dirName(thisExePath()) ~ "/source/args");
 		}
 		else
 		{
