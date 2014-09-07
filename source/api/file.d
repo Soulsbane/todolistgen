@@ -31,7 +31,7 @@ public:
 	{
 		if(outputPath_ == "")
 		{
-			return dirName(thisExePath());
+			return getcwd();
 		}
 		return outputPath_;
 	}
