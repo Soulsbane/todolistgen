@@ -5,7 +5,8 @@ function ProcessTasks(tasks)
 		if(output[task.fileName]) then
 			table.insert(output[task.fileName], task)
 		else
-			output[task.fileName] = task
+			output[task.fileName] = {}
+			table.insert(output[task.fileName], task)
 		end
 	end
 
