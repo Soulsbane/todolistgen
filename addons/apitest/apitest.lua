@@ -10,20 +10,6 @@ function ProcessTasks(tasks)
 		end
 	end
 
-	--[[for fileName, _ in pairs(output) do
-		print(fileName, "\n")
-		for outputKey, outputValue in pairs(output[fileName]) do
-			if(type(outputValue) == "table") then
-				for taskTableKey, taskTableValue in pairs(outputValue) do --INFO: This loops through a task table that is stored in filename key
-					print("K3: ", taskTableKey, " V3: ", taskTableValue)
-				end
-				print("\n")
-			else
-				print("K2: ", outputKey, " V2: ", outputValue)
-			end
-		end
-		print("================================================")
-	end --]]
 	for fileName, _ in pairs(output) do
 		print(fileName, "\n")
 		for outputKey, outputValue in pairs(output[fileName]) do
