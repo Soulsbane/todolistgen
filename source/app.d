@@ -54,16 +54,16 @@ void processDir(string dir, string outputFormat, string pattern)
 		}
 	}
 
-		created = addon.create(outputFormat);
+	created = addon.create(outputFormat);
 
-		if(created)
-		{
-			addon.processTasks(tasks);
-		}
-		else
-		{
-			writeln("Output format NOT found!!!");
-		}
+	if(created)
+	{
+		addon.processTasks(tasks);
+	}
+	else
+	{
+		writeln("Output format NOT found!!!");
+	}
 }
 
 void handleArguments(string[] args)
