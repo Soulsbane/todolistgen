@@ -11,7 +11,7 @@ public:
 
 	string createFile(string fileName) // TODO: Second arg will be open mode. This crashes program if arg isn't passed from lua side
 	{
-		string outputFile = getOutputPath() ~ "/" ~ fileName;
+		string outputFile = getOutputDir() ~ "/" ~ fileName;
 		file_ = File(outputFile, "w+");
 
 		return outputFile;
@@ -31,18 +31,18 @@ public:
 		return .readText(fileName);
 	}
 
-	string getOutputPath()
+	string getOutputDir()
 	{
-		if(outputPath_ == "")
+		if(outputDir_ == "")
 		{
 			return getcwd();
 		}
-		return outputPath_;
+		return outputDir_;
 	}
 
-	void setOutputPath(string outputPath)
+	void setOutputDir(string outputDir)
 	{
-		outputPath_ = outputPath;
+		outputDir_ = outputDir;
 	}
 
 	string getInstallDir()
@@ -65,6 +65,6 @@ public:
 	}
 
 private:
-	string outputPath_;
+	string outputDir_;
 	File file_;
 }
