@@ -20,6 +20,10 @@ function ProcessTasks(tasks)
 		end
 		print("================================================")
 	end
+
+	local file = FileAPI()
+	print("^^^^", file:getInstallDir())
+	print("^^^^", file:getAddonDir())
 end
 
 

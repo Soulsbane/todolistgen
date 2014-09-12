@@ -41,6 +41,16 @@ public:
 		outputPath_ = outputPath;
 	}
 
+	string getInstallDir()
+	{
+		return dirName(thisExePath());
+	}
+
+	string getAddonDir()
+	{
+		return dirName(thisExePath()) ~ "/addons";
+	}
+
 private:
 	string outputPath_;
 	File file_;
