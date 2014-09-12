@@ -11,6 +11,8 @@ import docopt;
 class CommandLineArgs
 {
 public:
+	this() {}
+
 	this(string[] args, bool help = true, string vers = "1.0.0")
 	{
 		string argsText = loadArgsFile();
@@ -51,5 +53,5 @@ private:
 	}
 
 private:
-	Variant[string] args_;
+	static Variant[string] args_;
 }

@@ -51,6 +51,15 @@ public:
 		return dirName(thisExePath()) ~ "/addons";
 	}
 
+	string getThisAddonDir()
+	{
+		import args;
+		auto cmd = new CommandLineArgs;
+		string outputFormat = cmd.getValue("format");
+
+		return getAddonDir() ~ "/" ~ outputFormat;
+	}
+
 private:
 	string outputPath_;
 	File file_;

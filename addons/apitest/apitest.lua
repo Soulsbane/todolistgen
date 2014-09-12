@@ -24,6 +24,7 @@ function ProcessTasks(tasks)
 	local file = FileAPI()
 	print("^^^^", file:getInstallDir())
 	print("^^^^", file:getAddonDir())
+	print("^^^^", file:getThisAddonDir())
 end
 
 
