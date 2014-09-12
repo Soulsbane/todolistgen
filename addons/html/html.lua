@@ -14,9 +14,9 @@ function ProcessTasks(tasks)
 		end
 	end
 
-	file:writeLine("<html><title></title><style>table, th, td {border: 1px solid black;border-collapse: collapse;}")
+	file:writeLine("<html><title></title><head><style>table, th, td {border: 1px solid black;border-collapse: collapse;}")
 	file:writeLine("table{width: 100%;} th, td {border: 1px solid black;border-collapse: collapse;}")
-	file:writeLine("th, td {padding: 5px;text-align: left;}</style>")
+	file:writeLine("th, td {padding: 5px;text-align: left;}</style></head>")
 	file:writeLine("<body>")
 
 	for fileName, _ in pairs(output) do
@@ -37,6 +37,7 @@ function ProcessTasks(tasks)
 			end
 			file:writeLine("</tr>")
 		end
-		file:writeLine("</table></body></html>")
+		file:writeLine("</table>")
 	end
+	file:writeLine("</body></html>")
 end
