@@ -25,6 +25,7 @@ function ProcessTasks(tasks)
 	print("^^^^", file:getInstallDir())
 	print("^^^^", file:getAddonDir())
 	print("^^^^", file:getThisAddonDir())
+	print(file:readText(file:getInstallDir() .. "/README.md"))
 end
 
 

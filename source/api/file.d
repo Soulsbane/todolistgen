@@ -26,6 +26,10 @@ public:
 	{
 		file_.writeln(line);
 	}
+	string readText(string fileName)
+	{
+		return .readText(fileName);
+	}
 
 	string getOutputPath()
 	{
