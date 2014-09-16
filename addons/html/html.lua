@@ -1,9 +1,9 @@
 local File = FileAPI()
 
-local function WriteTags(beginTag, msg, endTag)
-	File:writeLine(beginTag)
-	File:writeLine(msg)
-	File:writeLine(endTag)
+local function WriteTags(...)
+	for i,v in ipairs(arg) do
+		File:writeLine(v)
+	end
 end
 
 function ProcessTasks(tasks)
