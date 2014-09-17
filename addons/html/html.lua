@@ -21,10 +21,7 @@ function ProcessTasks(tasks)
 		end
 	end
 
-	File:writeLine("<html><title></title><head><style>table, th, td {border: 1px solid black;border-collapse: collapse;}")
-	File:writeLine("table{width: 100%;} th, td {border: 1px solid black;border-collapse: collapse;}")
-	File:writeLine("th, td {padding: 5px;text-align: left;}</style></head>")
-	File:writeLine("<body>")
+	File:writeLine(File:readText(File:getThisAddonDir() .. "/templates/default/header.html"))
 
 	for fileName, _ in pairs(output) do
 		WriteTags("<table><caption>", fileName, "</caption")
@@ -41,5 +38,6 @@ function ProcessTasks(tasks)
 		end
 		File:writeLine("</table>")
 	end
-	File:writeLine("</body></html>")
+	File:writeLine(File:readText(File:getThisAddonDir() .. "/templates/default/footer.html"))
+
 end
