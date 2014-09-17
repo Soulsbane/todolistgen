@@ -6,7 +6,7 @@ local function WriteTags(...)
 	end
 end
 
-function ProcessTasks(tasks)
+function ProcessTasks(tasks, size)
 	local output = {}
 	local fileName = File:createFile("todo.html")
 

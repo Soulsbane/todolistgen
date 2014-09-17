@@ -1,4 +1,4 @@
-function ProcessTasks(tasks)
+function ProcessTasks(tasks, size)
 	local output = {}
 
 	for i, task in ipairs(tasks) do

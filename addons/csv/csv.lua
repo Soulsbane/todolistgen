@@ -1,4 +1,4 @@
-function ProcessTasks(tasks)
+function ProcessTasks(tasks, size)
 	local file = FileAPI()
 	local fileName = file:createFile("todo.csv")
 
