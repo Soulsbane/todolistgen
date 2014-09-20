@@ -20,6 +20,14 @@ local function CreateOutpuTable(tasks)
 	return output
 end
 
+local function CreateJsonValue(taskTableKey)
+	if taskTableKey == "lineNumber" then
+		return "\t\t%q: %d"
+	else
+		return "\t\t%q: %q"
+	end
+end
+
 function ProcessTasks(tasks, size)
 	local output = CreateOutpuTable(tasks)
 	local fileName = File:createFile("todo.json")
@@ -44,9 +52,9 @@ function ProcessTasks(tasks, size)
 			for taskTableKey, taskTableValue in pairs(outputValue) do --INFO: This loops through a task table that is stored in filename key
 				if(taskTableKey ~= "fileName") then
 					if(numEntriesCount == 3) then
-						File:writeLine(string.format("\t\t%q: %s", taskTableKey, taskTableValue))
+						File:writeLine(string.format(CreateJsonValue(taskTableKey), taskTableKey, taskTableValue))
 					else
-						File:writeLine(string.format("\t\t%q: %s,", taskTableKey, taskTableValue))
+						File:writeLine(string.format(CreateJsonValue(taskTableKey) ..",", taskTableKey, taskTableValue))
 					end
 					numEntriesCount = numEntriesCount + 1
 				end
