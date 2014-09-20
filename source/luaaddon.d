@@ -16,7 +16,6 @@ class LuaAddon : LuaStateBase
 		import std.conv;
 		import std.stdio;
 
-		//writeln("Size of tasks is: ", to!string(tasks.length));
 		auto ProcessTasks = super.lua.get!LuaFunction("ProcessTasks");
 		ProcessTasks(super.lua.newTable(tasks), tasks.length);
 	}
