@@ -6,7 +6,7 @@ local function GetTableLength(T)
 	return count
 end
 
-local function CreateOutpuTable(tasks)
+local function CreateOutputTable(tasks)
 	local output = {}
 
 	for i, task in ipairs(tasks) do
@@ -29,25 +29,24 @@ local function CreateJsonValue(taskTableKey)
 end
 
 function ProcessTasks(tasks, size)
-	local output = CreateOutpuTable(tasks)
+	local output = CreateOutputTable(tasks)
 	local fileName = File:createFile("todo.json")
-	local outputSizeMax
-	local taskSize
-
-	print("Exporting list to..." .. fileName)
-
-	outputSizeMax = GetTableLength(output)
-	File:writeLine("{")
+	local outputSize = GetTableLength(output)
 	local filesProcessed = 1
 
+	print("Exporting list to..." .. fileName)
+	File:writeLine("{")
+
 	for fileName, _ in pairs(output) do
-		File:writeLine(string.format("\t%q: [" , fileName))
 		local closingBracketCount = 1
 
+		File:writeLine(string.format("\t%q: [" , fileName))
+
 		for outputKey, outputValue in pairs(output[fileName]) do
-			File:writeLine("\t{")
 			local numEntriesCount = 1
 			local numEntriesMax = #output[fileName]
+
+			File:writeLine("\t{")
 
 			for taskTableKey, taskTableValue in pairs(outputValue) do --INFO: This loops through a task table that is stored in filename key
 				if(taskTableKey ~= "fileName") then
@@ -67,7 +66,7 @@ function ProcessTasks(tasks, size)
 			end
 			closingBracketCount = closingBracketCount + 1
 		end
-		if filesProcessed == outputSizeMax then
+		if filesProcessed == outputSize then
 			File:writeLine("\t]")
 		else
 			File:writeLine("\t],")
