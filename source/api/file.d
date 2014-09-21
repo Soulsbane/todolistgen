@@ -11,7 +11,7 @@ public:
 
 	string createFile(string fileName) // TODO: Second arg will be open mode. This crashes program if arg isn't passed from lua side
 	{
-		string outputFile = getOutputDir() ~ "/" ~ fileName;
+		string outputFile = getOutputDir() ~ std.path.dirSeparator ~ fileName;
 		file_ = File(outputFile, "w+");
 
 		return outputFile;
@@ -53,7 +53,7 @@ public:
 
 	string getAddonDir()
 	{
-		return dirName(thisExePath()) ~ "/addons";
+		return dirName(thisExePath()) ~ std.path.dirSeparator ~ "addons";
 	}
 
 	string getThisAddonDir()
@@ -62,7 +62,7 @@ public:
 		auto cmd = new CommandLineArgs;
 		string outputFormat = cmd.getValue("format");
 
-		return getAddonDir() ~ "/" ~ outputFormat;
+		return getAddonDir() ~ std.path.dirSeparator ~ outputFormat;
 	}
 
 private:

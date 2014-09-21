@@ -12,7 +12,7 @@ class LuaConfig : LuaStateBase
 public:
 	void load(string fileName = "config.lua")
 	{
-		super.lua.doFile(dirName(thisExePath()) ~ "/" ~ fileName);
+		super.lua.doFile(dirName(thisExePath()) ~ std.path.dirSeparator ~ fileName);
 	}
 
 	LuaTable getTable(string name)
