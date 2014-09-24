@@ -9,7 +9,7 @@ class FileAPI
 public:
 	this() {}
 
-	string createFile(string fileName) // TODO: Second arg will be open mode. This crashes program if arg isn't passed from lua side
+	string createFile(string fileName)
 	{
 		string outputFile = getOutputDir() ~ std.path.dirSeparator ~ fileName;
 		file_ = File(outputFile, "w+");
@@ -51,18 +51,18 @@ public:
 		return dirName(thisExePath());
 	}
 
-	string getAddonDir()
+	string getBaseAddonsDir()
 	{
 		return dirName(thisExePath()) ~ std.path.dirSeparator ~ "addons";
 	}
 
-	string getThisAddonDir()
+	string getAddonDir()
 	{
 		import args;
 		auto cmd = new CommandLineArgs;
 		string outputFormat = cmd.getValue("format");
 
-		return getAddonDir() ~ std.path.dirSeparator ~ outputFormat;
+		return getBaseAddonsDir() ~ std.path.dirSeparator ~ outputFormat;
 	}
 
 private:
