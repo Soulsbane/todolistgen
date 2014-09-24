@@ -21,7 +21,7 @@ function ProcessTasks(tasks, size)
 		end
 	end
 
-	File:writeLine(File:readText(File:getThisAddonDir() .. "/templates/default/header.html"))
+	File:writeLine(File:readText(File:getAddonDir() .. "/templates/default/header.html"))
 
 	for fileName, _ in pairs(output) do
 		WriteTags("<table><caption>", fileName, "</caption")
@@ -38,6 +38,6 @@ function ProcessTasks(tasks, size)
 		end
 		File:writeLine("</table>")
 	end
-	File:writeLine(File:readText(File:getThisAddonDir() .. "/templates/default/footer.html"))
+	File:writeLine(File:readText(File:getAddonDir() .. "/templates/default/footer.html"))
 
 end

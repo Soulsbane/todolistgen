@@ -51,7 +51,7 @@ public:
 		return dirName(thisExePath());
 	}
 
-	string getBaseAddonsDir()
+	string getBaseAddonDir()
 	{
 		return dirName(thisExePath()) ~ std.path.dirSeparator ~ "addons";
 	}
@@ -62,7 +62,7 @@ public:
 		auto cmd = new CommandLineArgs;
 		string outputFormat = cmd.getValue("format");
 
-		return getBaseAddonsDir() ~ std.path.dirSeparator ~ outputFormat;
+		return getBaseAddonDir() ~ std.path.dirSeparator ~ outputFormat;
 	}
 
 private:

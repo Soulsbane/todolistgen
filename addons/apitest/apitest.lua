@@ -23,8 +23,8 @@ function ProcessTasks(tasks, size)
 
 	local file = FileAPI()
 	print("^^^^", file:getInstallDir())
+	print("^^^^", file:getBaseAddonDir())
 	print("^^^^", file:getAddonDir())
-	print("^^^^", file:getThisAddonDir())
 	print(file:readText(file:getInstallDir() .. "/README.md"))
 end
 
