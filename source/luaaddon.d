@@ -37,6 +37,8 @@ class LuaAddon : LuaStateBase
 		if(fileName != "")
 		{
 			super.lua["FileAPI"] = this.lua.registerType!FileAPI;
+			super.lua["FileReader"] = this.lua.registerType!FileReader;
+			super.lua["FileWriter"] = this.lua.registerType!FileWriter;
 			super.lua.doFile(fileName);
 			return true;
 		}
