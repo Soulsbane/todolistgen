@@ -21,13 +21,13 @@ function ProcessTasks(tasks, size)
 		print("================================================")
 	end
 
-	local file = FileAPI()
+	local path = Path()
 	local fileReader = FileReader()
 
-	print("^^^^", file:getInstallDir())
-	print("^^^^", file:getBaseAddonDir())
-	print("^^^^", file:getAddonDir())
-	print(fileReader:readText(file:getInstallDir() .. "/README.md"))
+	print("^^^^", path:getInstallDir())
+	print("^^^^", path:getBaseAddonDir())
+	print("^^^^", path:getAddonDir())
+	print(fileReader:readText(path:getInstallDir() .. "/README.md"))
 end
 
 

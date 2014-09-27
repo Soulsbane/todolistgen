@@ -50,7 +50,33 @@ private:
 	File file_;
 }
 
-class FileAPI
+class Path
+{
+public:
+	this() {}
+
+	string getInstallDir()
+	{
+		return dirName(thisExePath());
+	}
+
+	string getBaseAddonDir()
+	{
+		return dirName(thisExePath()) ~ std.path.dirSeparator ~ "addons";
+	}
+
+	string getAddonDir()
+	{
+		import args;
+		auto cmd = new CommandLineArgs;
+		string outputFormat = cmd.getValue("format");
+
+		return getBaseAddonDir() ~ std.path.dirSeparator ~ outputFormat;
+	}
+
+}
+
+/*class FileAPI
 {
 public:
 	this() {}
@@ -114,4 +140,4 @@ public:
 private:
 	string outputDir_;
 	File file_;
-}
+}*/

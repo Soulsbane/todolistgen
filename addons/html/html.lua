@@ -1,14 +1,16 @@
-local File = FileAPI()
+local FileWriter = FileWriter()
 
 local function WriteTags(...)
 	for i,v in ipairs(arg) do
-		File:writeLine(v)
+		FileWriter:writeLine(v)
 	end
 end
 
 function ProcessTasks(tasks, size)
 	local output = {}
-	local fileName = File:createFile("todo.html")
+	local path = Path()
+	local fileReader = FileReader()
+	local fileName = FileWriter:openFile("todo.html")
 
 	print("Exporting list to..." .. fileName)
 
@@ -21,23 +23,22 @@ function ProcessTasks(tasks, size)
 		end
 	end
 
-	File:writeLine(File:readText(File:getAddonDir() .. "/templates/default/header.html"))
+	FileWriter:writeLine(fileReader:readText(path:getAddonDir() .. "/templates/default/header.html"))
 
 	for fileName, _ in pairs(output) do
 		WriteTags("<table><caption>", fileName, "</caption")
-		File:writeLine("<tr><th>Line Number</th><th>Message</th><th>Tag</th></tr>")
+		FileWriter:writeLine("<tr><th>Line Number</th><th>Message</th><th>Tag</th></tr>")
 
 		for outputKey, outputValue in pairs(output[fileName]) do
-			File:writeLine("<tr>")
+			FileWriter:writeLine("<tr>")
 			for taskTableKey, taskTableValue in pairs(outputValue) do --INFO: This loops through a task table that is stored in filename key
 				if(taskTableKey ~= "fileName") then
 					WriteTags("<td>", tostring(taskTableValue), "</td>")
 				end
 			end
-			File:writeLine("</tr>")
+			FileWriter:writeLine("</tr>")
 		end
-		File:writeLine("</table>")
+		FileWriter:writeLine("</table>")
 	end
-	File:writeLine(File:readText(File:getAddonDir() .. "/templates/default/footer.html"))
-
+	FileWriter:writeLine(fileReader:readText(path:getAddonDir() .. "/templates/default/footer.html"))
 end
