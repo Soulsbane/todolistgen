@@ -10,12 +10,6 @@ class FileReader
 public:
 	this() {}
 
-	void openFile(string fileName)
-	{
-		fileName_ = fileName_;
-		file_ = File(fileName, "r");
-	}
-
 	string readText(string fileName)
 	{
 		return .readText(fileName);
@@ -26,10 +20,6 @@ public:
 		writeln("getLines", fileName);
 		return .readText(fileName).splitLines();
 	}
-
-private:
-	string fileName_;
-	File file_;
 }
 
 class FileWriter
