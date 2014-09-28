@@ -1,4 +1,4 @@
-local File = FileAPI()
+local FileWriter = FileWriter()
 
 local function GetTableLength(T)
 	local count = 0
@@ -30,48 +30,48 @@ end
 
 function ProcessTasks(tasks, size)
 	local output = CreateOutputTable(tasks)
-	local fileName = File:createFile("todo.json")
+	local fileName = FileWriter:openFile("todo.json")
 	local outputSize = GetTableLength(output)
 	local filesProcessed = 1
 
 	print("Exporting list to..." .. fileName)
-	File:writeLine("{")
+	FileWriter:writeLine("{")
 
 	for fileName, _ in pairs(output) do
 		local closingBracketCount = 1
 
-		File:writeLine(string.format("\t%q: [" , fileName))
+		FileWriter:writeLine(string.format("\t%q: [" , fileName))
 
 		for outputKey, outputValue in pairs(output[fileName]) do
 			local numEntriesCount = 1
 			local numEntriesMax = #output[fileName]
 
-			File:writeLine("\t{")
+			FileWriter:writeLine("\t{")
 
 			for taskTableKey, taskTableValue in pairs(outputValue) do --INFO: This loops through a task table that is stored in filename key
 				if(taskTableKey ~= "fileName") then
 					if(numEntriesCount == 3) then
-						File:writeLine(string.format(CreateJsonValue(taskTableKey), taskTableKey, taskTableValue))
+						FileWriter:writeLine(string.format(CreateJsonValue(taskTableKey), taskTableKey, taskTableValue))
 					else
-						File:writeLine(string.format(CreateJsonValue(taskTableKey) ..",", taskTableKey, taskTableValue))
+						FileWriter:writeLine(string.format(CreateJsonValue(taskTableKey) ..",", taskTableKey, taskTableValue))
 					end
 					numEntriesCount = numEntriesCount + 1
 				end
 			end
 
 			if closingBracketCount == numEntriesMax then
-				File:writeLine("\t}")
+				FileWriter:writeLine("\t}")
 			else
-				File:writeLine("\t},")
+				FileWriter:writeLine("\t},")
 			end
 			closingBracketCount = closingBracketCount + 1
 		end
 		if filesProcessed == outputSize then
-			File:writeLine("\t]")
+			FileWriter:writeLine("\t]")
 		else
-			File:writeLine("\t],")
+			FileWriter:writeLine("\t],")
 		end
 		filesProcessed = filesProcessed + 1
 	end
-	File:writeLine("}")
+	FileWriter:writeLine("}")
 end
