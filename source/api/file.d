@@ -3,6 +3,7 @@ module api.file;
 import std.file;
 import std.path;
 import std.stdio;
+import std.string;
 
 class FileReader
 {
@@ -11,6 +12,7 @@ public:
 
 	void openFile(string fileName)
 	{
+		fileName_ = fileName_;
 		file_ = File(fileName, "r");
 	}
 
@@ -18,8 +20,15 @@ public:
 	{
 		return .readText(fileName);
 	}
+
+	string[] getLines(string fileName)
+	{
+		writeln("getLines", fileName);
+		return .readText(fileName).splitLines();
+	}
+
 private:
-	string outputDir_;
+	string fileName_;
 	File file_;
 }
 
