@@ -8,7 +8,7 @@ import todotask;
 import luaaddon;
 import args;
 
-void processFile(string fileName, string dir, string outputFormat, string pattern)
+void processFile(string fileName, string outputFormat )
 {
 	if(exists(fileName))
 	{
@@ -76,7 +76,7 @@ void handleArguments(string[] args)
 	if(cmd.isValidValue("filename"))
 	{
 		string fileName = cmd.getValue("filename");
-		processFile(fileName, dir, outputFormat, pattern);
+		processFile(fileName, outputFormat);
 	}
 	else
 	{
