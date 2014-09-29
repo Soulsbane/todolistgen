@@ -2,9 +2,9 @@ Todolistgen Options.
 
     Usage:
       todolistgen
-      todolistgen [--dir=<dir>] [--format=<format>] [--pattern=<pattern>]
+      todolistgen [--dir=<dir>] [--format=<format>] [--pattern=<pattern>] [--output=<outputpath>]
       todolistgen <filename>
-      todolistgen <filename> [--dir=<dir>] [--format=<format>] [--pattern=<pattern>]
+      todolistgen <filename> [--dir=<dir>] [--format=<format>] [--pattern=<pattern>] [--output=<outputpath>]
       todolistgen -h | --help
       todolistgen --version
 
@@ -14,4 +14,5 @@ Todolistgen Options.
       --dir=<dir>   Directory [default: .].
       --format=<json|html|markdown|csv|stdout>   Format [default: stdout].
       --pattern=<pattern>   Pattern [default: *.*].
+      --output<outputpath>   Directory to output the resulting todo file.
 
