@@ -17,7 +17,6 @@ public:
 
 	string[] getLines(string fileName)
 	{
-		writeln("getLines", fileName);
 		return .readText(fileName).splitLines();
 	}
 }
