@@ -2,6 +2,7 @@ import std.stdio;
 import std.string;
 import std.file;
 import std.path;
+static import std.parallelism;
 
 import todofilereader;
 import todotask;
@@ -38,7 +39,7 @@ void processDir(string dir, string outputFormat, string pattern)
 	Task[] tasks;
 	bool created;
 
-	foreach(DirEntry e; dirEntries(dir, pattern, SpanMode.breadth))
+	foreach(DirEntry e; std.parallelism.parallel(dirEntries(dir, pattern, SpanMode.breadth)))
 	{
 		if(e.isFile)
 		{
