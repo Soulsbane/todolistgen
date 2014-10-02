@@ -47,7 +47,6 @@ void processDir(string dir, string outputFormat, string pattern)
 
 			if(!name.startsWith("."))
 			{
-				writeln(name);
 				tasks ~= reader.readFile(name);
 			}
 		}
