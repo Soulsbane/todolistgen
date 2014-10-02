@@ -44,12 +44,10 @@ void processDir(string dir, string outputFormat, string pattern)
 		if(e.isFile)
 		{
 			auto name = buildNormalizedPath(e.name);
-			if(name.startsWith("."))
+
+			if(!name.startsWith("."))
 			{
-				continue;
-			}
-			else
-			{
+				writeln(name);
 				tasks ~= reader.readFile(name);
 			}
 		}
