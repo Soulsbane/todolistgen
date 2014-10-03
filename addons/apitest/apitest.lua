@@ -10,6 +10,15 @@ local function TestGetLines()
 	end
 end
 
+local function TestConfig()
+	local config = Config()
+	local patterns = config:getTable("TodoTaskPatterns")
+
+	for k, v in pairs(patterns) do
+		print(k, " = ", v)
+	end
+end
+
 function ProcessTasks(tasks, size)
 	local path = Path()
 	local fileReader = FileReader()
@@ -19,6 +28,7 @@ function ProcessTasks(tasks, size)
 	print("^^^^", path:getAddonDir())
 	print(fileReader:readText(path:getInstallDir() .. "/README.md"))
 	TestGetLines()
+	TestConfig()
 end
 
 

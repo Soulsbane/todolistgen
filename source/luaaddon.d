@@ -8,6 +8,7 @@ import luad.all;
 import todotask;
 import luastatebase;
 import api.file;
+import config;
 
 class LuaAddon : LuaStateBase
 {
@@ -39,6 +40,7 @@ class LuaAddon : LuaStateBase
 			super.lua["FileReader"] = this.lua.registerType!FileReader;
 			super.lua["FileWriter"] = this.lua.registerType!FileWriter;
 			super.lua["Path"] = this.lua.registerType!Path;
+			super.lua["Config"] = this.lua.registerType!LuaConfig;
 			super.lua.doFile(fileName);
 			return true;
 		}
