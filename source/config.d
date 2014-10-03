@@ -10,6 +10,8 @@ import luastatebase;
 class LuaConfig : LuaStateBase
 {
 public:
+	this() {}
+
 	void load(string fileName = "config.lua")
 	{
 		super.lua.doFile(dirName(thisExePath()) ~ std.path.dirSeparator ~ fileName);
