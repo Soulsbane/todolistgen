@@ -30,6 +30,10 @@ void processFile(string fileName, string outputFormat )
 			writeln("Output format NOT found!!!");
 		}
 	}
+	else
+	{
+		writeln("Cannot open file", fileName, ". File not found!");
+	}
 }
 
 void processDir(string dir, string outputFormat, string pattern)
@@ -39,28 +43,29 @@ void processDir(string dir, string outputFormat, string pattern)
 	Task[] tasks;
 	bool created;
 
-	foreach(DirEntry e; std.parallelism.parallel(dirEntries(dir, pattern, SpanMode.breadth)))
-	{
-		if(e.isFile)
-		{
-			auto name = buildNormalizedPath(e.name);
-
-			if(!name.startsWith("."))
-			{
-				tasks ~= reader.readFile(name);
-			}
-		}
-	}
-
 	created = addon.create(outputFormat);
 
 	if(created)
 	{
+		writeln("Processing directories...\n");
+		foreach(DirEntry e; std.parallelism.parallel(dirEntries(dir, pattern, SpanMode.breadth)))
+		{
+			if(e.isFile)
+			{
+				auto name = buildNormalizedPath(e.name);
+
+				if(!name.startsWith("."))
+				{
+					tasks ~= reader.readFile(name);
+				}
+			}
+		}
+
 		addon.processTasks(tasks);
 	}
 	else
 	{
-		writeln("Output format NOT found!!!");
+		writeln("Output format NOT found! Aborting...");
 	}
 }
 
