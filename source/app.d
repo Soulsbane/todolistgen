@@ -32,7 +32,7 @@ void processFile(string fileName, string outputFormat )
 	}
 	else
 	{
-		writeln("Cannot open file", fileName, ". File not found!");
+		writeln("Failed to open ", fileName, ". File not found!");
 	}
 }
 
@@ -65,7 +65,7 @@ void processDir(string dir, string outputFormat, string pattern)
 	}
 	else
 	{
-		writeln("Output format NOT found! Aborting...");
+		writeln("Output format, ", outputFormat, ", NOT found! Aborting...");
 	}
 }
 
