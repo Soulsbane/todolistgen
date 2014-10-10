@@ -1,9 +1,7 @@
-local fileWriter = FileWriter()
+local FileWriter = FileWriter()
 
 function Initialize()
-	fileWriter = FileWriter()
-	outputFileName = fileWriter:openFile("todo.csv")
-
+	outputFileName = FileWriter:openFile("todo.csv")
 	print("Exporting list to..." .. outputFileName)
 end
 
@@ -13,6 +11,6 @@ end
 function ProcessTasks(tasks, fileName)
 	for i, task in ipairs(tasks) do
 		local output = task.fileName .. "," .. tostring(task.lineNumber) .. "," .. task.tag .. "," .. task.message
-		fileWriter:writeLine(output)
+		FileWriter:writeLine(output)
 	end
 end
