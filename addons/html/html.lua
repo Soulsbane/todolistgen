@@ -1,10 +1,20 @@
+local FileWriter = FileWriter()
+
 function Initialize()
+	local path = Path()
+	local fileReader = FileReader()
+	local fileName = FileWriter:openFile("todo.html")
+
+	print("Exporting list to..." .. fileName)
+	FileWriter:writeLine(fileReader:readText(path:getAddonDir() .. "/templates/default/header.html"))
 end
 
 function Deinitialize()
-end
+	local path = Path()
+	local fileReader = FileReader()
 
-local FileWriter = FileWriter()
+	FileWriter:writeLine(fileReader:readText(path:getAddonDir() .. "/templates/default/footer.html"))
+end
 
 local function WriteTags(...)
 	for i,v in ipairs(arg) do
@@ -13,38 +23,16 @@ local function WriteTags(...)
 end
 
 function ProcessTasks(tasks, fileName)
-	local output = {}
-	local path = Path()
-	local fileReader = FileReader()
-	local fileName = FileWriter:openFile("todo.html")
-
-	print("Exporting list to..." .. fileName)
+	WriteTags("<table><caption>", fileName, "</caption>")
+	FileWriter:writeLine("<tr><th>Line Number</th><th>Message</th><th>Tag</th></tr>")
 
 	for i, task in ipairs(tasks) do
-		if(output[task.fileName]) then
-			table.insert(output[task.fileName], task)
-		else
-			output[task.fileName] = {}
-			table.insert(output[task.fileName], task)
-		end
+		FileWriter:writeLine("<tr>")
+		WriteTags("<td>", tostring(task.lineNumber), "</td>")
+		WriteTags("<td>", task.message, "</td>")
+		WriteTags("<td>", task.tag, "</td>")
+		FileWriter:writeLine("</tr>")
 	end
 
-	FileWriter:writeLine(fileReader:readText(path:getAddonDir() .. "/templates/default/header.html"))
-
-	for fileName, _ in pairs(output) do
-		WriteTags("<table><caption>", fileName, "</caption")
-		FileWriter:writeLine("<tr><th>Line Number</th><th>Message</th><th>Tag</th></tr>")
-
-		for outputKey, outputValue in pairs(output[fileName]) do
-			FileWriter:writeLine("<tr>")
-			for taskTableKey, taskTableValue in pairs(outputValue) do --INFO: This loops through a task table that is stored in filename key
-				if(taskTableKey ~= "fileName") then
-					WriteTags("<td>", tostring(taskTableValue), "</td>")
-				end
-			end
-			FileWriter:writeLine("</tr>")
-		end
-		FileWriter:writeLine("</table>")
-	end
-	FileWriter:writeLine(fileReader:readText(path:getAddonDir() .. "/templates/default/footer.html"))
+	FileWriter:writeLine("</table>")
 end
