@@ -14,14 +14,29 @@ class LuaAddon : LuaStateBase
 {
 	void processTasks(string fileName, Task[] tasks)
 	{
-		auto ProcessTasks = super.lua.get!LuaFunction("ProcessTasks");
-		ProcessTasks(super.lua.newTable(tasks), fileName);
+		if(hasFunction("ProcessTasks"))
+		{
+			auto ProcessTasks = super.lua.get!LuaFunction("ProcessTasks");
+			ProcessTasks(super.lua.newTable(tasks), fileName);
+		}
 	}
 
 	void callFunction(string name)
 	{
-		auto TempFunction = super.lua.get!LuaFunction(name);
-		TempFunction();
+		if(hasFunction(name))
+		{
+			auto TempFunction = super.lua.get!LuaFunction(name);
+			TempFunction();
+		}
+	}
+
+	bool hasFunction(string name)
+	{
+		if(super.lua[name].isNil)
+		{
+			return false;
+		}
+		return true;
 	}
 
 	bool create(string outputFormat)
