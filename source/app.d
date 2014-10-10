@@ -48,6 +48,8 @@ void processDir(string dir, string outputFormat, string pattern)
 	if(created)
 	{
 		writeln("Processing directories...\n");
+		addon.callFunction("Initialize");
+
 		foreach(DirEntry e; std.parallelism.parallel(dirEntries(dir, pattern, SpanMode.breadth)))
 		{
 			if(e.isFile)
@@ -65,6 +67,7 @@ void processDir(string dir, string outputFormat, string pattern)
 				}
 			}
 		}
+		addon.callFunction("Deinitialize");
 	}
 	else
 	{

@@ -1,3 +1,9 @@
+function Initialize()
+end
+
+function Deinitialize()
+end
+
 local FileWriter = FileWriter()
 
 local function WriteTags(...)

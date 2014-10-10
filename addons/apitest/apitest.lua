@@ -1,3 +1,9 @@
+function Initialize()
+end
+
+function Deinitialize()
+end
+
 local function TestGetLines()
 	local fileReader = FileReader()
 	local path = Path()

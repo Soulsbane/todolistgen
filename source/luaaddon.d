@@ -14,11 +14,14 @@ class LuaAddon : LuaStateBase
 {
 	void processTasks(string fileName, Task[] tasks)
 	{
-		import std.conv;
-		import std.stdio;
-
 		auto ProcessTasks = super.lua.get!LuaFunction("ProcessTasks");
 		ProcessTasks(super.lua.newTable(tasks), tasks.length, fileName);
+	}
+
+	void callFunction(string name)
+	{
+		auto TempFunction = super.lua.get!LuaFunction(name);
+		TempFunction();
 	}
 
 	bool create(string outputFormat)

@@ -1,3 +1,9 @@
+function Initialize()
+end
+
+function Deinitialize()
+end
+
 function ProcessTasks(tasks, size)
 	local fileWriter = FileWriter()
 	local fileName = fileWriter:openFile("todo.csv")
