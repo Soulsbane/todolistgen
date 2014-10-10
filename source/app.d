@@ -23,7 +23,7 @@ void processFile(string fileName, string outputFormat )
 		if(created)
 		{
 			writeln("Processing file...", fileName);
-			addon.processTasks(tasks);
+			addon.processTasks(fileName, tasks);
 		}
 		else
 		{
@@ -56,12 +56,15 @@ void processDir(string dir, string outputFormat, string pattern)
 
 				if(!name.startsWith("."))
 				{
-					tasks ~= reader.readFile(name);
+					Task[] tasks = reader.readFile(name);
+
+					if(tasks.length > 0)
+					{
+						addon.processTasks(name, tasks);
+					}
 				}
 			}
 		}
-
-		addon.processTasks(tasks);
 	}
 	else
 	{

@@ -12,13 +12,13 @@ import config;
 
 class LuaAddon : LuaStateBase
 {
-	void processTasks(Task[] tasks)
+	void processTasks(string fileName, Task[] tasks)
 	{
 		import std.conv;
 		import std.stdio;
 
 		auto ProcessTasks = super.lua.get!LuaFunction("ProcessTasks");
-		ProcessTasks(super.lua.newTable(tasks), tasks.length);
+		ProcessTasks(super.lua.newTable(tasks), tasks.length, fileName);
 	}
 
 	bool create(string outputFormat)
