@@ -1,7 +1,9 @@
 function Initialize()
+	print("Initializing...")
 end
 
 function Deinitialize()
+	print("Deinitializing...")
 end
 
 local function TestGetLines()
