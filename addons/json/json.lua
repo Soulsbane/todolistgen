@@ -34,7 +34,7 @@ local function CreateJsonValue(taskTableKey)
 	end
 end
 
-function ProcessTasks(tasks, size)
+function ProcessTasks(tasks, fileName)
 	local output = CreateOutputTable(tasks)
 	local fileName = FileWriter:openFile("todo.json")
 	local outputSize = GetTableLength(output)

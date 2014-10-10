@@ -12,7 +12,7 @@ local function WriteTags(...)
 	end
 end
 
-function ProcessTasks(tasks, size)
+function ProcessTasks(tasks, fileName)
 	local output = {}
 	local path = Path()
 	local fileReader = FileReader()

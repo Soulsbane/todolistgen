@@ -15,7 +15,7 @@ class LuaAddon : LuaStateBase
 	void processTasks(string fileName, Task[] tasks)
 	{
 		auto ProcessTasks = super.lua.get!LuaFunction("ProcessTasks");
-		ProcessTasks(super.lua.newTable(tasks), tasks.length, fileName);
+		ProcessTasks(super.lua.newTable(tasks), fileName);
 	}
 
 	void callFunction(string name)

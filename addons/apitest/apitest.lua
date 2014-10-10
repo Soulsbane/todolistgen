@@ -25,7 +25,7 @@ local function TestConfig()
 	end
 end
 
-function ProcessTasks(tasks, size)
+function ProcessTasks(tasks, fileName)
 	local path = Path()
 	local fileReader = FileReader()
 
