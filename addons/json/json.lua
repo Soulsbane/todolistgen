@@ -1,29 +1,14 @@
+local FileWriter = FileWriter()
+
 function Initialize()
+	local fileName = FileWriter:openFile("todo.json")
+
+	print("Exporting list to..." .. fileName)
+	FileWriter:writeLine("{")
 end
 
 function Deinitialize()
-end
-
-local FileWriter = FileWriter()
-
-local function GetTableLength(T)
-	local count = 0
-	for _ in pairs(T) do count = count + 1 end
-	return count
-end
-
-local function CreateOutputTable(tasks)
-	local output = {}
-
-	for i, task in ipairs(tasks) do
-		if(output[task.fileName]) then
-			table.insert(output[task.fileName], task)
-		else
-			output[task.fileName] = {}
-			table.insert(output[task.fileName], task)
-		end
-	end
-	return output
+	FileWriter:writeLine("}")
 end
 
 local function CreateJsonValue(taskTableKey)
@@ -35,13 +20,8 @@ local function CreateJsonValue(taskTableKey)
 end
 
 function ProcessTasks(tasks, fileName)
-	local output = CreateOutputTable(tasks)
-	local fileName = FileWriter:openFile("todo.json")
 	local outputSize = GetTableLength(output)
 	local filesProcessed = 1
-
-	print("Exporting list to..." .. fileName)
-	FileWriter:writeLine("{")
 
 	for fileName, _ in pairs(output) do
 		local closingBracketCount = 1
@@ -79,5 +59,4 @@ function ProcessTasks(tasks, fileName)
 		end
 		filesProcessed = filesProcessed + 1
 	end
-	FileWriter:writeLine("}")
 end
