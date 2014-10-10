@@ -1,5 +1,4 @@
 local fileWriter = FileWriter()
-local outputFileName = fileWriter:openFile("todo.csv")
 
 function Initialize()
 	fileWriter = FileWriter()
