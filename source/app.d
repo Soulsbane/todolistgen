@@ -40,6 +40,7 @@ void processDir(string dir, string outputFormat, string pattern)
 {
 	auto reader = new TodoFileReader;
 	auto addon = new LuaAddon;
+	Task[] tasks;
 	bool created;
 
 	created = addon.create(outputFormat);
