@@ -23,7 +23,9 @@ void processFile(string fileName, string outputFormat )
 		if(created)
 		{
 			writeln("Processing file...", fileName);
+			addon.callFunction("Initialize");
 			addon.processTasks(fileName, tasks);
+			addon.callFunction("Deinitialize");
 		}
 		else
 		{
