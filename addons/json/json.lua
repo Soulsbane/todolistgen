@@ -11,7 +11,7 @@ function Deinitialize()
 	FileWriter:writeLine("}")
 end
 
-function ProcessTasks(tasks, fileName)
+function ProcessTasks(tasks, fileName, lastFile)
 		FileWriter:writeLine(string.format("\t%q: [" , fileName))
 
 		for i, task in pairs(tasks) do
@@ -28,6 +28,10 @@ function ProcessTasks(tasks, fileName)
 				FileWriter:writeLine("\t},")
 			end
 		end
-		FileWriter:writeLine("\t],")
+		if lastFile then
+			FileWriter:writeLine("\t]")
+		else
+			FileWriter:writeLine("\t],")
+		end
 end
 

@@ -24,7 +24,7 @@ void processFile(string fileName, string outputFormat )
 		{
 			writeln("Processing file...", fileName);
 			addon.callFunction("Initialize");
-			addon.processTasks(fileName, tasks);
+			addon.processTasks(fileName, tasks, true);
 			addon.callFunction("Deinitialize");
 		}
 		else
@@ -38,18 +38,45 @@ void processFile(string fileName, string outputFormat )
 	}
 }
 
+void processFiles(Task[][string] files, string outputFormat)
+{
+	auto addon = new LuaAddon;
+	bool created;
+
+	created = addon.create(outputFormat);
+	addon.callFunction("Initialize");
+
+	int numFiles = 0;
+
+	foreach(fileName, tasks; files)
+	{
+		if(numFiles == (files.length - 1))
+		{
+			addon.processTasks(fileName, tasks, true);
+		}
+		else
+		{
+			addon.processTasks(fileName, tasks, false);
+		}
+
+		numFiles++;
+	}
+
+	addon.callFunction("Deinitialize");
+}
+
 void processDir(string dir, string outputFormat, string pattern)
 {
 	auto reader = new TodoFileReader;
-	auto addon = new LuaAddon;
+	auto addon = new LuaAddon; // FIXME: Really we should pass this to processFiles
 	bool created;
+	Task[][string] files;
 
 	created = addon.create(outputFormat);
 
 	if(created)
 	{
 		writeln("Processing directories...\n");
-		addon.callFunction("Initialize");
 
 		foreach(DirEntry e; std.parallelism.parallel(dirEntries(dir, pattern, SpanMode.breadth)))
 		{
@@ -63,12 +90,12 @@ void processDir(string dir, string outputFormat, string pattern)
 
 					if(tasks.length > 0)
 					{
-						addon.processTasks(name, tasks);
+						files[name] ~= tasks;
 					}
 				}
 			}
 		}
-		addon.callFunction("Deinitialize");
+		processFiles(files, outputFormat);
 	}
 	else
 	{

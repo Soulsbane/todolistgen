@@ -12,12 +12,12 @@ import config;
 
 class LuaAddon : LuaStateBase
 {
-	void processTasks(string fileName, Task[] tasks)
+	void processTasks(string fileName, Task[] tasks, bool lastFile)
 	{
 		if(hasFunction("ProcessTasks"))
 		{
 			auto ProcessTasks = super.lua.get!LuaFunction("ProcessTasks");
-			ProcessTasks(super.lua.newTable(tasks), fileName);
+			ProcessTasks(super.lua.newTable(tasks), fileName, lastFile);
 		}
 	}
 
