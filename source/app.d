@@ -39,7 +39,7 @@ void processFile(string fileName, string outputFormat )
 	}
 }
 
-void processFiles(Task[][string] files, string outputFormat/*, ref LuaAddon addon2*/)
+void processFiles(Task[][string] files, string outputFormat)
 {
 	int numFiles = 0;
 	auto addon = new LuaAddon;
