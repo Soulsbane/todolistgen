@@ -39,65 +39,65 @@ void processFile(string fileName, string outputFormat )
 	}
 }
 
-void processFiles(Task[][string] files, string outputFormat, LuaAddon addon)
+void processFiles(Task[][string] files, string outputFormat/*, ref LuaAddon addon2*/)
 {
 	int numFiles = 0;
-
-	addon.callFunction("Initialize");
-
-	foreach(fileName, tasks; files)
-	{
-		numFiles++;
-
-		if(numFiles == files.length)
-		{
-			addon.processTasks(fileName, tasks, true);
-		}
-		else
-		{
-			addon.processTasks(fileName, tasks, false);
-		}
-	}
-
-	addon.callFunction("Deinitialize");
-}
-
-void processDir(string dir, string outputFormat, string pattern)
-{
-	auto reader = new TodoFileReader;
 	auto addon = new LuaAddon;
 	bool created;
-	Task[][string] files;
 
 	created = addon.create(outputFormat);
 
 	if(created)
 	{
-		writeln("Processing directories...\n");
+		addon.callFunction("Initialize");
 
-		foreach(DirEntry e; std.parallelism.parallel(dirEntries(dir, pattern, SpanMode.breadth)))
+		foreach(fileName, tasks; files)
 		{
-			if(e.isFile)
+			numFiles++;
+
+			if(numFiles == files.length)
 			{
-				auto name = buildNormalizedPath(e.name);
-
-				if(!name.startsWith("."))
-				{
-					Task[] tasks = reader.readFile(name);
-
-					if(tasks.length > 0)
-					{
-						files[name] ~= tasks;
-					}
-				}
+				addon.processTasks(fileName, tasks, true);
+			}
+			else
+			{
+				addon.processTasks(fileName, tasks, false);
 			}
 		}
-		processFiles(files, outputFormat, addon);
+
+		addon.callFunction("Deinitialize");
 	}
 	else
 	{
 		writeln("Output format, ", outputFormat, ", NOT found! Aborting...");
 	}
+}
+
+void processDir(string dir, string outputFormat, string pattern)
+{
+	auto reader = new TodoFileReader;
+	Task[][string] files;
+
+	writeln("Processing directories...\n");
+
+	foreach(DirEntry e; std.parallelism.parallel(dirEntries(dir, pattern, SpanMode.breadth)))
+	{
+		if(e.isFile)
+		{
+			auto name = buildNormalizedPath(e.name);
+
+			if(!name.startsWith("."))
+			{
+				Task[] tasks = reader.readFile(name);
+
+				if(tasks.length > 0)
+				{
+					files[name] ~= tasks;
+				}
+			}
+		}
+	}
+	processFiles(files, outputFormat);
 }
 
 void handleArguments(string[] args)
