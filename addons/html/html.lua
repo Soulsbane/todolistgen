@@ -12,8 +12,11 @@ end
 function Deinitialize()
 	local path = Path()
 	local fileReader = FileReader()
+	local fileUtils = FileUtils()
 
 	FileWriter:writeLine(fileReader:readText(path:getAddonDir() .. "/templates/default/footer.html"))
+	fileUtils:copyToOutputDir(path:getAddonDir() .. "/templates/default/default.css")
+
 end
 
 local function WriteTags(...)
