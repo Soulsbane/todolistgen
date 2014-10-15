@@ -1,9 +1,8 @@
-function Initialize()
-	print("Initializing...")
-end
+local function TestFileCopy()
+	local fileUtils = FileUtils()
+	local path = Path()
 
-function Deinitialize()
-	print("Deinitializing...")
+	fileUtils:copyToOutputDir(path:getAddonDir() .. "/data.txt")
 end
 
 local function TestGetLines()
@@ -27,7 +26,7 @@ local function TestConfig()
 	end
 end
 
-function ProcessTasks(tasks, fileName)
+local function TestPaths()
 	local path = Path()
 	local fileReader = FileReader()
 
@@ -35,8 +34,21 @@ function ProcessTasks(tasks, fileName)
 	print("^^^^", path:getBaseAddonDir())
 	print("^^^^", path:getAddonDir())
 	print(fileReader:readText(path:getInstallDir() .. "/README.md"))
+end
+
+function Initialize()
+	print("Initializing...")
+	TestFileCopy()
 	TestGetLines()
 	TestConfig()
+	TestPaths()
+end
+
+function Deinitialize()
+	print("Deinitializing...")
+end
+
+function ProcessTasks(tasks, fileName)
 end
 
 

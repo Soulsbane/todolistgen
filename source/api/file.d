@@ -48,6 +48,22 @@ private:
 	File file_;
 }
 
+class FileUtils
+{
+public:
+	this() {}
+
+	void copy(string from, string to)
+	{
+		std.file.copy(from, to);
+	}
+
+	void copyToOutputDir(string fileName)
+	{
+		std.file.copy(fileName, getcwd() ~ std.path.dirSeparator ~ baseName(fileName));
+	}
+}
+
 class Path
 {
 public:
