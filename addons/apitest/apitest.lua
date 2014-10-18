@@ -1,16 +1,15 @@
+local FileReader = FileReader()
+local Path = Path()
+
 local function TestFileCopy()
 	local fileUtils = FileUtils()
-	local path = Path()
-
-	fileUtils:copyToOutputDir(path:getAddonDir() .. "/data.txt")
+	fileUtils:copyToOutputDir(Path:getAddonDir() .. "/data.txt")
 end
 
 local function TestGetLines()
-	local fileReader = FileReader()
-	local path = Path()
 	local lines
 
-	lines = fileReader:getLines(path:getAddonDir() .. "/data.txt")
+	lines = FileReader:getLines(Path:getAddonDir() .. "/data.txt")
 
 	for i, line in ipairs(lines) do
 		print("line: ", line)
@@ -27,13 +26,10 @@ local function TestConfig()
 end
 
 local function TestPaths()
-	local path = Path()
-	local fileReader = FileReader()
-
-	print("^^^^", path:getInstallDir())
-	print("^^^^", path:getBaseAddonDir())
-	print("^^^^", path:getAddonDir())
-	print(fileReader:readText(path:getInstallDir() .. "/README.md"))
+	print("^^^^", Path:getInstallDir())
+	print("^^^^", Path:getBaseAddonDir())
+	print("^^^^", Path:getAddonDir())
+	print(FileReader:readText(Path:getInstallDir() .. "/README.md"))
 end
 
 function Initialize()
