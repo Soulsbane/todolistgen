@@ -55,14 +55,14 @@ class LuaAddon : LuaStateBase
 
 		if(fileName != "")
 		{
-			super.lua["FileReader"] = this.lua.registerType!FileReader;
-			super.lua["FileWriter"] = this.lua.registerType!FileWriter;
-			super.lua["FileUtils"] = this.lua.registerType!FileUtils;
+			lua["FileReader"] = lua.registerType!FileReader;
+			lua["FileWriter"] = lua.registerType!FileWriter;
+			lua["FileUtils"] = lua.registerType!FileUtils;
 
-			super.lua["Path"] = this.lua.registerType!Path;
-			super.lua["Config"] = this.lua.registerType!LuaConfig;
+			lua["Path"] = lua.registerType!Path;
+			lua["Config"] = lua.registerType!LuaConfig;
 
-			super.lua.doFile(fileName);
+			lua.doFile(fileName);
 			return true;
 		}
 
