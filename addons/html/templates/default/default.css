@@ -13,3 +13,8 @@ th, td {
 tbody tr:hover {
   background: yellow;
 }
+caption {
+    display: table-caption;
+    text-align: left;
+    font-size: 1.25em;
+}
