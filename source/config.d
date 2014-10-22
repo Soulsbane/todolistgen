@@ -24,18 +24,18 @@ public:
 			file.write(configText);
 		}
 
-		super.lua.doFile(configFile);
+		lua.doFile(configFile);
 	}
 
 	LuaTable getTable(string name)
 	{
-		LuaTable variable = super.lua.get!LuaTable(name);
+		LuaTable variable = lua.get!LuaTable(name);
 		return variable;
 	}
 
 	T getVariable(T = string)(string name)
 	{
-		return super.lua.get!T(name);
+		return lua.get!T(name);
 	}
 }
 

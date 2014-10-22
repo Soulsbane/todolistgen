@@ -16,8 +16,8 @@ class LuaAddon : LuaStateBase
 	{
 		if(hasFunction("ProcessTasks"))
 		{
-			auto ProcessTasks = super.lua.get!LuaFunction("ProcessTasks");
-			ProcessTasks(super.lua.newTable(tasks), fileName, lastFile);
+			auto ProcessTasks = lua.get!LuaFunction("ProcessTasks");
+			ProcessTasks(lua.newTable(tasks), fileName, lastFile);
 		}
 	}
 
@@ -25,14 +25,14 @@ class LuaAddon : LuaStateBase
 	{
 		if(hasFunction(name))
 		{
-			auto TempFunction = super.lua.get!LuaFunction(name);
+			auto TempFunction = lua.get!LuaFunction(name);
 			TempFunction();
 		}
 	}
 
 	bool hasFunction(string name)
 	{
-		if(super.lua[name].isNil)
+		if(lua[name].isNil)
 		{
 			return false;
 		}
