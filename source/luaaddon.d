@@ -60,10 +60,25 @@ class LuaAddon : LuaStateBase
 			lua["Path"] = lua.registerType!Path;
 			lua["Config"] = lua.registerType!LuaConfig;
 
+			setupPackagePaths();
 			lua.doFile(fileName);
+
 			return true;
 		}
 
 		return false;
+	}
+
+	void setupPackagePaths()
+	{
+		alias sep = std.path.dirSeparator;
+		auto path = new Path;
+		string packagePath = path.getInstallDir() ~ sep ~ "modules" ~ sep ~ "?.lua";
+
+		packagePath ~= ";" ~ path.getAddonDir() ~ sep ~ "modules" ~ sep ~ "?.lua";
+		lua["package", "path"] = packagePath;
+		//import std.stdio;
+		//auto luapath2 = lua.get!LuaObject("package", "path");
+		//writefln("LUA_PATH:\n%s", luapath2);
 	}
 }
