@@ -51,17 +51,17 @@ void processFiles(Task[][string] files, string outputFormat)
 	{
 		addon.callFunction("Initialize");
 
-		foreach(fileName, tasks; files)
+		foreach(fileName; files.keys.sort)
 		{
 			numFiles++;
 
 			if(numFiles == files.length)
 			{
-				addon.processTasks(fileName, tasks, true);
+				addon.processTasks(fileName, files[fileName], true);
 			}
 			else
 			{
-				addon.processTasks(fileName, tasks, false);
+				addon.processTasks(fileName, files[fileName], false);
 			}
 		}
 
