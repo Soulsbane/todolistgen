@@ -51,6 +51,5 @@ NOTE | 6|Checkbutton's seem to only align with the checkbox not the checkbox plu
 INFO | 14|Panel is automatically created when including SimpleOptions.lua in your TOC.
 FIXME | 23|This entire project
 
-
-
-
+#Creating An Output Format(Addon)
+Information on creating and addon can be found [here](https://github.com/Soulsbane/todolistgen/blob/master/API.md)
