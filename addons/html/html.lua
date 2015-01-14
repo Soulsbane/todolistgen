@@ -5,7 +5,7 @@ local Path = Path()
 function Initialize()
 	local fileName = FileWriter:openFile("todo.html")
 
-	print("Exporting list to..." .. fileName)
+	print("Exporting list to " .. fileName)
 	FileWriter:write(FileReader:readText(Path:getAddonDir() .. "/templates/default/header.html"))
 end
 

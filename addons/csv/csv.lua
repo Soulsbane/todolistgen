@@ -2,7 +2,7 @@ local FileWriter = FileWriter()
 
 function Initialize()
 	outputFileName = FileWriter:openFile("todo.csv")
-	print("Exporting list to..." .. outputFileName)
+	print("Exporting list to " .. outputFileName)
 end
 
 function Deinitialize()

@@ -78,7 +78,7 @@ void processDir(string dir, string outputFormat, string pattern)
 	auto reader = new TodoFileReader;
 	Task[][string] files;
 
-	writeln("Processing directories...\n");
+	writeln("Processing directories...");
 
 	foreach(DirEntry e; std.parallelism.parallel(dirEntries(dir, pattern, SpanMode.breadth)))
 	{
@@ -90,6 +90,10 @@ void processDir(string dir, string outputFormat, string pattern)
 			{
 				Task[] tasks = reader.readFile(name);
 
+				write("\x1B[2K");
+				write("\r");
+				write(name);
+
 				if(tasks.length > 0)
 				{
 					files[name] ~= tasks;
@@ -97,6 +101,9 @@ void processDir(string dir, string outputFormat, string pattern)
 			}
 		}
 	}
+
+	write("\x1B[2K");
+	write("\n");
 	processFiles(files, outputFormat);
 }
 

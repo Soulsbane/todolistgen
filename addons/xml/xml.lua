@@ -8,7 +8,7 @@ end
 function Initialize()
 	local fileName = FileWriter:openFile("todo.xml")
 
-	print("Exporting list to..." .. fileName)
+	print("Exporting list to " .. fileName)
 	FileWriter:writeLine([[<?xml version="1.0" encoding="UTF-8"?>]])
 	FileWriter:writeLine("<todo>")
 end

@@ -2,7 +2,7 @@ local FileWriter = FileWriter()
 
 function Initialize()
 	local fileName = FileWriter:openFile("todo.md")
-	print("Exporting list to..." .. fileName)
+	print("Exporting list to " .. fileName)
 end
 
 function Deinitialize()

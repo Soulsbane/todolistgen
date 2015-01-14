@@ -3,7 +3,7 @@ local FileWriter = FileWriter()
 function Initialize()
 	local fileName = FileWriter:openFile("todo.json")
 
-	print("Exporting list to..." .. fileName)
+	print("Exporting list to " .. fileName)
 	FileWriter:writeLine("{")
 end
 
