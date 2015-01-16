@@ -18,7 +18,7 @@ public:
 		pattern_ = getConfigPattern();
 	}
 
-	Task[] readFile(string fileName)
+	Task[] readFile(immutable string fileName)
 	{
 		Task[] tasks;
 
@@ -38,7 +38,7 @@ public:
 	}
 
 private:
-	Task createTask(string curFileName, ulong lineNum, string line)
+	Task createTask(immutable string curFileName, immutable ulong lineNum, immutable string line)
 	{
 		auto todoTaskPattern = regex(pattern_, "g"); // TODO: Add support for multiple patterns
 		auto match = matchAll(line, todoTaskPattern);

@@ -12,7 +12,7 @@ import config;
 
 class LuaAddon : LuaStateBase
 {
-	void processTasks(string fileName, Task[] tasks, bool lastFile)
+	void processTasks(immutable string fileName, Task[] tasks, immutable bool lastFile)
 	{
 		if(hasFunction("ProcessTasks"))
 		{
@@ -20,7 +20,7 @@ class LuaAddon : LuaStateBase
 		}
 	}
 
-	void callFunction(string name)
+	void callFunction(immutable string name)
 	{
 		if(hasFunction(name))
 		{
@@ -28,7 +28,7 @@ class LuaAddon : LuaStateBase
 		}
 	}
 
-	bool hasFunction(string name)
+	bool hasFunction(immutable string name)
 	{
 		if(lua[name].isNil)
 		{
@@ -37,7 +37,7 @@ class LuaAddon : LuaStateBase
 		return true;
 	}
 
-	bool create(string outputFormat)
+	bool create(immutable string outputFormat)
 	{
 		string fileName;
 		foreach(DirEntry e; dirEntries(dirName(thisExePath()) ~ std.path.dirSeparator ~ "addons", "*.lua", SpanMode.breadth))
@@ -77,8 +77,5 @@ class LuaAddon : LuaStateBase
 
 		packagePath ~= ";" ~ path.getAddonDir() ~ sep ~ "modules" ~ sep ~ "?.lua";
 		lua["package", "path"] = packagePath;
-		//import std.stdio;
-		//auto luapath2 = lua.get!LuaObject("package", "path");
-		//writefln("LUA_PATH:\n%s", luapath2);
 	}
 }

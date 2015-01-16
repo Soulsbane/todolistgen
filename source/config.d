@@ -15,11 +15,11 @@ public:
 
 	void load(string fileName = "config.lua")
 	{
-		string configFile = dirName(thisExePath()) ~ std.path.dirSeparator ~ fileName;
+		immutable string configFile = dirName(thisExePath()) ~ std.path.dirSeparator ~ fileName;
 
 		if(!exists(configFile))
 		{
-			string configText = import("default.config.lua");
+			immutable string configText = import("default.config.lua");
 			auto file = File(configFile, "w+");
 			file.write(configText);
 		}

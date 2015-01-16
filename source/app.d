@@ -9,7 +9,7 @@ import todotask;
 import luaaddon;
 import args;
 
-void processFile(string fileName, string outputFormat )
+void processFile(immutable string fileName, immutable string outputFormat )
 {
 	if(exists(fileName))
 	{
@@ -39,7 +39,7 @@ void processFile(string fileName, string outputFormat )
 	}
 }
 
-void processFiles(Task[][string] files, string outputFormat)
+void processFiles(Task[][string] files, immutable string outputFormat)
 {
 	int numFiles = 0;
 	auto addon = new LuaAddon;
@@ -73,7 +73,7 @@ void processFiles(Task[][string] files, string outputFormat)
 	}
 }
 
-void processDir(string dir, string outputFormat, string pattern)
+void processDir(immutable string dir, immutable string outputFormat, immutable string pattern)
 {
 	auto reader = new TodoFileReader;
 	Task[][string] files;
@@ -110,13 +110,13 @@ void processDir(string dir, string outputFormat, string pattern)
 void handleArguments(string[] args)
 {
 	auto cmd = new CommandLineArgs(args);
-	string dir = cmd.getValue("dir");
-	string outputFormat = cmd.getValue("format");
-	string pattern = cmd.getValue("pattern");
+	immutable string dir = cmd.getValue("dir");
+	immutable string outputFormat = cmd.getValue("format");
+	immutable string pattern = cmd.getValue("pattern");
 
 	if(cmd.isValidValue("filename"))
 	{
-		string fileName = cmd.getValue("filename");
+		immutable string fileName = cmd.getValue("filename");
 		processFile(fileName, outputFormat);
 	}
 	else
