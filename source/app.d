@@ -9,16 +9,14 @@ import todotask;
 import luaaddon;
 import args;
 
-void processFile(immutable string fileName, immutable string outputFormat )
+void processFile(immutable string fileName, immutable string outputFormat)
 {
 	if(exists(fileName))
 	{
 		auto reader = new TodoFileReader;
 		auto addon = new LuaAddon;
 		auto tasks = reader.readFile(fileName);
-		bool created;
-
-		created = addon.create(outputFormat);
+		immutable bool created = addon.create(outputFormat);
 
 		if(created)
 		{
@@ -43,9 +41,7 @@ void processFiles(Task[][string] files, immutable string outputFormat)
 {
 	int numFiles = 0;
 	auto addon = new LuaAddon;
-	bool created;
-
-	created = addon.create(outputFormat);
+	immutable bool created = addon.create(outputFormat);
 
 	if(created)
 	{

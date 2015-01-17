@@ -38,7 +38,7 @@ public:
 	}
 
 private:
-	Task createTask(immutable string curFileName, immutable ulong lineNum, immutable string line)
+	@safe Task createTask(immutable string curFileName, immutable ulong lineNum, immutable string line)
 	{
 		auto todoTaskPattern = regex(pattern_, "g"); // TODO: Add support for multiple patterns
 		auto match = matchAll(line, todoTaskPattern);
@@ -57,7 +57,7 @@ private:
 		return task;
 	}
 
-	string getConfigPattern()
+	@trusted string getConfigPattern()
 	{
 		auto config = new LuaConfig;
 		config.load();

@@ -13,7 +13,7 @@ class LuaConfig : LuaStateBase
 public:
 	this() {}
 
-	void load(string fileName = "config.lua")
+	@trusted void load(string fileName = "config.lua")
 	{
 		immutable string configFile = dirName(thisExePath()) ~ std.path.dirSeparator ~ fileName;
 
@@ -27,7 +27,7 @@ public:
 		lua.doFile(configFile);
 	}
 
-	LuaTable getTable(string name)
+	@trusted LuaTable getTable(string name)
 	{
 		LuaTable variable = lua.get!LuaTable(name);
 		return variable;

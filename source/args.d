@@ -29,7 +29,7 @@ public:
 		return args_[key].coerce!T;
 	}
 
-	bool isValidValue(immutable string key)
+	@safe bool isValidValue(immutable string key)
 	{
 		return (args_[key] != null);
 	}
