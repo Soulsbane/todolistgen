@@ -59,12 +59,12 @@ Creating an output format is easy. From here on I'll refer to the output format 
 1. Create a folder in the addons directory of todolistgen. It can be any name but for consistency try to use lowercase. No spaces are allowed either.
 2. In your addons directory create a file with the same name as the directory you just created with the file extension lua.
 3. Open the lua file you just created in your favrorite text editor. Inside this file place the following code:
-	```lua
-	function ProcessTasks(tasks, fileName)
-		for _, task in ipairs(tasks) do
-			print(task.fileName, task.lineNumber, task.tag, task.message)
-		end
+```lua
+function ProcessTasks(tasks, fileName)
+	for _, task in ipairs(tasks) do
+		print(task.fileName, task.lineNumber, task.tag, task.message)
 	end
+end
 	```
 This is the main function that Todolistgen calls to process each file that contains todo tasks.
 It should be fairly obivious that *ProcessTasks* first argument is a table(tasks) and of course the second argument is the file name.
