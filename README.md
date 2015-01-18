@@ -29,18 +29,17 @@ The following will scan the directory where todolistgen was ran from and output 
 >todolistgen --format=html
 
 Here's an example of scanning one file only and outputing to stdout(the default).
-
- >todolistgen TestComments.lua
-Processing file...TestComments.lua
-TestComments.lua        1       INFO    This is a quote test
-TestComments.lua        2       INFO    This is a semicolon test
-TestComments.lua        6       NOTE    Checkbutton's seem to only align with the checkbox not the checkbox plus text. ClearAllPoints may not even be needed. Needs further investigation.
-TestComments.lua        14      INFO    Panel is automatically created when including SimpleOptions.lua in your TOC.
-TestComments.lua        23      FIXME   This entire project
-
+```lua
+	todolistgen TestComments.lua
+	Processing file...TestComments.lua
+	TestComments.lua        1       INFO    This is a quote test
+	TestComments.lua        2       INFO    This is a semicolon test
+	TestComments.lua        14      INFO    Panel is automatically created when including SimpleOptions.lua in your TOC.
+	TestComments.lua        23      FIXME   This entire project
+```
 Another example using the markdown format
 >Processing file...TestComments.lua
-Exporting list to.../home/soulsbane/Projects/D/todolistgen/todo.md
+Exporting list to /home/soulsbane/Projects/D/todolistgen/todo.md
 
 ## TestComments.lua
 Tag | Line Number | Message
