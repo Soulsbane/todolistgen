@@ -39,7 +39,7 @@ Here's an example of scanning one file only and outputing to stdout(the default)
 ```
 Another example using the markdown format
 >Processing file...TestComments.lua
-Exporting list to /home/soulsbane/Projects/D/todolistgen/todo.md
+Exporting list to todo.md
 
 ## TestComments.lua
 Tag | Line Number | Message
