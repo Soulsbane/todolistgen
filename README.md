@@ -76,4 +76,4 @@ Creating an output format is easy. From here on I'll refer to the output format 
 
 > todolistgen --format=addonname
 
-Information on the API can be found [here](https://github.com/Soulsbane/todolistgen/blob/master/API.md)
+The API can be found [here](https://github.com/Soulsbane/todolistgen/blob/master/API.md)
