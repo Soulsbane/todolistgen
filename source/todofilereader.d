@@ -40,8 +40,7 @@ public:
 private:
 	@safe Task createTask(immutable string curFileName, immutable ulong lineNum, immutable string line)
 	{
-		auto todoTaskPattern = regex(pattern_, "g"); // TODO: Add support for multiple patterns
-		auto match = matchAll(line, todoTaskPattern);
+		auto match = matchFirst(line, regex(pattern_, "g"));
 		Task task;
 
 		if(match)
@@ -50,8 +49,8 @@ private:
 			{
 				fileName = curFileName;
 				lineNumber = lineNum;
-				tag = to!string(strip(match.captures[1]));
-				message = to!string(strip(match.captures[2]));
+				tag = to!string(strip(match["tag"])); // match[0] equals the namedCapture; tag in this case.
+				message = to!string(strip(match["message"]));
 			}
 		}
 		return task;
