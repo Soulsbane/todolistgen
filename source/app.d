@@ -2,6 +2,8 @@ import std.stdio;
 import std.string;
 import std.file;
 import std.path;
+import std.range;
+
 static import std.parallelism;
 
 import todofilereader;
@@ -73,8 +75,9 @@ void processDir(immutable string dir, immutable string outputFormat, immutable s
 {
 	auto reader = new TodoFileReader;
 	Task[][string] files;
+	auto filesWalk = dirEntries(dir, pattern, SpanMode.breadth);
 
-	writeln("Processing directories...");
+	writeln("Processing ", walkLength(filesWalk), " files...");
 
 	foreach(DirEntry e; std.parallelism.parallel(dirEntries(dir, pattern, SpanMode.breadth)))
 	{
