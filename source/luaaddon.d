@@ -12,7 +12,7 @@ import config;
 
 class LuaAddon : LuaStateBase
 {
-	void processTasks(immutable string fileName, Task[] tasks, immutable bool lastFile)
+	void processTasks(immutable string fileName, TaskValues[] tasks, immutable bool lastFile)
 	{
 		if(hasFunction("ProcessTasks"))
 		{

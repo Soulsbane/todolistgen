@@ -18,19 +18,18 @@ public:
 		pattern_ = getConfigPattern();
 	}
 
-	Task[] readFile(immutable string fileName)
+	TaskValues[] readFile(immutable string fileName)
 	{
-		Task[] tasks;
+		TaskValues[] tasks;
 
 		foreach(ulong i, string line; File(fileName, "r").lines)
 		{
 			if(line.isValid()) // INFO: Make sure the line is actually text.
 			{
-				auto task = createTask(fileName, i + 1, line);
-
-				if(Task.init != task) // INFO: If the returned task contains nothing but default values then don't add it to task array.
+				auto values = createTask(fileName, i + 1, line);
+				if(values.length > 0)
 				{
-					tasks ~= task;
+					tasks ~= values;
 				}
 			}
 		}
@@ -38,22 +37,24 @@ public:
 	}
 
 private:
-	@safe Task createTask(immutable string curFileName, immutable ulong lineNum, immutable string line)
+	@safe TaskValues  createTask(immutable string curFileName, immutable ulong lineNum, immutable string line)
 	{
-		auto match = matchFirst(line, regex(pattern_, "g"));
-		Task task;
+		auto re = regex(pattern_, "g");
+		auto match = matchFirst(line, re);
+		auto nc = re.namedCaptures;
+		TaskValues values;
 
 		if(match)
 		{
-			with(task)
+			values["fileName"] = curFileName;
+			values["lineNumber"] = to!string(lineNum);
+
+			for(int i = 0; i <= (nc.length - 1); i++)
 			{
-				fileName = curFileName;
-				lineNumber = lineNum;
-				tag = to!string(strip(match["tag"])); // match[0] equals the namedCapture; tag in this case.
-				message = to!string(strip(match["message"]));
+				values[to!string(nc[i])] = to!string(match[nc[i]]);
 			}
 		}
-		return task;
+		return values;
 	}
 
 	@trusted string getConfigPattern()

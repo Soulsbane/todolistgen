@@ -22,7 +22,7 @@ void processFile(immutable string fileName, immutable string outputFormat)
 
 		if(created)
 		{
-			writeln("Processing file...", fileName);
+			writeln("Processing ", fileName);
 
 			addon.callFunction("Initialize");
 			addon.processTasks(fileName, tasks, true);
@@ -39,7 +39,7 @@ void processFile(immutable string fileName, immutable string outputFormat)
 	}
 }
 
-void processFiles(Task[][string] files, immutable string outputFormat)
+void processFiles(TaskValues[][string] files, immutable string outputFormat)
 {
 	int numFiles = 0;
 	auto addon = new LuaAddon;
@@ -74,7 +74,7 @@ void processFiles(Task[][string] files, immutable string outputFormat)
 void processDir(immutable string dir, immutable string outputFormat, immutable string pattern)
 {
 	auto reader = new TodoFileReader;
-	Task[][string] files;
+	TaskValues[][string] files;
 	auto filesWalk = dirEntries(dir, pattern, SpanMode.breadth);
 
 	writeln("Processing ", walkLength(filesWalk), " files...");
@@ -87,7 +87,7 @@ void processDir(immutable string dir, immutable string outputFormat, immutable s
 
 			if(!name.startsWith("."))
 			{
-				Task[] tasks = reader.readFile(name);
+				TaskValues[] tasks = reader.readFile(name);
 
 				write("\x1B[2K");
 				write("\r");
