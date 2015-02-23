@@ -39,15 +39,45 @@ void processFile(immutable string fileName, immutable string outputFormat)
 	}
 }
 
-void processFiles(TaskValues[][string] files, immutable string outputFormat)
+void processDir(immutable string dir, immutable string outputFormat, immutable string pattern)
 {
+	auto reader = new TodoFileReader;
+	TaskValues[][string] files;
 	int numFiles = 0;
+	auto filesWalk = dirEntries(dir, pattern, SpanMode.breadth);
+
 	auto addon = new LuaAddon;
 	immutable bool created = addon.create(outputFormat);
 
 	if(created)
 	{
 		addon.callFunction("Initialize");
+		writeln("Processing ", walkLength(filesWalk), " files...");
+
+		foreach(DirEntry e; std.parallelism.parallel(dirEntries(dir, pattern, SpanMode.breadth)))
+		{
+			if(e.isFile)
+			{
+				auto name = buildNormalizedPath(e.name);
+
+				if(!name.startsWith("."))
+				{
+					TaskValues[] tasks = reader.readFile(name);
+
+					write("\x1B[2K");
+					write("\r");
+					write(name);
+
+					if(tasks.length > 0)
+					{
+						files[name] ~= tasks;
+					}
+				}
+			}
+		}
+
+		write("\x1B[2K");
+		write("\n");
 
 		foreach(fileName; files.keys.sort)
 		{
@@ -65,45 +95,6 @@ void processFiles(TaskValues[][string] files, immutable string outputFormat)
 
 		addon.callFunction("Deinitialize");
 	}
-	else
-	{
-		writeln("Output format, ", outputFormat, ", NOT found! Aborting...");
-	}
-}
-
-void processDir(immutable string dir, immutable string outputFormat, immutable string pattern)
-{
-	auto reader = new TodoFileReader;
-	TaskValues[][string] files;
-	auto filesWalk = dirEntries(dir, pattern, SpanMode.breadth);
-
-	writeln("Processing ", walkLength(filesWalk), " files...");
-
-	foreach(DirEntry e; std.parallelism.parallel(dirEntries(dir, pattern, SpanMode.breadth)))
-	{
-		if(e.isFile)
-		{
-			auto name = buildNormalizedPath(e.name);
-
-			if(!name.startsWith("."))
-			{
-				TaskValues[] tasks = reader.readFile(name);
-
-				write("\x1B[2K");
-				write("\r");
-				write(name);
-
-				if(tasks.length > 0)
-				{
-					files[name] ~= tasks;
-				}
-			}
-		}
-	}
-
-	write("\x1B[2K");
-	write("\n");
-	processFiles(files, outputFormat);
 }
 
 void handleArguments(string[] args)
