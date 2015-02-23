@@ -33,12 +33,20 @@ local function TestPaths()
 	print(FileReader:readText(Path:getInstallDir() .. "/README.md"))
 end
 
+local function TestRemoveFiles()
+	local fileUtils = FileUtils()
+
+	fileUtils:removeFileFromAddonDir("apitestfile.lua")
+	fileUtils:removeFileFromOutputDir("apitestfile2.lua")
+end
+
 function Initialize()
 	print("Initializing...")
 	TestFileCopy()
 	TestGetLines()
 	TestConfig()
 	TestPaths()
+	TestRemoveFiles() --INFO: This is commented out since the files might not exist unless created when testing.
 end
 
 function Deinitialize()

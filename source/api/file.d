@@ -51,7 +51,10 @@ private:
 class FileUtils
 {
 public:
-	this() {}
+	this()
+	{
+		path_ = new Path;
+	}
 
 	void copy(string from, string to)
 	{
@@ -62,6 +65,39 @@ public:
 	{
 		std.file.copy(fileName, getcwd() ~ std.path.dirSeparator ~ baseName(fileName));
 	}
+
+	void removeFileFromAddonDir(string fileName)
+	{
+		string file = path_.getAddonDir() ~ std.path.dirSeparator ~ fileName;
+
+		if(exists(file))
+		{
+			writeln("REMOVING file: ", file);
+			remove(file);
+		}
+		else
+		{
+			writeln("Cannot remove ", file, " file not found!");
+		}
+	}
+
+	void removeFileFromOutputDir(string fileName)
+	{
+		string file = path_.getOutputDir() ~ std.path.dirSeparator ~ fileName;
+
+		if(exists(file))
+		{
+			writeln("REMOVING file: ", file);
+			remove(file);
+		}
+		else
+		{
+			writeln("Cannot remove ", file, " file not found!");
+		}
+	}
+
+private:
+	Path path_;
 }
 
 class Path
