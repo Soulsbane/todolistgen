@@ -26,6 +26,7 @@ local function TestConfig()
 end
 
 local function TestPaths()
+	print("^^^^", Path:getOutputDir())
 	print("^^^^", Path:getInstallDir())
 	print("^^^^", Path:getBaseAddonDir())
 	print("^^^^", Path:getAddonDir())

@@ -88,4 +88,9 @@ public:
 		return getBaseAddonDir() ~ std.path.dirSeparator ~ outputFormat;
 	}
 
+	string getOutputDir()
+	{
+		return getcwd();
+	}
+
 }
