@@ -1,6 +1,9 @@
 local FileWriter = FileWriter()
 
 function Initialize()
+	local fileUtils = FileUtils()
+
+	fileUtils:removeFileFromOutputDir("todo.json")
 	local fileName = FileWriter:openFile("todo.json")
 
 	print("Exporting list to " .. fileName)

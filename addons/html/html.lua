@@ -3,6 +3,10 @@ local FileReader = FileReader()
 local Path = Path()
 
 function Initialize()
+	local fileUtils = FileUtils()
+
+	fileUtils:removeFileFromOutputDir("todo.html")
+	fileUtils:removeFileFromOutputDir("default.css")
 	local fileName = FileWriter:openFile("todo.html")
 
 	print("Exporting list to " .. fileName)

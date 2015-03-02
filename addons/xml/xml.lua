@@ -6,6 +6,9 @@ local function WriteTags(tagName, value)
 end
 
 function Initialize()
+	local fileUtils = FileUtils()
+
+	fileUtils:removeFileFromOutputDir("todo.xml")
 	local fileName = FileWriter:openFile("todo.xml")
 
 	print("Exporting list to " .. fileName)

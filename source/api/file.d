@@ -72,12 +72,12 @@ public:
 
 		if(exists(file))
 		{
-			writeln("REMOVING file: ", file);
 			remove(file);
 		}
 		else
 		{
-			writeln("Cannot remove ", file, " file not found!");
+			// NOTE: Leaving this else here for now. I might make this function return a bool instead.
+			//writeln("Cannot remove ", file, " file not found!");
 		}
 	}
 
@@ -87,12 +87,12 @@ public:
 
 		if(exists(file))
 		{
-			writeln("REMOVING file: ", file);
 			remove(file);
 		}
 		else
 		{
-			writeln("Cannot remove ", file, " file not found!");
+			// NOTE: Leaving this else here for now. I might make this function return a bool instead.
+			//writeln("Cannot remove ", file, " file not found!");
 		}
 	}
 

@@ -1,6 +1,9 @@
 local FileWriter = FileWriter()
 
 function Initialize()
+	local fileUtils = FileUtils()
+
+	fileUtils:removeFileFromOutputDir("todo.csv")
 	outputFileName = FileWriter:openFile("todo.csv")
 	print("Exporting list to " .. outputFileName)
 end
