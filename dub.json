@@ -6,7 +6,16 @@
 	"authors": [
 		"Paul Crane"
 	],
-	"dflags": ["-vcolumns", "-color", "-Jsource"],
+	"buildTypes": {
+		"release": {
+			"buildOptions": ["optimize"],
+			"dflags": ["-Jsource"]
+		},
+		"debug": {
+			"buildOptions": ["debugMode", "debugInfo"],
+			"dflags": ["-vcolumns", "-color", "-Jsource"]
+		}
+	},
 	"dependencies": {
 		"luad": "~master",
 		"docopt": "~master"
