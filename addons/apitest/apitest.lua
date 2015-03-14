@@ -1,15 +1,9 @@
-local FileReader = FileReader()
-local Path = Path()
-
 local function TestFileCopy()
-	local fileUtils = FileUtils()
-	fileUtils:copyToOutputDir(Path:getAddonDir() .. "/data.txt")
+	FileUtils:copyToOutputDir(Path:getAddonDir() .. "/data.txt")
 end
 
 local function TestGetLines()
-	local lines
-
-	lines = FileReader:getLines(Path:getAddonDir() .. "/data.txt")
+	local lines = FileReader:getLines(Path:getAddonDir() .. "/data.txt")
 
 	for i, line in ipairs(lines) do
 		print("line: ", line)
@@ -17,8 +11,7 @@ local function TestGetLines()
 end
 
 local function TestConfig()
-	local config = Config()
-	local patterns = config:getTable("TodoTaskPatterns")
+	local patterns = Config:getTable("TodoTaskPatterns")
 
 	for k, v in pairs(patterns) do
 		print(k, " = ", v)
@@ -34,10 +27,8 @@ local function TestPaths()
 end
 
 local function TestRemoveFiles()
-	local fileUtils = FileUtils()
-
-	fileUtils:removeFileFromAddonDir("apitestfile.lua")
-	fileUtils:removeFileFromOutputDir("apitestfile2.lua")
+	FileUtils:removeFileFromAddonDir("apitestfile.lua")
+	FileUtils:removeFileFromOutputDir("apitestfile2.lua")
 end
 
 function Initialize()
@@ -46,7 +37,8 @@ function Initialize()
 	TestGetLines()
 	TestConfig()
 	TestPaths()
-	TestRemoveFiles() --INFO: This is commented out since the files might not exist unless created when testing.
+	TestRemoveFiles() --INFO: This is commented out since the files might not exist unless created when testing.]]
+	TestWriteToFiles()
 end
 
 function Deinitialize()

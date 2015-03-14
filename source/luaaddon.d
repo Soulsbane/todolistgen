@@ -53,12 +53,12 @@ class LuaAddon : LuaStateBase
 
 		if(fileName != "")
 		{
-			lua["FileReader"] = lua.registerType!FileReader;
-			lua["FileWriter"] = lua.registerType!FileWriter;
-			lua["FileUtils"] = lua.registerType!FileUtils;
+			lua["FileReader"] = new FileReader;
+			lua["FileWriter"] = new FileWriter;
+			lua["FileUtils"] = new FileUtils;
 
-			lua["Path"] = lua.registerType!Path;
-			lua["Config"] = lua.registerType!LuaConfig;
+			lua["Path"] = new Path;
+			lua["Config"] = new LuaConfig;
 
 			setupPackagePaths();
 			lua.doFile(fileName);

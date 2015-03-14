@@ -1,10 +1,7 @@
-local FileWriter = FileWriter()
-
 function Initialize()
-	local fileUtils = FileUtils()
-
-	fileUtils:removeFileFromOutputDir("todo.md")
+	FileUtils:removeFileFromOutputDir("todo.md")
 	local fileName = FileWriter:openFile("todo.md")
+
 	print("Exporting list to " .. fileName)
 end
 

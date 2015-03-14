@@ -1,12 +1,6 @@
-local FileWriter = FileWriter()
-local FileReader = FileReader()
-local Path = Path()
-
 function Initialize()
-	local fileUtils = FileUtils()
-
-	fileUtils:removeFileFromOutputDir("todo.html")
-	fileUtils:removeFileFromOutputDir("default.css")
+	FileUtils:removeFileFromOutputDir("todo.html")
+	FileUtils:removeFileFromOutputDir("default.css")
 	local fileName = FileWriter:openFile("todo.html")
 
 	print("Exporting list to " .. fileName)
@@ -14,10 +8,8 @@ function Initialize()
 end
 
 function Deinitialize()
-	local fileUtils = FileUtils()
-
 	FileWriter:write(FileReader:readText(Path:getAddonDir() .. "/templates/default/footer.html"))
-	fileUtils:copyToOutputDir(Path:getAddonDir() .. "/templates/default/default.css")
+	FileUtils:copyToOutputDir(Path:getAddonDir() .. "/templates/default/default.css")
 
 end
 

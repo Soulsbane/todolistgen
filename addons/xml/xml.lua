@@ -1,14 +1,9 @@
-local FileWriter = FileWriter()
-local FileReader = FileReader()
-
 local function WriteTags(tagName, value)
 	FileWriter:writeLine("\t\t<" .. tagName .. ">" .. value .. "</" .. tagName .. ">")
 end
 
 function Initialize()
-	local fileUtils = FileUtils()
-
-	fileUtils:removeFileFromOutputDir("todo.xml")
+	FileUtils:removeFileFromOutputDir("todo.xml")
 	local fileName = FileWriter:openFile("todo.xml")
 
 	print("Exporting list to " .. fileName)
