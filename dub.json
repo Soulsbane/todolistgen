@@ -12,8 +12,8 @@
 			"dflags": ["-Jsource"]
 		},
 		"debug": {
-			"buildOptions": ["debugMode", "debugInfo"],
-			"dflags": ["-debug", "-gc", "-vcolumns", "-color", "-Jsource"]
+			"buildOptions": ["debugMode", "debugInfo", "debugInfoC"],
+			"dflags": ["-vcolumns", "-color", "-Jsource"]
 		}
 	},
 	"dependencies": {
