@@ -38,7 +38,6 @@ function Initialize()
 	TestConfig()
 	TestPaths()
 	TestRemoveFiles() --INFO: This is commented out since the files might not exist unless created when testing.]]
-	TestWriteToFiles()
 end
 
 function Deinitialize()
