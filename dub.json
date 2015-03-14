@@ -13,7 +13,7 @@
 		},
 		"debug": {
 			"buildOptions": ["debugMode", "debugInfo"],
-			"dflags": ["-vcolumns", "-color", "-Jsource"]
+			"dflags": ["-debug", "-gc", "-vcolumns", "-color", "-Jsource"]
 		}
 	},
 	"dependencies": {
