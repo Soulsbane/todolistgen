@@ -8,6 +8,7 @@ import luad.all;
 import todotask;
 import luastatebase;
 import api.file;
+import api.path;
 import config;
 
 class LuaAddon : LuaStateBase
@@ -57,8 +58,13 @@ class LuaAddon : LuaStateBase
 			lua["FileWriter"] = new FileWriter;
 			lua["FileUtils"] = new FileUtils;
 
-			lua["Path"] = new Path;
 			lua["Config"] = new LuaConfig;
+
+			lua["Path"] = lua.newTable;
+			lua["Path", "getInstallDir"] = &api.path.getInstallDir;
+			lua["Path", "getBaseAddonDir"] = &api.path.getBaseAddonDir;
+			lua["Path", "getAddonDir"] = &api.path.getAddonDir;
+			lua["Path", "getOutputDir"] = &api.path.getOutputDir;
 
 			setupPackagePaths();
 			lua.doFile(fileName);
@@ -72,10 +78,9 @@ class LuaAddon : LuaStateBase
 	void setupPackagePaths()
 	{
 		alias sep = std.path.dirSeparator;
-		auto path = new Path;
-		string packagePath = path.getInstallDir() ~ sep ~ "modules" ~ sep ~ "?.lua";
+		string packagePath = getInstallDir() ~ sep ~ "modules" ~ sep ~ "?.lua";
 
-		packagePath ~= ";" ~ path.getAddonDir() ~ sep ~ "modules" ~ sep ~ "?.lua";
+		packagePath ~= ";" ~ getAddonDir() ~ sep ~ "modules" ~ sep ~ "?.lua";
 		lua["package", "path"] = packagePath;
 	}
 }

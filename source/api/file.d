@@ -4,6 +4,7 @@ import std.file;
 import std.path;
 import std.stdio;
 import std.string;
+import api.path;
 
 class FileReader
 {
@@ -53,7 +54,6 @@ class FileUtils
 public:
 	this()
 	{
-		path_ = new Path;
 	}
 
 	void copy(string from, string to)
@@ -68,7 +68,7 @@ public:
 
 	void removeFileFromAddonDir(string fileName)
 	{
-		string file = path_.getAddonDir() ~ std.path.dirSeparator ~ fileName;
+		string file = getAddonDir() ~ std.path.dirSeparator ~ fileName;
 
 		if(exists(file))
 		{
@@ -83,7 +83,7 @@ public:
 
 	void removeFileFromOutputDir(string fileName)
 	{
-		string file = path_.getOutputDir() ~ std.path.dirSeparator ~ fileName;
+		string file = getOutputDir() ~ std.path.dirSeparator ~ fileName;
 
 		if(exists(file))
 		{
@@ -95,38 +95,4 @@ public:
 			//writeln("Cannot remove ", file, " file not found!");
 		}
 	}
-
-private:
-	Path path_;
-}
-
-class Path
-{
-public:
-	this() {}
-
-	string getInstallDir()
-	{
-		return dirName(thisExePath());
-	}
-
-	string getBaseAddonDir()
-	{
-		return dirName(thisExePath()) ~ std.path.dirSeparator ~ "addons";
-	}
-
-	string getAddonDir()
-	{
-		import args;
-		auto cmd = new CommandLineArgs;
-		string outputFormat = cmd.getValue("format");
-
-		return getBaseAddonDir() ~ std.path.dirSeparator ~ outputFormat;
-	}
-
-	string getOutputDir()
-	{
-		return getcwd();
-	}
-
 }
