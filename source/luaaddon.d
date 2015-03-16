@@ -56,7 +56,12 @@ class LuaAddon : LuaStateBase
 		{
 			lua["FileReader"] = new FileReader;
 			lua["FileWriter"] = new FileWriter;
-			lua["FileUtils"] = new FileUtils;
+
+			lua["FileUtils"] = lua.newTable;
+			lua["FileUtils", "CopyFileTo"] = &api.fileutils.copyFileTo;
+			lua["FileUtils", "CopyToOutputDir"] = &api.fileutils.copyToOutputDir;
+			lua["FileUtils", "RemoveFileFromAddonDir"] = &api.fileutils.removeFileFromAddonDir;
+			lua["FileUtils", "RemoveFileFromOutputDir"] = &api.fileutils.removeFileFromOutputDir;
 
 			lua["Config"] = new LuaConfig;
 
