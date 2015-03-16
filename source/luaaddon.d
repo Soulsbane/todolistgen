@@ -7,9 +7,13 @@ import luad.all;
 
 import todotask;
 import luastatebase;
+import config;
+
 import api.file;
 import api.path;
-import config;
+import api.fileutils;
+import api.filereader;
+
 
 class LuaAddon : LuaStateBase
 {
@@ -54,8 +58,11 @@ class LuaAddon : LuaStateBase
 
 		if(fileName != "")
 		{
-			lua["FileReader"] = new FileReader;
 			lua["FileWriter"] = new FileWriter;
+
+			lua["FileReader"] = lua.newTable;
+			lua["FileReader", "ReadText"] = &api.filereader.readText;
+			lua["FileReader", "GetLines"] = &api.filereader.getLines;
 
 			lua["FileUtils"] = lua.newTable;
 			lua["FileUtils", "CopyFileTo"] = &api.fileutils.copyFileTo;

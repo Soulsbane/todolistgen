@@ -4,23 +4,6 @@ import std.file;
 import std.path;
 import std.stdio;
 import std.string;
-import api.path;
-
-class FileReader
-{
-public:
-	this() {}
-
-	string readText(string fileName)
-	{
-		return .readText(fileName);
-	}
-
-	string[] getLines(string fileName)
-	{
-		return .readText(fileName).splitLines();
-	}
-}
 
 class FileWriter
 {
