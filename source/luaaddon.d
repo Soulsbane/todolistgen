@@ -58,8 +58,6 @@ class LuaAddon : LuaStateBase
 
 		if(fileName != "")
 		{
-			lua["FileWriter"] = new FileWriter;
-
 			lua["FileReader"] = lua.newTable;
 			lua["FileReader", "ReadText"] = &api.filereader.readText;
 			lua["FileReader", "GetLines"] = &api.filereader.getLines;
@@ -73,10 +71,10 @@ class LuaAddon : LuaStateBase
 			lua["Config"] = new LuaConfig;
 
 			lua["Path"] = lua.newTable;
-			lua["Path", "getInstallDir"] = &api.path.getInstallDir;
-			lua["Path", "getBaseAddonDir"] = &api.path.getBaseAddonDir;
-			lua["Path", "getAddonDir"] = &api.path.getAddonDir;
-			lua["Path", "getOutputDir"] = &api.path.getOutputDir;
+			lua["Path", "GetInstallDir"] = &api.path.getInstallDir;
+			lua["Path", "GetBaseAddonDir"] = &api.path.getBaseAddonDir;
+			lua["Path", "GetAddonDir"] = &api.path.getAddonDir;
+			lua["Path", "GetOutputDir"] = &api.path.getOutputDir;
 
 			setupPackagePaths();
 			lua.doFile(fileName);
