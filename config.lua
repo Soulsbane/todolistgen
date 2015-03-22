@@ -4,3 +4,9 @@ TodoTaskPatterns = {
 	["\\W+(?P<tag>INFO|NOTE|FIXME|TODO):\\s+(?P<message>.*)"] = false,
 	["[;'#-*@/]*\\s*(?P<tag>INFO|NOTE|FIXME|TODO|XXX):?\\s*(?P<message>.*)"] = true,
 }
+
+AppConfigVars = {
+	DeleteAllTodoFilesAtStart = true,
+	TodoFileName = "todo",
+}
+
