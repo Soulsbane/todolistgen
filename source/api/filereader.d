@@ -5,7 +5,7 @@ import std.string;
 
 string readText(string fileName)
 {
-	return .readText(fileName);
+	return std.file.readText(fileName);
 }
 
 string[] getLines(string fileName)
