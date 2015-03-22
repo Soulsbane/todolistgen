@@ -7,7 +7,6 @@ end
 
 function AppConfig.GetValue(configVarName)
 	LoadConfig()
-	--print("is shit here: ", AppConfigVars.TodoFileName)
 	return AppConfigVars[configVarName]
 end
 
