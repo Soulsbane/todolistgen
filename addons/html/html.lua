@@ -1,9 +1,10 @@
 local FileHandle
 
 function Initialize()
+	local fileName = Path.GetOutputDir() .. "/todo.html"
+
 	FileUtils.RemoveFileFromOutputDir("todo.html")
 	FileUtils.RemoveFileFromOutputDir("default.css")
-	local fileName = Path.GetOutputDir() .. "/todo.html"
 	FileHandle = io.open(fileName, "w+")
 
 	print("Exporting list to " .. fileName)
