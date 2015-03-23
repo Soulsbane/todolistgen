@@ -1,22 +1,27 @@
+local FileHandle
+
 local function WriteTags(tagName, value)
-	FileWriter:writeLine("\t\t<" .. tagName .. ">" .. value .. "</" .. tagName .. ">")
+	FileHandle:write("\t\t<" .. tagName .. ">" .. value .. "</" .. tagName .. ">\n")
 end
 
 function Initialize()
-	FileUtils:removeFileFromOutputDir("todo.xml")
-	local fileName = FileWriter:openFile("todo.xml")
+	local fileName = Path:GetOutputDir() .. "/todo.xml"
+
+	FileUtils.RemoveFileFromOutputDir("todo.xml")
+	FileHandle = io.open(fileName, "w+")
 
 	print("Exporting list to " .. fileName)
-	FileWriter:writeLine([[<?xml version="1.0" encoding="UTF-8"?>]])
-	FileWriter:writeLine("<todo>")
+
+	FileHandle:write([[<?xml version="1.0" encoding="UTF-8"?>\n]])
+	FileHandle:write("<todo>\n")
 end
 
 function Deinitialize()
-	FileWriter:writeLine("</todo>")
+	FileHandle:write("</todo>\n")
 end
 
 function ProcessTasks(tasks, fileName)
-	FileWriter:writeLine("\t<task fileName=" .. "\"" .. fileName .. "\">")
+	FileHandle:write("\t<task fileName=" .. "\"" .. fileName .. "\">\n")
 
 	for i, task in ipairs(tasks) do
 		WriteTags("tag", task.tag)
@@ -24,5 +29,5 @@ function ProcessTasks(tasks, fileName)
 		WriteTags("message", task.message)
 	end
 
-	FileWriter:writeLine("\t</task>")
+	FileHandle:write("\t</task>\n")
 end
