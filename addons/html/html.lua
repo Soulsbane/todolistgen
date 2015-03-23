@@ -14,6 +14,7 @@ end
 function Deinitialize()
 	FileHandle:write(FileReader.ReadText(Path.GetAddonDir() .. "/templates/default/footer.html"))
 	FileUtils.CopyToOutputDir(Path.GetAddonDir() .. "/templates/default/default.css")
+	io.close(FileHandle)
 
 end
 

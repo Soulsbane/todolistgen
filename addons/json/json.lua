@@ -12,6 +12,7 @@ end
 
 function Deinitialize()
 	FileHandle:write("}\n")
+	io.close(FileHandle)
 end
 
 function ProcessTasks(tasks, fileName, lastFile)

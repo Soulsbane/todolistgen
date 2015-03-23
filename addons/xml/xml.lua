@@ -18,6 +18,7 @@ end
 
 function Deinitialize()
 	FileHandle:write("</todo>\n")
+	io.close(FileHandle)
 end
 
 function ProcessTasks(tasks, fileName)
