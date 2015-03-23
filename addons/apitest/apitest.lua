@@ -1,13 +1,17 @@
 local function TestFileCopy()
-	FileUtils:copyToOutputDir(Path:getAddonDir() .. "/data.txt")
+	FileUtils.CopyToOutputDir(Path.GetAddonDir() .. "/data.txt")
 end
 
 local function TestGetLines()
-	local lines = FileReader:getLines(Path:getAddonDir() .. "/data.txt")
+	local lines = FileReader.GetLines(Path.GetAddonDir() .. "/data.txt")
 
 	for i, line in ipairs(lines) do
 		print("line: ", line)
 	end
+end
+
+local function TestReadText()
+	print(FileReader.ReadText(Path.GetAddonDir() .. "/data.txt"))
 end
 
 local function TestConfig()
@@ -19,16 +23,15 @@ local function TestConfig()
 end
 
 local function TestPaths()
-	print("^^^^", Path:getOutputDir())
-	print("^^^^", Path:getInstallDir())
-	print("^^^^", Path:getBaseAddonDir())
-	print("^^^^", Path:getAddonDir())
-	print(FileReader:readText(Path:getInstallDir() .. "/README.md"))
+	print("^^^^", Path.GetOutputDir())
+	print("^^^^", Path.GetInstallDir())
+	print("^^^^", Path.GetBaseAddonDir())
+	print("^^^^", Path.GetAddonDir())
 end
 
 local function TestRemoveFiles()
-	FileUtils:removeFileFromAddonDir("apitestfile.lua")
-	FileUtils:removeFileFromOutputDir("apitestfile2.lua")
+	FileUtils.RemoveFileFromAddonDir("apitestfile.lua")
+	FileUtils.RemoveFileFromOutputDir("apitestfile2.lua")
 end
 
 function Initialize()
@@ -37,7 +40,8 @@ function Initialize()
 	TestGetLines()
 	TestConfig()
 	TestPaths()
-	TestRemoveFiles() --INFO: This is commented out since the files might not exist unless created when testing.]]
+	TestReadText()
+	--TestRemoveFiles() --INFO: This is commented out since the files might not exist unless created when testing.]]
 end
 
 function Deinitialize()
