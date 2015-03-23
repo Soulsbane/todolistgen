@@ -2,7 +2,6 @@ function Initialize()
 end
 
 function Deinitialize()
-	io.close(FileHandle)
 end
 
 function ProcessTasks(tasks, fileName)
