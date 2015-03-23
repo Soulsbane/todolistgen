@@ -1,36 +1,39 @@
+local FileHandle
+
 function Initialize()
-	FileUtils:removeFileFromOutputDir("todo.json")
-	local fileName = FileWriter:openFile("todo.json")
+	FileUtils.RemoveFileFromOutputDir("todo.json")
+	local fileName = Path.GetOutputDir() .. "/todo.json"
+	FileHandle = io.open(fileName, "w+")
 
 	print("Exporting list to " .. fileName)
-	FileWriter:writeLine("{")
+	FileHandle:write("{\n")
 end
 
 function Deinitialize()
-	FileWriter:writeLine("}")
+	FileHandle:write("}\n")
 end
 
 function ProcessTasks(tasks, fileName, lastFile)
-		FileWriter:writeLine(string.format("\t%q: [" , fileName))
+		FileHandle:write(string.format("\t%q: [\n" , fileName))
 
 		for i, task in pairs(tasks) do
 
-			FileWriter:writeLine("\t{")
+			FileHandle:write("\t{\n")
 
-			FileWriter:writeLine(string.format("\t\t%q: %d,", "lineNumber", task.lineNumber))
-			FileWriter:writeLine(string.format("\t\t%q: %q,", "message", task.message))
-			FileWriter:writeLine(string.format("\t\t%q: %q", "tag", task.tag))
+			FileHandle:write(string.format("\t\t%q: %d,\n", "lineNumber", task.lineNumber))
+			FileHandle:write(string.format("\t\t%q: %q,\n", "message", task.message))
+			FileHandle:write(string.format("\t\t%q: %q\n", "tag", task.tag))
 
 			if(i == #tasks) then
-				FileWriter:writeLine("\t}")
+				FileHandle:write("\t}\n")
 			else
-				FileWriter:writeLine("\t},")
+				FileHandle:write("\t},\n")
 			end
 		end
 		if lastFile then
-			FileWriter:writeLine("\t]")
+			FileHandle:write("\t]\n")
 		else
-			FileWriter:writeLine("\t],")
+			FileHandle:write("\t],\n")
 		end
 end
 
