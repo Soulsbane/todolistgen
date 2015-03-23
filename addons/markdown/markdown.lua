@@ -1,21 +1,26 @@
+local FileHandle
+
 function Initialize()
-	FileUtils:removeFileFromOutputDir("todo.md")
-	local fileName = FileWriter:openFile("todo.md")
+	local fileName = Path.GetOutputDir() .. "/todo.md"
+
+	FileUtils.RemoveFileFromOutputDir("todo.md")
+	FileHandle = io.open(fileName, "w+")
 
 	print("Exporting list to " .. fileName)
 end
 
 function Deinitialize()
+	io.close(FileHandle)
 end
 
 function ProcessTasks(tasks, fileName)
-	FileWriter:writeLine("## " .. fileName)
-	FileWriter:writeLine("Tag | " .. "Line Number | " .. "Message")
-	FileWriter:writeLine("----| " .. "------------| " .. "-------")
+	FileHandle:write("## " .. fileName .. "\n")
+	FileHandle:write("Tag | " .. "Line Number | " .. "Message" .. "\n")
+	FileHandle:write("----| " .. "------------| " .. "-------" .. "\n")
 
 	for i, task in ipairs(tasks) do
-		FileWriter:writeLine(task.tag .. " | " .. task.lineNumber .. "|" .. task.message)
+		FileHandle:write(task.tag .. " | " .. task.lineNumber .. "|" .. task.message .. "\n")
 	end
 
-	FileWriter:writeLine("\n")
+	FileHandle:write("\n")
 end
