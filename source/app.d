@@ -95,6 +95,10 @@ void processDir(immutable string dir, immutable string outputFormat, immutable s
 
 		addon.callFunction("Deinitialize");
 	}
+	else
+	{
+		writeln(outputFormat, " output format not found!");
+	}
 }
 
 void handleArguments(string[] args)

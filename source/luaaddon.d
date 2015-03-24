@@ -6,7 +6,6 @@ import std.path;
 import luad.all;
 
 import todotask;
-import luastatebase;
 import config;
 
 import api.file;
@@ -14,14 +13,27 @@ import api.path;
 import api.fileutils;
 import api.filereader;
 
-
-class LuaAddon : LuaStateBase
+class LuaAddon
 {
+public:
+	this()
+	{
+		lua_ = new LuaState;
+		lua_.openLibs();
+		lua_.setPanicHandler(&panic);
+	}
+
+	static void panic(LuaState lua, in char[] error)
+	{
+		import std.stdio;
+		writeln("Lua parsing error!\n", error, "\n");
+	}
+
 	void processTasks(immutable string fileName, TaskValues[] tasks, bool lastFile)
 	{
 		if(hasFunction("ProcessTasks"))
 		{
-			lua.get!LuaFunction("ProcessTasks")(lua.newTable(tasks), fileName, lastFile);
+			lua_.get!LuaFunction("ProcessTasks")(lua_.newTable(tasks), fileName, lastFile);
 		}
 	}
 
@@ -29,13 +41,13 @@ class LuaAddon : LuaStateBase
 	{
 		if(hasFunction(name))
 		{
-			lua.get!LuaFunction(name)();
+			lua_.get!LuaFunction(name)();
 		}
 	}
 
 	bool hasFunction(immutable string name)
 	{
-		if(lua[name].isNil)
+		if(lua_[name].isNil)
 		{
 			return false;
 		}
@@ -58,26 +70,26 @@ class LuaAddon : LuaStateBase
 
 		if(fileName != "")
 		{
-			lua["FileReader"] = lua.newTable;
-			lua["FileReader", "ReadText"] = &api.filereader.readText;
-			lua["FileReader", "GetLines"] = &api.filereader.getLines;
+			lua_["FileReader"] = lua_.newTable;
+			lua_["FileReader", "ReadText"] = &api.filereader.readText;
+			lua_["FileReader", "GetLines"] = &api.filereader.getLines;
 
-			lua["FileUtils"] = lua.newTable;
-			lua["FileUtils", "CopyFileTo"] = &api.fileutils.copyFileTo;
-			lua["FileUtils", "CopyToOutputDir"] = &api.fileutils.copyToOutputDir;
-			lua["FileUtils", "RemoveFileFromAddonDir"] = &api.fileutils.removeFileFromAddonDir;
-			lua["FileUtils", "RemoveFileFromOutputDir"] = &api.fileutils.removeFileFromOutputDir;
+			lua_["FileUtils"] = lua_.newTable;
+			lua_["FileUtils", "CopyFileTo"] = &api.fileutils.copyFileTo;
+			lua_["FileUtils", "CopyToOutputDir"] = &api.fileutils.copyToOutputDir;
+			lua_["FileUtils", "RemoveFileFromAddonDir"] = &api.fileutils.removeFileFromAddonDir;
+			lua_["FileUtils", "RemoveFileFromOutputDir"] = &api.fileutils.removeFileFromOutputDir;
 
-			lua["Config"] = new LuaConfig;
+			lua_["Config"] = new LuaConfig;
 
-			lua["Path"] = lua.newTable;
-			lua["Path", "GetInstallDir"] = &api.path.getInstallDir;
-			lua["Path", "GetBaseAddonDir"] = &api.path.getBaseAddonDir;
-			lua["Path", "GetAddonDir"] = &api.path.getAddonDir;
-			lua["Path", "GetOutputDir"] = &api.path.getOutputDir;
+			lua_["Path"] = lua_.newTable;
+			lua_["Path", "GetInstallDir"] = &api.path.getInstallDir;
+			lua_["Path", "GetBaseAddonDir"] = &api.path.getBaseAddonDir;
+			lua_["Path", "GetAddonDir"] = &api.path.getAddonDir;
+			lua_["Path", "GetOutputDir"] = &api.path.getOutputDir;
 
 			setupPackagePaths();
-			lua.doFile(fileName);
+			lua_.doFile(fileName);
 
 			return true;
 		}
@@ -91,6 +103,9 @@ class LuaAddon : LuaStateBase
 		string packagePath = getInstallDir() ~ sep ~ "modules" ~ sep ~ "?.lua";
 
 		packagePath ~= ";" ~ getAddonDir() ~ sep ~ "modules" ~ sep ~ "?.lua";
-		lua["package", "path"] = packagePath;
+		lua_["package", "path"] = packagePath;
 	}
+
+private:
+	LuaState lua_;
 }

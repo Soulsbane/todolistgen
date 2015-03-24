@@ -6,12 +6,20 @@ import std.stdio;
 
 import luad.all;
 
-import luastatebase;
-
-class LuaConfig : LuaStateBase
+class LuaConfig
 {
 public:
-	this() {}
+	this()
+	{
+		lua_ = new LuaState;
+		lua_.setPanicHandler(&panic);
+	}
+
+	static void panic(LuaState lua, in char[] error)
+	{
+		import std.stdio;
+		writeln("Lua parsing error!\n", error, "\n");
+	}
 
 	@trusted void load(string fileName = "config.lua")
 	{
@@ -24,18 +32,20 @@ public:
 			file.write(configText);
 		}
 
-		lua.doFile(configFile);
+		lua_.doFile(configFile);
 	}
 
 	@trusted LuaTable getTable(string name)
 	{
-		LuaTable variable = lua.get!LuaTable(name);
+		LuaTable variable = lua_.get!LuaTable(name);
 		return variable;
 	}
 
 	T getVariable(T = string)(string name)
 	{
-		return lua.get!T(name);
+		return lua_.get!T(name);
 	}
+private:
+	LuaState lua_;
 }
 
