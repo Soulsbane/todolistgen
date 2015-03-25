@@ -30,7 +30,7 @@ void processFile(immutable string fileName, immutable string outputFormat)
 		}
 		else
 		{
-			writeln("Output format NOT found!!!");
+			writeln(outputFormat, " output format not found!");
 		}
 	}
 	else
