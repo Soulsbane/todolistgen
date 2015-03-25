@@ -79,8 +79,6 @@ public:
 			lua_["FileUtils", "RemoveFileFromAddonDir"] = &api.fileutils.removeFileFromAddonDir;
 			lua_["FileUtils", "RemoveFileFromOutputDir"] = &api.fileutils.removeFileFromOutputDir;
 
-			lua_["Config"] = new LuaConfig;
-
 			lua_["Path"] = lua_.newTable;
 			lua_["Path", "GetInstallDir"] = &api.path.getInstallDir;
 			lua_["Path", "GetBaseAddonDir"] = &api.path.getBaseAddonDir;
