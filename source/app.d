@@ -3,6 +3,7 @@ import std.string;
 import std.file;
 import std.path;
 import std.range;
+import std.algorithm;
 
 static import std.parallelism;
 
@@ -79,7 +80,7 @@ void processDir(immutable string dir, immutable string outputFormat, immutable s
 		write("\x1B[2K");
 		write("\n");
 
-		foreach(fileName; files.keys.sort)
+		foreach(fileName; sort(files.keys))
 		{
 			numFiles++;
 
