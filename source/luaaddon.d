@@ -86,8 +86,8 @@ public:
 			lua_["Path", "GetOutputDir"] = &api.path.getOutputDir;
 
 			setupPackagePaths();
-			lua_.doFile(fileName);
-
+			auto addonFile = lua_.loadFile(fileName);
+			addonFile(); // INFO: We could pass arguments to the file via ... could be useful in the future.
 			return true;
 		}
 
