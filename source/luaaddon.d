@@ -76,8 +76,8 @@ public:
 			lua_["FileUtils"] = lua_.newTable;
 			lua_["FileUtils", "CopyFileTo"] = &api.fileutils.copyFileTo;
 			lua_["FileUtils", "CopyToOutputDir"] = &api.fileutils.copyToOutputDir;
-			lua_["FileUtils", "RemoveFileFromAddonDir"] = &api.fileutils.removeFileFromAddonDir;
-			lua_["FileUtils", "RemoveFileFromOutputDir"] = &api.fileutils.removeFileFromOutputDir;
+			//lua_["FileUtils", "RemoveFileFromAddonDir"] = &api.fileutils.removeFileFromAddonDir;
+			//lua_["FileUtils", "RemoveFileFromOutputDir"] = &api.fileutils.removeFileFromOutputDir;
 
 			lua_["Path"] = lua_.newTable;
 			lua_["Path", "GetInstallDir"] = &api.path.getInstallDir;
