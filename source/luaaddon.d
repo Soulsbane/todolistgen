@@ -76,6 +76,9 @@ public:
 			lua_["FileUtils"] = lua_.newTable;
 			lua_["FileUtils", "CopyFileTo"] = &api.fileutils.copyFileTo;
 			lua_["FileUtils", "CopyToOutputDir"] = &api.fileutils.copyToOutputDir;
+
+			// NOTE: This functions are buggy and are therefore implemented as a lua module named fileutils.lua.
+			// FIXME: These functions periodically cause "failed to stat file". This error never happens using the Lua functions.
 			//lua_["FileUtils", "RemoveFileFromAddonDir"] = &api.fileutils.removeFileFromAddonDir;
 			//lua_["FileUtils", "RemoveFileFromOutputDir"] = &api.fileutils.removeFileFromOutputDir;
 
