@@ -60,7 +60,6 @@ private:
 	@trusted string getConfigPattern()
 	{
 		auto config = new LuaConfig;
-		config.load();
 		auto variable = config.getTable("TodoTaskPatterns");
 
 		string found;

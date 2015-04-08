@@ -9,10 +9,11 @@ import luad.all;
 class LuaConfig
 {
 public:
-	this()
+	this(string fileName = "config.lua")
 	{
 		lua_ = new LuaState;
 		lua_.setPanicHandler(&panic);
+		load(fileName);
 	}
 
 	static void panic(LuaState lua, in char[] error)
@@ -21,7 +22,18 @@ public:
 		writeln("Lua parsing error!\n", error, "\n");
 	}
 
-	@trusted void load(string fileName = "config.lua")
+
+	@trusted LuaTable getTable(string name)
+	{
+		LuaTable variable = lua_.get!LuaTable(name);
+		return variable;
+	}
+
+	T getVariable(T = string)(string name)
+	{
+		return lua_.get!T(name);
+	}
+private @trusted void load(string fileName)
 	{
 		immutable string configFile = dirName(thisExePath()) ~ std.path.dirSeparator ~ fileName;
 
@@ -35,16 +47,6 @@ public:
 		lua_.doFile(configFile);
 	}
 
-	@trusted LuaTable getTable(string name)
-	{
-		LuaTable variable = lua_.get!LuaTable(name);
-		return variable;
-	}
-
-	T getVariable(T = string)(string name)
-	{
-		return lua_.get!T(name);
-	}
 private:
 	LuaState lua_;
 }
