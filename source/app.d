@@ -44,7 +44,7 @@ void processDir(immutable string dir, immutable string outputFormat, immutable s
 {
 	auto reader = new TodoFileReader;
 	TaskValues[][string] files;
-	int numFiles = 0;
+	uint numFiles = 0;
 	auto filesWalk = dirEntries(dir, pattern, SpanMode.breadth);
 
 	auto addon = new LuaAddon;

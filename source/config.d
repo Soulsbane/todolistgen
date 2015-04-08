@@ -33,7 +33,8 @@ public:
 	{
 		return lua_.get!T(name);
 	}
-private @trusted void load(string fileName)
+
+	private @trusted void load(string fileName)
 	{
 		immutable string configFile = dirName(thisExePath()) ~ std.path.dirSeparator ~ fileName;
 

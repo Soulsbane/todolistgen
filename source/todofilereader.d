@@ -61,8 +61,8 @@ private:
 	{
 		auto config = new LuaConfig;
 		auto variable = config.getTable("TodoTaskPatterns");
-
 		string found;
+
 		foreach(string key, bool value; variable)
 		{
 			if(value == true)
@@ -70,7 +70,6 @@ private:
 				found = key;
 			}
 		}
-
 		return found;
 	}
 
