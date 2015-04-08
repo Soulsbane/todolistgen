@@ -4,6 +4,7 @@ import std.file;
 import std.path;
 
 import api.path;
+import config;
 
 void copyFileTo(string from, string to)
 {
@@ -43,4 +44,13 @@ void removeFileFromOutputDir(string fileName)
 		// NOTE: Leaving this else here for now. I might make this function return a bool instead.
 		//writeln("Cannot remove ", file, " file not found!");
 	}
+}
+
+string getDefaultTodoFileName()
+{
+	auto config = new LuaConfig;
+	string value = config.getAppConfigVariable("DefaultTodoFileName");
+	import std.stdio;
+	writeln("Value, D side: ", value);
+	return value;
 }

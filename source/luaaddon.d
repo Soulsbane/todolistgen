@@ -76,6 +76,7 @@ public:
 			lua_["FileUtils"] = lua_.newTable;
 			lua_["FileUtils", "CopyFileTo"] = &api.fileutils.copyFileTo;
 			lua_["FileUtils", "CopyToOutputDir"] = &api.fileutils.copyToOutputDir;
+			lua_["FileUtils", "GetDefaultTodoFileName"] = &api.fileutils.getDefaultTodoFileName;
 
 			// NOTE: This functions are buggy and are therefore implemented as a lua module named fileutils.lua.
 			// FIXME: These functions periodically cause "failed to stat file". This error never happens using the Lua functions.

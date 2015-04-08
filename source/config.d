@@ -18,7 +18,6 @@ public:
 
 	static void panic(LuaState lua, in char[] error)
 	{
-		import std.stdio;
 		writeln("Lua parsing error!\n", error, "\n");
 	}
 
@@ -32,6 +31,12 @@ public:
 	T getVariable(T = string)(string name)
 	{
 		return lua_.get!T(name);
+	}
+
+	string getAppConfigVariable(string name)
+	{
+		auto value = lua_.get!(string)("AppConfigVars", name);
+		return value;
 	}
 
 	private @trusted void load(string fileName)

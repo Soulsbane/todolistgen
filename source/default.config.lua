@@ -7,6 +7,6 @@ TodoTaskPatterns = {
 
 AppConfigVars = {
 	DeleteAllTodoFilesAtStart = true,
-	TodoFileName = "todo",
+	DefaultTodoFileName = "todo",
 }
 

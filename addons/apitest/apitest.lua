@@ -15,11 +15,8 @@ local function TestReadText()
 end
 
 local function TestConfig()
-	local patterns = Config:getTable("TodoTaskPatterns")
-
-	for k, v in pairs(patterns) do
-		print(k, " = ", v)
-	end
+	local fileName = FileUtils.GetDefaultTodoFileName()
+	print("GetDefaultTodoFileName: ", fileName)
 end
 
 local function TestPaths()
