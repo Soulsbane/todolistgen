@@ -50,7 +50,6 @@ string getDefaultTodoFileName()
 {
 	auto config = new LuaConfig;
 	string value = config.getAppConfigVariable("DefaultTodoFileName");
-	import std.stdio;
-	writeln("Value, D side: ", value);
+
 	return value;
 }
