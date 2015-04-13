@@ -8,12 +8,12 @@ import config;
 
 void copyFileTo(string from, string to)
 {
-	std.file.copy(from, to);
+	std.file.copy(from, to, PreserveAttributes.yes);
 }
 
 void copyToOutputDir(string fileName)
 {
-	std.file.copy(fileName, getcwd() ~ std.path.dirSeparator ~ baseName(fileName));
+	std.file.copy(fileName, getcwd() ~ std.path.dirSeparator ~ baseName(fileName), PreserveAttributes.yes);
 }
 
 void removeFileFromAddonDir(string fileName)
