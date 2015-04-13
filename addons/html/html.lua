@@ -1,5 +1,4 @@
 local FileHandle
-local FileUtils = require("fileutils")
 
 function Initialize()
 	local fileName = Path.GetOutputDir() .. "/todo.html"

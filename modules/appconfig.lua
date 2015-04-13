@@ -1,4 +1,4 @@
-local AppConfig = {}
+local AppConfig = AppConfig
 
 local function LoadConfig()
 	local file = loadfile(Path:GetInstallDir() .. "/config.lua")

@@ -28,3 +28,8 @@ string getOutputDir()
 {
 	return getcwd();
 }
+
+string getModuleDir()
+{
+	return getInstallDir() ~ std.path.dirSeparator ~ "modules";
+}

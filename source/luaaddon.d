@@ -12,6 +12,8 @@ import api.path;
 import api.fileutils;
 import api.filereader;
 
+alias sep = std.path.dirSeparator;
+
 class LuaAddon
 {
 public:
@@ -56,6 +58,7 @@ public:
 	bool create(immutable string outputFormat)
 	{
 		string fileName;
+
 		foreach(DirEntry e; dirEntries(dirName(thisExePath()) ~ std.path.dirSeparator ~ "addons", "*.lua", SpanMode.breadth))
 		{
 			if(e.isFile)
@@ -69,6 +72,8 @@ public:
 
 		if(fileName != "")
 		{
+			lua_["AppConfig"] = lua_.newTable;
+
 			lua_["FileReader"] = lua_.newTable;
 			lua_["FileReader", "ReadText"] = &api.filereader.readText;
 			lua_["FileReader", "GetLines"] = &api.filereader.getLines;
@@ -90,17 +95,28 @@ public:
 			lua_["Path", "GetOutputDir"] = &api.path.getOutputDir;
 
 			setupPackagePaths();
+			loadDefaultModules();
+
 			auto addonFile = lua_.loadFile(fileName);
 			addonFile(); // INFO: We could pass arguments to the file via ... could be useful in the future.
+
 			return true;
 		}
 
 		return false;
 	}
 
+	void loadDefaultModules()
+	{
+		auto appConfigMod = lua_.loadFile(getModuleDir() ~ sep ~ "appconfig.lua");
+		auto fileUtilsMod = lua_.loadFile(getModuleDir() ~ sep ~ "fileutils.lua");
+
+		appConfigMod();
+		fileUtilsMod();
+	}
+
 	void setupPackagePaths()
 	{
-		alias sep = std.path.dirSeparator;
 		string packagePath = getInstallDir() ~ sep ~ "modules" ~ sep ~ "?.lua";
 
 		packagePath ~= ";" ~ getAddonDir() ~ sep ~ "modules" ~ sep ~ "?.lua";
