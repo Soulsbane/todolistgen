@@ -17,7 +17,7 @@ end
 local function TestConfig()
 	local fileName = FileUtils.GetDefaultTodoFileName()
 
-	print("GetDefaultTodoFileName: ", fileName) --FIXME: This works and the following line fails?
+	print("GetDefaultTodoFileName: ", fileName)
 	print("AppConfig.GetValue: ", AppConfig.GetValue("DefaultTodoFileName"))
 end
 

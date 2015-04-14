@@ -11,6 +11,28 @@ import todofilereader;
 import todotask;
 import luaaddon;
 import args;
+import config;
+
+void removeTodoFiles()
+{
+
+	auto config = new LuaConfig;
+	bool deleteTodoFiles = config.getAppConfigVariable!bool("DeleteAllTodoFilesAtStart");
+	string defaultTodoFileName = config.getAppConfigVariable("DefaultTodoFileName");
+
+	if(deleteTodoFiles)
+	{
+		foreach (string name; dirEntries(".", SpanMode.shallow))
+		{
+			if(name.baseName.startsWith(defaultTodoFileName ~"."))
+			{
+				writeln("Removing todo: ", name, "\n");
+				remove(name);
+			}
+		}
+
+	}
+}
 
 void processFile(immutable string fileName, immutable string outputFormat)
 {
@@ -61,7 +83,7 @@ void processDir(immutable string dir, immutable string outputFormat, immutable s
 			{
 				auto name = buildNormalizedPath(e.name);
 
-				if(!name.startsWith("."))
+				if(!name.startsWith(".")) // TODO: Find a better way to represent hidden files
 				{
 					TaskValues[] tasks = reader.readFile(name);
 
@@ -116,6 +138,7 @@ void handleArguments(string[] args)
 	}
 	else
 	{
+		removeTodoFiles();
 		processDir(dir, outputFormat, pattern);
 	}
 }

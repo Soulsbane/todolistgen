@@ -33,9 +33,9 @@ public:
 		return lua_.get!T(name);
 	}
 
-	string getAppConfigVariable(string name)
+	T getAppConfigVariable(T = string)(string name)
 	{
-		auto value = lua_.get!(string)("AppConfigVars", name);
+		auto value = lua_.get!T("AppConfigVars", name);
 		return value;
 	}
 
