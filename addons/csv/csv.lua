@@ -2,8 +2,6 @@ local FileHandle
 
 function Initialize()
 	local fileName = Path:GetOutputDir() .. "/todo.csv"
-
-	FileUtils.RemoveFileFromOutputDir(fileName)
 	FileHandle = io.open(fileName, "w+")
 
 	print("Exporting list to " .. fileName)

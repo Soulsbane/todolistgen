@@ -6,8 +6,6 @@ end
 
 function Initialize()
 	local fileName = Path:GetOutputDir() .. "/todo.xml"
-
-	FileUtils.RemoveFileFromOutputDir("todo.xml")
 	FileHandle = io.open(fileName, "w+")
 
 	print("Exporting list to " .. fileName)
