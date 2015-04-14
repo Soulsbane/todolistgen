@@ -15,7 +15,6 @@ import config;
 
 void removeTodoFiles()
 {
-
 	auto config = new LuaConfig;
 	bool deleteTodoFiles = config.getAppConfigVariable!bool("DeleteAllTodoFilesAtStart");
 	string defaultTodoFileName = config.getAppConfigVariable("DefaultTodoFileName");
@@ -26,7 +25,6 @@ void removeTodoFiles()
 		{
 			if(name.baseName.startsWith(defaultTodoFileName ~"."))
 			{
-				writeln("Removing todo: ", name, "\n");
 				remove(name);
 			}
 		}
