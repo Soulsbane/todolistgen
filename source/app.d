@@ -72,8 +72,8 @@ void processDir(immutable string dir, immutable string outputFormat, immutable s
 
 	if(created)
 	{
-		addon.callFunction("Initialize");
 		writeln("Processing ", walkLength(filesWalk), " files...");
+		addon.callFunction("Initialize");
 
 		foreach(DirEntry e; std.parallelism.parallel(dirEntries(dir, pattern, SpanMode.breadth)))
 		{
