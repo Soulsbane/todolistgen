@@ -83,10 +83,8 @@ public:
 			lua_["FileUtils", "CopyToOutputDir"] = &api.fileutils.copyToOutputDir;
 			lua_["FileUtils", "GetDefaultTodoFileName"] = &api.fileutils.getDefaultTodoFileName;
 
-			// NOTE: This functions are buggy and are therefore implemented as a lua module named fileutils.lua.
-			// FIXME: These functions periodically cause "failed to stat file". This error never happens using the Lua functions.
-			//lua_["FileUtils", "RemoveFileFromAddonDir"] = &api.fileutils.removeFileFromAddonDir;
-			//lua_["FileUtils", "RemoveFileFromOutputDir"] = &api.fileutils.removeFileFromOutputDir;
+			lua_["FileUtils", "RemoveFileFromAddonDir"] = &api.fileutils.removeFileFromAddonDir;
+			lua_["FileUtils", "RemoveFileFromOutputDir"] = &api.fileutils.removeFileFromOutputDir;
 
 			lua_["Path"] = lua_.newTable;
 			lua_["Path", "GetInstallDir"] = &api.path.getInstallDir;
@@ -109,10 +107,7 @@ public:
 	void loadDefaultModules()
 	{
 		auto appConfigMod = lua_.loadFile(getModuleDir() ~ sep ~ "appconfig.lua");
-		auto fileUtilsMod = lua_.loadFile(getModuleDir() ~ sep ~ "fileutils.lua");
-
 		appConfigMod();
-		fileUtilsMod();
 	}
 
 	void setupPackagePaths()
