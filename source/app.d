@@ -23,7 +23,7 @@ void removeTodoFiles()
 	{
 		foreach (string name; dirEntries(".", SpanMode.shallow))
 		{
-			if(name.baseName.startsWith(defaultTodoFileName ~"."))
+			if(name.baseName.startsWith(defaultTodoFileName ~ "."))
 			{
 				remove(name);
 			}
@@ -136,12 +136,12 @@ void handleArguments(string[] args)
 	}
 	else
 	{
-		removeTodoFiles();
 		processDir(dir, outputFormat, pattern);
 	}
 }
 
 void main(string[] args)
 {
+	removeTodoFiles();
 	handleArguments(args);
 }
