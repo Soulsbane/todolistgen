@@ -65,15 +65,15 @@ void processDir(immutable string dir, immutable string outputFormat, immutable s
 {
 	auto reader = new TodoFileReader;
 	TaskValues[][string] files;
-	uint numFiles = 0;
-	auto filesWalk = dirEntries(dir, pattern, SpanMode.breadth);
+	uint filesCounter = 0;
+	auto numFilesToProcess = dirEntries(dir, pattern, SpanMode.breadth);
 
 	auto addon = new LuaAddon;
 	immutable bool created = addon.create(outputFormat);
 
 	if(created)
 	{
-		writeln("Processing ", walkLength(filesWalk), " files...");
+		writeln("Processing ", walkLength(numFilesToProcess), " files...");
 		addon.callFunction("Initialize");
 
 		foreach(DirEntry e; std.parallelism.parallel(dirEntries(dir, pattern, SpanMode.breadth)))
@@ -103,9 +103,9 @@ void processDir(immutable string dir, immutable string outputFormat, immutable s
 
 		foreach(fileName; sort(files.keys))
 		{
-			numFiles++;
+			filesCounter++;
 
-			if(numFiles == files.length)
+			if(filesCounter == files.length)
 			{
 				addon.processTasks(fileName, files[fileName], true);
 			}
@@ -130,6 +130,7 @@ void handleArguments(string[] args)
 	if(args.length > 1)
 	{
 		string value = args[1];
+
 		if(value.startsWith("--dir")  || value.startsWith("--format") || value.startsWith("--pattern"))
 		{
 			processDir(cmd.getValue("dir"), cmd.getValue("format"), cmd.getValue("pattern"));
