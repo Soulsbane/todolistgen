@@ -14,7 +14,7 @@ public:
 		args_["format"] = "stdout";
 		args_["pattern"] = "*.*";
 
-		getopt(args, "dir", &args_["dir"], "format", &args_["format"], "pattern", &args_["pattern"]);
+		getopt(args, std.getopt.config.passThrough, "dir", &args_["dir"], "format", &args_["format"], "pattern", &args_["pattern"]);
 	}
 
 	T getValue(T = string)(immutable string key)

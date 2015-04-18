@@ -130,7 +130,6 @@ void handleArguments(string[] args)
 	if(args.length > 1)
 	{
 		string value = args[1];
-
 		if(value.startsWith("--dir")  || value.startsWith("--format") || value.startsWith("--pattern"))
 		{
 			processDir(cmd.getValue("dir"), cmd.getValue("format"), cmd.getValue("pattern"));
@@ -143,24 +142,6 @@ void handleArguments(string[] args)
 	else
 	{
 		processDir(cmd.getValue("dir"), cmd.getValue("format"), cmd.getValue("pattern"));
-	}
-}
-
-void handleArguments(string[] args)
-{
-	auto cmd = new CommandLineArgs(args);
-	immutable string dir = cmd.getValue("dir");
-	immutable string outputFormat = cmd.getValue("format");
-	immutable string pattern = cmd.getValue("pattern");
-
-	if(cmd.isValidValue("filename"))
-	{
-		immutable string fileName = cmd.getValue("filename");
-		processFile(fileName, outputFormat);
-	}
-	else
-	{
-		processDir(dir, outputFormat, pattern);
 	}
 }
 
