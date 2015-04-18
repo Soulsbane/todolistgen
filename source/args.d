@@ -1,32 +1,25 @@
 module args;
 
-import std.file;
-import std.stdio;
-import std.variant;
-import std.string;
-
-import docopt;
+import std.getopt;
+import std.conv;
 
 class CommandLineArgs
 {
 public:
 	this() {}
 
-	this(string[] args, immutable bool help = true, immutable string vers = "1.0.0")
+	this(string[] args)
 	{
-		immutable string argsText = loadArgsFile();
-		auto tempArgs = docopt.docopt(argsText, args[1..$], help, vers);
+		args_["dir"] = ".";
+		args_["format"] = "stdout";
+		args_["pattern"] = "*.*";
 
-		foreach(key, value; tempArgs)
-		{
-			auto argValue = value.value();
-			args_[key.removechars("-<>")] = argValue;
-		}
+		getopt(args, "dir", &args_["dir"], "format", &args_["format"], "pattern", &args_["pattern"]);
 	}
 
 	T getValue(T = string)(immutable string key)
 	{
-		return args_[key].coerce!T;
+		return to!T(args_[key]);
 	}
 
 	@safe bool isValidValue(immutable string key)
@@ -35,21 +28,5 @@ public:
 	}
 
 private:
-	pure string loadArgsFile()
-	{
-		debug
-		{
-			// INFO: This loads the command line interface at runtime making changes easier to debug.
-			import std.path;
-			immutable string argsText = readText(dirName(thisExePath()) ~ buildNormalizedPath("/source/args"));
-		}
-		else
-		{
-			immutable string argsText = import("args");
-		}
-		return argsText;
-	}
-
-private:
-	static Variant[string] args_;
+	static string[string] args_;
 }

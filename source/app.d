@@ -123,38 +123,26 @@ void processDir(immutable string dir, immutable string outputFormat, immutable s
 	}
 }
 
-void handleGetOpt(string[] args)
+void handleArguments(string[] args)
 {
-	string dir = ".";
-	string outputFormat = "stdout";
-	string pattern = "*.*";
-
-	//getopt(args, "dir", &dir, "format", &outputFormat, "pattern", &pattern);
-
-	//writeln("dir = ", dir, " format = ", outputFormat, " pattern = ", pattern);
-
-	/*foreach(value; args)
-	{
-		writeln(value, " Length = ", args.length);
-	}*/
+	auto cmd = new CommandLineArgs(args);
 
 	if(args.length > 1)
 	{
-		//writeln("Args1 = ", args[1], " Length = ", args.length);
 		string value = args[1];
 
 		if(value.startsWith("--dir")  || value.startsWith("--format") || value.startsWith("--pattern"))
 		{
-			getopt(args, "dir", &dir, "format", &outputFormat, "pattern", &pattern);
-
-			//writeln("Only passed args dir =  ", dir, " format = ", outputFormat, " pattern = ", pattern);
+			processDir(cmd.getValue("dir"), cmd.getValue("format"), cmd.getValue("pattern"));
 		}
 		else
 		{
-			getopt(args, "dir", &dir, "format", &outputFormat, "pattern", &pattern);
-			//writeln("Passed a filename dir = ", dir, " format = ", outputFormat, " pattern = ", pattern);
-			//writeln("Passed a filename ", value);
+			processFile(value, cmd.getValue("format"));
 		}
+	}
+	else
+	{
+		processDir(cmd.getValue("dir"), cmd.getValue("format"), cmd.getValue("pattern"));
 	}
 }
 
@@ -179,6 +167,5 @@ void handleArguments(string[] args)
 void main(string[] args)
 {
 	removeTodoFiles();
-	//handleArguments(args);
-	handleGetOpt(args);
+	handleArguments(args);
 }
