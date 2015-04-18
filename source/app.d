@@ -136,7 +136,10 @@ void handleArguments(string[] args)
 		}
 		else
 		{
-			processFile(value, cmd.getValue("format"));
+			if(!value.startsWith("--help"))
+			{
+				processFile(value, cmd.getValue("format"));
+			}
 		}
 	}
 	else
