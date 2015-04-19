@@ -16,33 +16,33 @@ void copyToOutputDir(string fileName)
 	std.file.copy(fileName, getcwd() ~ std.path.dirSeparator ~ baseName(fileName), PreserveAttributes.yes);
 }
 
-void removeFileFromAddonDir(string fileName)
+bool removeFileFromAddonDir(string fileName)
 {
 	string file = getAddonDir() ~ std.path.dirSeparator ~ fileName;
 
 	if(exists(file))
 	{
 		remove(file);
+		return true;
 	}
 	else
 	{
-		// NOTE: Leaving this else here for now. I might make this function return a bool instead.
-		//writeln("Cannot remove ", file, " file not found!");
+		return false;
 	}
 }
 
-void removeFileFromOutputDir(string fileName)
+bool removeFileFromOutputDir(string fileName)
 {
 	string file = getOutputDir() ~ std.path.dirSeparator ~ fileName;
 
 	if(exists(file))
 	{
 		remove(file);
+		return true;
 	}
 	else
 	{
-		// NOTE: Leaving this else here for now. I might make this function return a bool instead.
-		//writeln("Cannot remove ", file, " file not found!");
+		return false;
 	}
 }
 
