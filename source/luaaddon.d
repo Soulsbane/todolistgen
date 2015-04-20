@@ -55,6 +55,46 @@ public:
 		return true;
 	}
 
+	void setupAPIFunctions()
+	{
+		lua_["AppConfig"] = lua_.newTable;
+
+		lua_["FileReader"] = lua_.newTable;
+		lua_["FileReader", "ReadText"] = &api.filereader.readText;
+		lua_["FileReader", "GetLines"] = &api.filereader.getLines;
+
+		lua_["FileUtils"] = lua_.newTable;
+		lua_["FileUtils", "CopyFileTo"] = &api.fileutils.copyFileTo;
+		lua_["FileUtils", "CopyToOutputDir"] = &api.fileutils.copyToOutputDir;
+		lua_["FileUtils", "GetDefaultTodoFileName"] = &api.fileutils.getDefaultTodoFileName;
+
+		lua_["FileUtils", "RemoveFileFromAddonDir"] = &api.fileutils.removeFileFromAddonDir;
+		lua_["FileUtils", "RemoveFileFromOutputDir"] = &api.fileutils.removeFileFromOutputDir;
+
+		lua_["Path"] = lua_.newTable;
+		lua_["Path", "GetInstallDir"] = &api.path.getInstallDir;
+		lua_["Path", "GetBaseAddonDir"] = &api.path.getBaseAddonDir;
+		lua_["Path", "GetAddonDir"] = &api.path.getAddonDir;
+		lua_["Path", "GetOutputDir"] = &api.path.getOutputDir;
+	}
+
+	void setupPackagePaths()
+	{
+		string packagePath = getInstallDir() ~ sep ~ "modules" ~ sep ~ "?.lua";
+
+		packagePath ~= ";" ~ getAddonDir() ~ sep ~ "modules" ~ sep ~ "?.lua";
+		lua_["package", "path"] = packagePath;
+	}
+
+	void loadDefaultModules()
+	{
+		auto appConfigMod = lua_.loadFile(getModuleDir() ~ sep ~ "appconfig.lua");
+		auto fileUtilsMod = lua_.loadFile(getModuleDir() ~ sep ~ "fileutils.lua");
+
+		appConfigMod();
+		fileUtilsMod();
+	}
+
 	bool create(immutable string outputFormat)
 	{
 		string fileName;
@@ -72,26 +112,7 @@ public:
 
 		if(fileName != "")
 		{
-			lua_["AppConfig"] = lua_.newTable;
-
-			lua_["FileReader"] = lua_.newTable;
-			lua_["FileReader", "ReadText"] = &api.filereader.readText;
-			lua_["FileReader", "GetLines"] = &api.filereader.getLines;
-
-			lua_["FileUtils"] = lua_.newTable;
-			lua_["FileUtils", "CopyFileTo"] = &api.fileutils.copyFileTo;
-			lua_["FileUtils", "CopyToOutputDir"] = &api.fileutils.copyToOutputDir;
-			lua_["FileUtils", "GetDefaultTodoFileName"] = &api.fileutils.getDefaultTodoFileName;
-
-			lua_["FileUtils", "RemoveFileFromAddonDir"] = &api.fileutils.removeFileFromAddonDir;
-			lua_["FileUtils", "RemoveFileFromOutputDir"] = &api.fileutils.removeFileFromOutputDir;
-
-			lua_["Path"] = lua_.newTable;
-			lua_["Path", "GetInstallDir"] = &api.path.getInstallDir;
-			lua_["Path", "GetBaseAddonDir"] = &api.path.getBaseAddonDir;
-			lua_["Path", "GetAddonDir"] = &api.path.getAddonDir;
-			lua_["Path", "GetOutputDir"] = &api.path.getOutputDir;
-
+			setupAPIFunctions();
 			setupPackagePaths();
 			loadDefaultModules();
 
@@ -102,23 +123,6 @@ public:
 		}
 
 		return false;
-	}
-
-	void loadDefaultModules()
-	{
-		auto appConfigMod = lua_.loadFile(getModuleDir() ~ sep ~ "appconfig.lua");
-		auto fileUtilsMod = lua_.loadFile(getModuleDir() ~ sep ~ "fileutils.lua");
-
-		appConfigMod();
-		fileUtilsMod();
-	}
-
-	void setupPackagePaths()
-	{
-		string packagePath = getInstallDir() ~ sep ~ "modules" ~ sep ~ "?.lua";
-
-		packagePath ~= ";" ~ getAddonDir() ~ sep ~ "modules" ~ sep ~ "?.lua";
-		lua_["package", "path"] = packagePath;
 	}
 
 private:
