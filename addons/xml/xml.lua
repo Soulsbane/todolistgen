@@ -1,14 +1,12 @@
-local FileHandle
+local FileHandle, TodoFileName
 
 local function WriteTags(tagName, value)
 	FileHandle:write("\t\t<" .. tagName .. ">" .. value .. "</" .. tagName .. ">\n")
 end
 
 function Initialize()
-	local fileName = Path:GetOutputDir() .. "/todo.xml"
-	FileHandle = io.open(fileName, "w+")
-
-	print("Exporting list to " .. fileName)
+	FileHandle, TodoFileName = FileUtils.CreateTodoFile("xml")
+	print("Exporting list to " .. TodoFileName)
 
 	FileHandle:write([[<?xml version="1.0" encoding="UTF-8"?>\n]])
 	FileHandle:write("<todo>\n")

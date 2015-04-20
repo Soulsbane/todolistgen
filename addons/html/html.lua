@@ -1,12 +1,11 @@
-local FileHandle
+local FileHandle, TodoFileName
 
 function Initialize()
-	local fileName = Path.GetOutputDir() .. "/todo.html"
-
 	FileUtils.RemoveFileFromOutputDir("default.css")
-	FileHandle = io.open(fileName, "w+")
 
-	print("Exporting list to " .. fileName)
+	FileHandle, TodoFileName = FileUtils.CreateTodoFile("html")
+	print("Exporting list to " .. TodoFileName)
+
 	FileHandle:write(FileReader.ReadText(Path.GetAddonDir() .. "/templates/default/header.html"))
 end
 

@@ -1,10 +1,9 @@
-local FileHandle
+local FileHandle, TodoFileName
 
 function Initialize()
-	local fileName = Path.GetOutputDir() .. "/todo.json"
-	FileHandle = io.open(fileName, "w+")
+	FileHandle, TodoFileName = FileUtils.CreateTodoFile("json")
+	print("Exporting list to " .. TodoFileName)
 
-	print("Exporting list to " .. fileName)
 	FileHandle:write("{\n")
 end
 

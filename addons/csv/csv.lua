@@ -1,10 +1,9 @@
-local FileHandle
+local FileHandle, TodoFileName
 
 function Initialize()
-	local fileName = Path:GetOutputDir() .. "/todo.csv"
-	FileHandle = io.open(fileName, "w+")
+	FileHandle, TodoFileName = FileUtils.CreateTodoFile("csv")
 
-	print("Exporting list to " .. fileName)
+	print("Exporting list to " .. TodoFileName)
 end
 
 function Deinitialize()

@@ -1,10 +1,8 @@
-local FileHandle
+local FileHandle, TodoFileName
 
 function Initialize()
-	local fileName = Path.GetOutputDir() .. "/todo.md"
-	FileHandle = io.open(fileName, "w+")
-
-	print("Exporting list to " .. fileName)
+	FileHandle, TodoFileName = FileUtils.CreateTodoFile("md")
+	print("Exporting list to " .. TodoFileName)
 end
 
 function Deinitialize()

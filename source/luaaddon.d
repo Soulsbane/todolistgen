@@ -107,7 +107,10 @@ public:
 	void loadDefaultModules()
 	{
 		auto appConfigMod = lua_.loadFile(getModuleDir() ~ sep ~ "appconfig.lua");
+		auto fileUtilsMod = lua_.loadFile(getModuleDir() ~ sep ~ "fileutils.lua");
+
 		appConfigMod();
+		fileUtilsMod();
 	}
 
 	void setupPackagePaths()
