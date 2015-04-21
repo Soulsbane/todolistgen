@@ -18,7 +18,7 @@ public:
 
 	static void panic(LuaState lua, in char[] error)
 	{
-		writeln("Lua parsing error!\n", error, "\n");
+		writeln("An error occured while processing the config file! See below for details.\n\n", error);
 	}
 
 
