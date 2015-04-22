@@ -99,7 +99,7 @@ public:
 	{
 		string fileName;
 
-		foreach(DirEntry e; dirEntries(dirName(thisExePath()) ~ std.path.dirSeparator ~ "addons", "*.lua", SpanMode.breadth))
+		foreach(DirEntry e; dirEntries(dirName(thisExePath()) ~ sep ~ "addons", "*.lua", SpanMode.breadth))
 		{
 			if(e.isFile)
 			{

@@ -6,6 +6,8 @@ import std.path;
 import api.path;
 import config;
 
+alias sep = std.path.dirSeparator;
+
 void copyFileTo(string from, string to)
 {
 	std.file.copy(from, to, PreserveAttributes.yes);
@@ -13,36 +15,26 @@ void copyFileTo(string from, string to)
 
 void copyToOutputDir(string fileName)
 {
-	std.file.copy(fileName, getcwd() ~ std.path.dirSeparator ~ baseName(fileName), PreserveAttributes.yes);
+	std.file.copy(fileName, getcwd() ~ sep ~ baseName(fileName), PreserveAttributes.yes);
 }
 
-bool removeFileFromAddonDir(string fileName)
+void removeFileFromAddonDir(string fileName)
 {
-	string file = getAddonDir() ~ std.path.dirSeparator ~ fileName;
+	string file = getAddonDir() ~ sep ~ fileName;
 
 	if(exists(file))
 	{
 		remove(file);
-		return true;
-	}
-	else
-	{
-		return false;
 	}
 }
 
-bool removeFileFromOutputDir(string fileName)
+void removeFileFromOutputDir(string fileName)
 {
-	string file = getOutputDir() ~ std.path.dirSeparator ~ fileName;
+	string file = getOutputDir() ~ sep ~ fileName;
 
 	if(exists(file))
 	{
 		remove(file);
-		return true;
-	}
-	else
-	{
-		return false;
 	}
 }
 
