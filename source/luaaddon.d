@@ -14,6 +14,8 @@ import api.filereader;
 
 alias sep = std.path.dirSeparator;
 
+@trusted:
+
 class LuaAddon
 {
 public:
@@ -24,7 +26,7 @@ public:
 		lua_.setPanicHandler(&panic);
 	}
 
-	static void panic(LuaState lua, in char[] error)
+	static void panic(LuaState lua, in char[] error) @safe
 	{
 		import std.stdio;
 		writeln("Lua parsing error!\n", error, "\n");

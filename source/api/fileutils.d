@@ -8,17 +8,17 @@ import config;
 
 alias sep = std.path.dirSeparator;
 
-void copyFileTo(string from, string to)
+void copyFileTo(string from, string to) @trusted
 {
 	std.file.copy(from, to, PreserveAttributes.yes);
 }
 
-void copyToOutputDir(string fileName)
+void copyToOutputDir(string fileName) @trusted
 {
 	std.file.copy(fileName, getcwd() ~ sep ~ baseName(fileName), PreserveAttributes.yes);
 }
 
-void removeFileFromAddonDir(string fileName)
+void removeFileFromAddonDir(string fileName) @trusted
 {
 	string file = getAddonDir() ~ sep ~ fileName;
 
@@ -28,7 +28,7 @@ void removeFileFromAddonDir(string fileName)
 	}
 }
 
-void removeFileFromOutputDir(string fileName)
+void removeFileFromOutputDir(string fileName) @trusted
 {
 	string file = getOutputDir() ~ sep ~ fileName;
 
@@ -38,7 +38,7 @@ void removeFileFromOutputDir(string fileName)
 	}
 }
 
-string getDefaultTodoFileName()
+string getDefaultTodoFileName() @trusted
 {
 	auto config = new LuaConfig;
 	string value = config.getAppConfigVariable("DefaultTodoFileName");

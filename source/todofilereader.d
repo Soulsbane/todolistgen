@@ -18,7 +18,7 @@ public:
 		pattern_ = getConfigPattern();
 	}
 
-	TaskValues[] readFile(immutable string fileName)
+	TaskValues[] readFile(immutable string fileName) @trusted
 	{
 		TaskValues[] tasks;
 
@@ -37,7 +37,7 @@ public:
 	}
 
 private:
-	@safe TaskValues  createTask(immutable string curFileName, immutable ulong lineNum, immutable string line)
+	TaskValues  createTask(immutable string curFileName, immutable ulong lineNum, immutable string line) @safe
 	{
 		auto re = regex(pattern_, "g");
 		auto match = matchFirst(line, re);
@@ -57,7 +57,7 @@ private:
 		return values;
 	}
 
-	@trusted string getConfigPattern()
+	string getConfigPattern() @trusted
 	{
 		auto config = new LuaConfig;
 		auto variable = config.getTable("TodoTaskPatterns");

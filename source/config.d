@@ -9,20 +9,20 @@ import luad.all;
 class LuaConfig
 {
 public:
-	this(string fileName = "config.lua")
+	this(string fileName = "config.lua") @trusted
 	{
 		lua_ = new LuaState;
 		lua_.setPanicHandler(&panic);
 		load(fileName);
 	}
 
-	static void panic(LuaState lua, in char[] error)
+	static void panic(LuaState lua, in char[] error) @safe
 	{
 		writeln("An error occured while processing the config file! See below for details.\n\n", error);
 	}
 
 
-	@trusted LuaTable getTable(string name)
+	LuaTable getTable(string name) @trusted
 	{
 		LuaTable variable = lua_.get!LuaTable(name);
 		return variable;
@@ -39,7 +39,7 @@ public:
 		return value;
 	}
 
-	private @trusted void load(string fileName)
+	private void load(string fileName) @trusted
 	{
 		immutable string configFile = dirName(thisExePath()) ~ std.path.dirSeparator ~ fileName;
 

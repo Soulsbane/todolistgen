@@ -4,7 +4,7 @@ import std.getopt;
 import std.conv;
 import std.stdio;
 
-static void printHelp()
+static void printHelp() @safe
 {
 	immutable string argsText = import("args");
 	writeln(argsText);
@@ -24,12 +24,12 @@ public:
 		getopt(args, std.getopt.config.passThrough, "dir", &args_["dir"], "format", &args_["format"], "pattern", &args_["pattern"], "help", &printHelp);
 	}
 
-	T getValue(T = string)(immutable string key)
+	T getValue(T = string)(immutable string key) @safe
 	{
 		return to!T(args_[key]);
 	}
 
-	@safe bool isValidValue(immutable string key)
+	bool isValidValue(immutable string key) @safe
 	{
 		return (args_[key] != null);
 	}

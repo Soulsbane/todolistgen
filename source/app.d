@@ -14,7 +14,7 @@ import luaaddon;
 import args;
 import config;
 
-void removeTodoFiles()
+void removeTodoFiles() @trusted
 {
 	auto config = new LuaConfig;
 	bool deleteTodoFiles = config.getAppConfigVariable!bool("DeleteAllTodoFilesAtStart");
@@ -33,7 +33,7 @@ void removeTodoFiles()
 	}
 }
 
-void processFile(immutable string fileName, immutable string outputFormat)
+void processFile(immutable string fileName, immutable string outputFormat) @trusted
 {
 	if(exists(fileName))
 	{
@@ -61,7 +61,7 @@ void processFile(immutable string fileName, immutable string outputFormat)
 	}
 }
 
-void processDir(immutable string dir, immutable string outputFormat, immutable string pattern)
+void processDir(immutable string dir, immutable string outputFormat, immutable string pattern) @trusted
 {
 	auto reader = new TodoFileReader;
 	TaskValues[][string] files;
@@ -123,7 +123,7 @@ void processDir(immutable string dir, immutable string outputFormat, immutable s
 	}
 }
 
-void handleArguments(string[] args)
+void handleArguments(string[] args) @trusted
 {
 	auto cmd = new CommandLineArgs(args);
 
