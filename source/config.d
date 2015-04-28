@@ -18,9 +18,8 @@ public:
 
 	static void panic(LuaState lua, in char[] error) @safe
 	{
-		writeln("An error occured while processing the config file! See below for details.\n\n", error);
+		writeln("An error occured while processing config file! See below for details.\n\n", error);
 	}
-
 
 	LuaTable getTable(string name) @trusted
 	{
