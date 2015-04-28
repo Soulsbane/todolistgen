@@ -1,39 +1,25 @@
-local FileHandle, TodoFileName
+local TemplateMod = require("etlua")
+local FileHandle, TodoFileName, TasksTemplate
+local DEFAULT_TEMPLATE_PATH = Path.GetAddonDir() .. "/templates/default/"
 
 function Initialize()
+	TasksTemplate = FileReader.ReadText(DEFAULT_TEMPLATE_PATH .. "tasks.elt")
 	FileUtils.RemoveFileFromOutputDir("default.css")
 
 	FileHandle, TodoFileName = FileUtils.CreateTodoFile("html")
 	print("Exporting list to " .. TodoFileName)
 
-	FileHandle:write(FileReader.ReadText(Path.GetAddonDir() .. "/templates/default/header.html"))
+	FileHandle:write(FileReader.ReadText(DEFAULT_TEMPLATE_PATH .. "header.html"))
 end
 
 function Deinitialize()
-	FileHandle:write(FileReader.ReadText(Path.GetAddonDir() .. "/templates/default/footer.html"))
-	FileUtils.CopyToOutputDir(Path.GetAddonDir() .. "/templates/default/default.css")
+	FileHandle:write(FileReader.ReadText(DEFAULT_TEMPLATE_PATH .. "footer.html"))
+	FileUtils.CopyToOutputDir(DEFAULT_TEMPLATE_PATH .. "default.css")
+
 	io.close(FileHandle)
-
-end
-
-local function WriteTags(...)
-	for i,v in ipairs(arg) do
-		FileHandle:write(v)
-	end
 end
 
 function ProcessTasks(tasks, fileName)
-	WriteTags("<table><caption><b>", fileName, "</b></caption>")
-	FileHandle:write('<col width="10%"><col width="10%"><col width="80%">')
-	FileHandle:write("<tr><th>Tag</th><th>Line Number</th><th>Message</th></tr>")
-
-	for i, task in ipairs(tasks) do
-		FileHandle:write("<tr>")
-		WriteTags("<td>", task.tag, "</td>")
-		WriteTags("<td>", tostring(task.lineNumber), "</td>")
-		WriteTags("<td>", task.message, "</td>")
-		FileHandle:write("</tr>")
-	end
-
-	FileHandle:write("</table><br/>")
+	local template = TemplateMod.compile(TasksTemplate)
+	FileHandle:write((template({ fileName = fileName, tasks = tasks })))
 end
