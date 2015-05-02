@@ -4,7 +4,6 @@ import std.file;
 import std.path;
 import std.range;
 import std.algorithm;
-import std.getopt;
 
 static import std.parallelism;
 

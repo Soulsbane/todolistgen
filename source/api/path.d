@@ -12,7 +12,7 @@ string getInstallDir()
 
 string getBaseAddonDir()
 {
-	return dirName(thisExePath()) ~ std.path.dirSeparator ~ "addons";
+	return buildNormalizedPath(dirName(thisExePath()), "addons");
 }
 
 string getAddonDir()
@@ -21,7 +21,7 @@ string getAddonDir()
 	auto cmd = new CommandLineArgs;
 	string outputFormat = cmd.getValue("format");
 
-	return getBaseAddonDir() ~ std.path.dirSeparator ~ outputFormat;
+	return buildNormalizedPath(getBaseAddonDir(), outputFormat);
 }
 
 string getOutputDir()
@@ -31,5 +31,5 @@ string getOutputDir()
 
 string getModuleDir()
 {
-	return getInstallDir() ~ std.path.dirSeparator ~ "modules";
+	return buildNormalizedPath(getInstallDir(), "modules");
 }
