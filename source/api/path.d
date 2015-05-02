@@ -29,6 +29,11 @@ string getOutputDir()
 	return getcwd();
 }
 
+string getAddonModuleDir()
+{
+	return buildNormalizedPath(getAddonDir(), "modules");
+}
+
 string getModuleDir()
 {
 	return buildNormalizedPath(getInstallDir(), "modules");

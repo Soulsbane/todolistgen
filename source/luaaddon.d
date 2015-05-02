@@ -77,6 +77,7 @@ public:
 		lua_["Path", "GetInstallDir"] = &api.path.getInstallDir;
 		lua_["Path", "GetBaseAddonDir"] = &api.path.getBaseAddonDir;
 		lua_["Path", "GetAddonDir"] = &api.path.getAddonDir;
+		lua_["Path", "GetAddonModuleDir"] = &api.path.getAddonModuleDir;
 		lua_["Path", "GetOutputDir"] = &api.path.getOutputDir;
 	}
 
