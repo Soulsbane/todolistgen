@@ -22,12 +22,12 @@ local function TestConfig()
 end
 
 local function TestPaths()
-	print("^^^^", Path.GetOutputDir())
-	print("^^^^", Path.GetInstallDir())
-	print("^^^^", Path.GetBaseAddonDir())
-	print("^^^^", Path.GetAddonDir())
-	print("^^^^", Path.GetAddonModuleDir())
-	print("^^^^", Path.GetModuleDir())
+	print("GetOutputDir:", Path.GetOutputDir())
+	print("GetInstallDir:", Path.GetInstallDir())
+	print("GetBaseAddonDir:", Path.GetBaseAddonDir())
+	print("GetAddonDir:", Path.GetAddonDir())
+	print("GetAddonModuleDir:", Path.GetAddonModuleDir())
+	print("GetModuleDir:", Path.GetModuleDir())
 end
 
 local function TestRemoveFiles()
