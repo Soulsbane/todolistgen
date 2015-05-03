@@ -47,6 +47,12 @@ private:
 		immutable string configPath = buildNormalizedPath(writablePath(StandardPath.Config), organizationName, applicationName);
 		immutable string configFile = buildNormalizedPath(writablePath(StandardPath.Config), organizationName, applicationName, fileName);
 
+		debug
+		{
+			//INFO: We remove the config file here so any changes to default.config.lua will be in sync with config.lua
+			rmdirRecurse(configPath);
+		}
+
 		if(!exists(configPath))
 		{
 			mkdirRecurse(configPath);
