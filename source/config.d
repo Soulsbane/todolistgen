@@ -5,6 +5,7 @@ import std.path;
 import std.stdio;
 
 import luad.all;
+import standardpaths;
 
 class LuaConfig
 {
@@ -38,9 +39,18 @@ public:
 		return value;
 	}
 
-	private void load(string fileName) @trusted
+private:
+	void load(string fileName) @trusted
 	{
-		immutable string configFile = dirName(thisExePath()) ~ std.path.dirSeparator ~ fileName;
+		immutable string organizationName = "Raijinsoft";
+		immutable string applicationName = "todolistgen";
+		immutable string configPath = buildNormalizedPath(writablePath(StandardPath.Config), organizationName, applicationName);
+		immutable string configFile = buildNormalizedPath(writablePath(StandardPath.Config), organizationName, applicationName, fileName);
+
+		if(!exists(configPath))
+		{
+			mkdirRecurse(configPath);
+		}
 
 		if(!exists(configFile))
 		{
