@@ -3,7 +3,7 @@ module api.filereader;
 import std.file;
 import std.string;
 
-string readText(string fileName) @safe
+string readText(string fileName) @trusted
 {
 	return std.file.readText(fileName);
 }

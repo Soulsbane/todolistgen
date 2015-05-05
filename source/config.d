@@ -17,7 +17,7 @@ public:
 		load(fileName);
 	}
 
-	static void panic(LuaState lua, in char[] error) @safe
+	static void panic(LuaState lua, in char[] error) @trusted
 	{
 		writeln("An error occured while processing config file! See below for details.\n\n", error);
 	}

@@ -4,7 +4,7 @@ import std.getopt;
 import std.conv;
 import std.stdio;
 
-static void printHelp() @safe
+static void printHelp() @trusted
 {
 	immutable string argsText = import("args");
 	writeln(argsText);

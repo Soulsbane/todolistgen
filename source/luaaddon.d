@@ -26,7 +26,7 @@ public:
 		lua_.setPanicHandler(&panic);
 	}
 
-	static void panic(LuaState lua, in char[] error) @safe
+	static void panic(LuaState lua, in char[] error) @trusted
 	{
 		import std.stdio;
 		writeln("Lua parsing error!\n", error, "\n");
