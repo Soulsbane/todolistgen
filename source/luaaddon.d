@@ -26,7 +26,7 @@ public:
 		lua_.setPanicHandler(&panic);
 	}
 
-	static void panic(LuaState lua, in char[] error) @trusted
+	static void panic(LuaState lua, in char[] error)
 	{
 		import std.stdio;
 		writeln("Lua parsing error!\n", error, "\n");
@@ -101,20 +101,9 @@ public:
 
 	bool create(immutable string outputFormat)
 	{
-		string fileName;
+		immutable string fileName = buildNormalizedPath(getAddonDir(), outputFormat) ~ ".lua";
 
-		foreach(DirEntry e; dirEntries(dirName(thisExePath()) ~ sep ~ "addons", "*.lua", SpanMode.breadth))
-		{
-			if(e.isFile)
-			{
-				if(outputFormat == e.name.baseName.stripExtension)
-				{
-					fileName = e.name;
-				}
-			}
-		}
-
-		if(fileName != "")
+		if(exists(fileName))
 		{
 			setupAPIFunctions();
 			setupPackagePaths();
