@@ -12,8 +12,6 @@ import api.path;
 import api.fileutils;
 import api.filereader;
 
-alias sep = std.path.dirSeparator;
-
 @trusted:
 
 class LuaAddon
@@ -84,16 +82,16 @@ public:
 
 	void setupPackagePaths()
 	{
-		string packagePath = getInstallDir() ~ sep ~ "modules" ~ sep ~ "?.lua";
+		string packagePath = buildNormalizedPath(getInstallDir(), "modules", "?.lua");
 
-		packagePath ~= ";" ~ getAddonDir() ~ sep ~ "modules" ~ sep ~ "?.lua";
+		packagePath ~= ";" ~ buildNormalizedPath(getAddonDir(), "modules", "?.lua");
 		lua_["package", "path"] = packagePath;
 	}
 
 	void loadDefaultModules()
 	{
-		auto appConfigMod = lua_.loadFile(getModuleDir() ~ sep ~ "appconfig.lua");
-		auto fileUtilsMod = lua_.loadFile(getModuleDir() ~ sep ~ "fileutils.lua");
+		auto appConfigMod = lua_.loadFile(buildNormalizedPath(getModuleDir(), "appconfig.lua"));
+		auto fileUtilsMod = lua_.loadFile(buildNormalizedPath(getModuleDir(), "fileutils.lua"));
 
 		appConfigMod();
 		fileUtilsMod();
