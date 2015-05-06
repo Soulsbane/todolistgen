@@ -14,7 +14,7 @@ end
 
 function Deinitialize()
 	FileHandle:write(FileReader.ReadText(DEFAULT_TEMPLATE_PATH .. "footer.html"))
-	FileUtils.CopyToOutputDir(DEFAULT_TEMPLATE_PATH .. "default.css")
+	FileUtils.CopyFileToOutputDir(DEFAULT_TEMPLATE_PATH .. "default.css")
 
 	io.close(FileHandle)
 end
