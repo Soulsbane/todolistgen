@@ -11,7 +11,7 @@ void copyFileTo(string from, string to) @trusted
 	std.file.copy(from, to, PreserveAttributes.yes);
 }
 
-void copyToOutputDir(string fileName) @trusted
+void copyFileToOutputDir(string fileName) @trusted
 {
 	std.file.copy(fileName, buildNormalizedPath(getcwd(), baseName(fileName)), PreserveAttributes.yes);
 }

@@ -1,5 +1,5 @@
 local function TestFileCopy()
-	FileUtils.CopyToOutputDir(Path.GetAddonDir() .. "/data.txt")
+	FileUtils.CopyFileToOutputDir(Path.GetAddonDir() .. "/data.txt")
 end
 
 local function TestGetLines()

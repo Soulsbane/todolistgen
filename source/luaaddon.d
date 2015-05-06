@@ -65,7 +65,7 @@ public:
 
 		lua_["FileUtils"] = lua_.newTable;
 		lua_["FileUtils", "CopyFileTo"] = &api.fileutils.copyFileTo;
-		lua_["FileUtils", "CopyToOutputDir"] = &api.fileutils.copyToOutputDir;
+		lua_["FileUtils", "CopyFileToOutputDir"] = &api.fileutils.copyFileToOutputDir;
 		lua_["FileUtils", "GetDefaultTodoFileName"] = &api.fileutils.getDefaultTodoFileName;
 
 		lua_["FileUtils", "RemoveFileFromAddonDir"] = &api.fileutils.removeFileFromAddonDir;
