@@ -5,6 +5,8 @@ import std.path;
 import std.stdio;
 import std.string;
 
+import standardpaths;
+
 string getInstallDir()
 {
 	return dirName(thisExePath());
@@ -37,4 +39,12 @@ string getAddonModuleDir()
 string getModuleDir()
 {
 	return buildNormalizedPath(getInstallDir(), "modules");
+}
+
+string getConfigDir()
+{
+	immutable string organizationName = "Raijinsoft";
+	immutable string applicationName = "todolistgen";
+
+	return buildNormalizedPath(writablePath(StandardPath.Config), organizationName, applicationName);
 }

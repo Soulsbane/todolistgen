@@ -67,7 +67,6 @@ public:
 		lua_["FileUtils", "CopyFileTo"] = &api.fileutils.copyFileTo;
 		lua_["FileUtils", "CopyFileToOutputDir"] = &api.fileutils.copyFileToOutputDir;
 		lua_["FileUtils", "GetDefaultTodoFileName"] = &api.fileutils.getDefaultTodoFileName;
-
 		lua_["FileUtils", "RemoveFileFromAddonDir"] = &api.fileutils.removeFileFromAddonDir;
 		lua_["FileUtils", "RemoveFileFromOutputDir"] = &api.fileutils.removeFileFromOutputDir;
 
@@ -78,6 +77,7 @@ public:
 		lua_["Path", "GetAddonModuleDir"] = &api.path.getAddonModuleDir;
 		lua_["Path", "GetModuleDir"] = &api.path.getModuleDir;
 		lua_["Path", "GetOutputDir"] = &api.path.getOutputDir;
+		lua_["Path", "GetConfigDir"] = &api.path.getConfigDir;
 	}
 
 	void setupPackagePaths()

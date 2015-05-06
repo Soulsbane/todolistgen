@@ -28,6 +28,7 @@ local function TestPaths()
 	print("GetAddonDir:", Path.GetAddonDir())
 	print("GetAddonModuleDir:", Path.GetAddonModuleDir())
 	print("GetModuleDir:", Path.GetModuleDir())
+	print("GetConfigDir:", Path.GetConfigDir())
 end
 
 local function TestRemoveFiles()
