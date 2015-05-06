@@ -5,6 +5,9 @@ import std.path;
 import std.stdio;
 import std.string;
 
+enum string organizationName = "Raijinsoft";
+enum string applicationName = "todolistgen";
+
 import standardpaths;
 
 string getInstallDir()
@@ -43,8 +46,5 @@ string getModuleDir()
 
 string getConfigDir()
 {
-	immutable string organizationName = "Raijinsoft";
-	immutable string applicationName = "todolistgen";
-
 	return buildNormalizedPath(writablePath(StandardPath.Config), organizationName, applicationName);
 }
