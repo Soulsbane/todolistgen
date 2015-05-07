@@ -6,6 +6,7 @@ import std.stdio;
 
 import luad.all;
 import standardpaths;
+import api.path;
 
 class LuaConfig
 {
@@ -42,10 +43,8 @@ public:
 private:
 	void load(string fileName) @trusted
 	{
-		immutable string organizationName = "Raijinsoft";
-		immutable string applicationName = "todolistgen";
-		immutable string configPath = buildNormalizedPath(writablePath(StandardPath.Config), organizationName, applicationName);
-		immutable string configFile = buildNormalizedPath(writablePath(StandardPath.Config), organizationName, applicationName, fileName);
+		immutable string configPath = getConfigDir();
+		immutable string configFile = buildNormalizedPath(configPath, fileName);
 
 		debug
 		{
