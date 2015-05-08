@@ -2,8 +2,6 @@ module api.path;
 
 import std.file;
 import std.path;
-import std.stdio;
-import std.string;
 
 enum string organizationName = "Raijinsoft";
 enum string applicationName = "todolistgen";

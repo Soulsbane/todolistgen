@@ -55,6 +55,26 @@ public:
 		return true;
 	}
 
+	bool create(immutable string outputFormat)
+	{
+		immutable string fileName = buildNormalizedPath(getAddonDir(), outputFormat) ~ ".lua";
+
+		if(exists(fileName))
+		{
+			setupAPIFunctions();
+			setupPackagePaths();
+			loadDefaultModules();
+
+			auto addonFile = lua_.loadFile(fileName);
+			addonFile(); // INFO: We could pass arguments to the file via ... could be useful in the future.
+
+			return true;
+		}
+
+		return false;
+	}
+
+private:
 	void setupAPIFunctions()
 	{
 		lua_["AppConfig"] = lua_.newTable;
@@ -95,25 +115,6 @@ public:
 
 		appConfigMod();
 		fileUtilsMod();
-	}
-
-	bool create(immutable string outputFormat)
-	{
-		immutable string fileName = buildNormalizedPath(getAddonDir(), outputFormat) ~ ".lua";
-
-		if(exists(fileName))
-		{
-			setupAPIFunctions();
-			setupPackagePaths();
-			loadDefaultModules();
-
-			auto addonFile = lua_.loadFile(fileName);
-			addonFile(); // INFO: We could pass arguments to the file via ... could be useful in the future.
-
-			return true;
-		}
-
-		return false;
 	}
 
 private:
