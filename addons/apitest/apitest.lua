@@ -1,9 +1,12 @@
+local DataFile = Path.BuildNormalizedPath(Path.GetAddonDir(), "data.txt")
+
 local function TestFileCopy()
-	FileUtils.CopyFileToOutputDir(Path.GetAddonDir() .. "/data.txt")
+	print("Copying data.txt to output dir...")
+	FileUtils.CopyFileToOutputDir(DataFile)
 end
 
 local function TestGetLines()
-	local lines = FileReader.GetLines(Path.GetAddonDir() .. "/data.txt")
+	local lines = FileReader.GetLines(DataFile)
 
 	for i, line in ipairs(lines) do
 		print("line: ", line)
@@ -11,7 +14,7 @@ local function TestGetLines()
 end
 
 local function TestReadText()
-	print(FileReader.ReadText(Path.GetAddonDir() .. "/data.txt"))
+	print(FileReader.ReadText(DataFile))
 end
 
 local function TestConfig()
@@ -48,7 +51,8 @@ function Initialize()
 end
 
 function Deinitialize()
-	print("Deinitializing...")
+	print("Removing data.txt from output dir...")
+	FileUtils.RemoveFileFromOutputDir("data.txt")
 end
 
 function ProcessTasks(tasks, fileName)
