@@ -98,6 +98,7 @@ private:
 		lua_["Path", "GetModuleDir"] = &api.path.getModuleDir;
 		lua_["Path", "GetOutputDir"] = &api.path.getOutputDir;
 		lua_["Path", "GetConfigDir"] = &api.path.getConfigDir;
+		lua_["Path", "BuildNormalizedPath"] = &api.path.getNormalizedPath;
 	}
 
 	void setupPackagePaths()

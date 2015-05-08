@@ -46,3 +46,8 @@ string getConfigDir()
 {
 	return buildNormalizedPath(writablePath(StandardPath.Config), organizationName, applicationName);
 }
+
+string getNormalizedPath(const(char)[][] params...)
+{
+	return buildNormalizedPath(params);
+}
