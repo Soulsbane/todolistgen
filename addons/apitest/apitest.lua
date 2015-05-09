@@ -1,4 +1,4 @@
-local DataFile = Path.BuildNormalizedPath(Path.GetAddonDir(), "data.txt")
+local DataFile = Path.Normalize(Path.GetAddonDir(), "data.txt")
 
 local function TestFileCopy()
 	print("Copying data.txt to output dir...")
@@ -32,7 +32,7 @@ local function TestPaths()
 	print("GetAddonModuleDir:", Path.GetAddonModuleDir())
 	print("GetModuleDir:", Path.GetModuleDir())
 	print("GetConfigDir:", Path.GetConfigDir())
-	print("BuildNormalizedPath:", Path.BuildNormalizedPath(Path.GetOutputDir(), "blah", "foo", "bar"))
+	print("Normalize:", Path.Normalize(Path.GetOutputDir(), "blah", "foo", "bar"))
 end
 
 local function TestRemoveFiles()
