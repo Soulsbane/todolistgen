@@ -1,7 +1,7 @@
 local AppConfig = AppConfig
 
 local function LoadConfig()
-	local file = loadfile(Path:GetConfigDir() .. "/config.lua") --FIXME: Broken due to config dir changes.
+	local file = loadfile(Path.Normalize(Path:GetConfigDir(), "config.lua"))
 	file()
 end
 
