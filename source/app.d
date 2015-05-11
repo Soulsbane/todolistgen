@@ -7,11 +7,30 @@ import std.algorithm;
 
 static import std.parallelism;
 
+import standardpaths;
+
 import todofilereader;
 import todotask;
 import luaaddon;
 import args;
 import config;
+import api.path;
+
+void ensureConfigDirExists()
+{
+	immutable string configPath = getConfigDir();
+
+	debug
+	{
+		//INFO: We remove the config directory here so any changes to default.config.lua will be in sync with config.lua in debug mode.
+		rmdirRecurse(configPath);
+	}
+
+	if(!exists(configPath))
+	{
+		mkdirRecurse(configPath);
+	}
+}
 
 void removeTodoFiles() @trusted
 {
@@ -150,6 +169,7 @@ void handleArguments(string[] args) @trusted
 
 void main(string[] args)
 {
+	ensureConfigDirExists();
 	removeTodoFiles();
 	handleArguments(args);
 }

@@ -46,17 +46,6 @@ private:
 		immutable string configPath = getConfigDir();
 		immutable string configFile = buildNormalizedPath(configPath, fileName);
 
-		debug
-		{
-			//INFO: We remove the config file here so any changes to default.config.lua will be in sync with config.lua
-			rmdirRecurse(configPath);
-		}
-
-		if(!exists(configPath))
-		{
-			mkdirRecurse(configPath);
-		}
-
 		if(!exists(configFile))
 		{
 			immutable string configText = import("default.config.lua");
