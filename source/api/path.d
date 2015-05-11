@@ -15,7 +15,14 @@ string getInstallDir()
 
 string getBaseAddonDir()
 {
-	return buildNormalizedPath(dirName(thisExePath()), "addons");
+	debug
+	{
+		return buildNormalizedPath(dirName(thisExePath()), "addons");
+	}
+	else
+	{
+		return buildNormalizedPath(getConfigDir(), "addons");
+	}
 }
 
 string getAddonDir()
@@ -24,7 +31,15 @@ string getAddonDir()
 	auto cmd = new CommandLineArgs;
 	string outputFormat = cmd.getValue("format");
 
-	return buildNormalizedPath(getBaseAddonDir(), outputFormat);
+	// INFO: Addons are found in different locations depending on build type.
+	debug
+	{
+		return buildNormalizedPath(getBaseAddonDir(), outputFormat);
+	}
+	else
+	{
+		return buildNormalizedPath(getConfigDir(), "addons", outputFormat);
+	}
 }
 
 string getOutputDir()
