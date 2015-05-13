@@ -9,11 +9,11 @@
 	"buildTypes": {
 		"release": {
 			"buildOptions": ["optimize"],
-			"dflags": ["-Jsource"]
+			"dflags": ["-Jsource", "-Jaddons"]
 		},
 		"debug": {
 			"buildOptions": ["debugMode", "debugInfo", "debugInfoC"],
-			"dflags": ["-vcolumns", "-color", "-Jsource"]
+			"dflags": ["-vcolumns", "-color", "-Jsource", "-Jaddons"]
 		}
 	},
 	"dependencies": {
