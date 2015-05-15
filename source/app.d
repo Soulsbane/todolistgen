@@ -15,6 +15,7 @@ import luaaddon;
 import args;
 import config;
 import api.path;
+import addonextractor;
 
 void ensureConfigDirExists()
 {
@@ -170,6 +171,7 @@ void handleArguments(string[] args) @trusted
 void main(string[] args)
 {
 	ensureConfigDirExists();
+	extractFiles();
 	removeTodoFiles();
 	handleArguments(args);
 }
