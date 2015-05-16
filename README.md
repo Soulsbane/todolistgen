@@ -60,7 +60,7 @@ Creating an output format is easy. From here on I'll refer to the output format 
 3. Open the lua file you just created in your favrorite text editor. Inside this file place the following code:
 
     ```lua
-    function ProcessTasks(tasks, fileName)
+    function ProcessTasks(tasks, fileName, lastFile)
     	for _, task in ipairs(tasks) do
     		print(task.fileName, task.lineNumber, task.tag, task.message)
     	end

@@ -36,9 +36,6 @@ void extractFiles()
 			string pathStr = dirName(buildNormalizedPath(getBaseAddonDir(), dirString));
 			string fileName = buildNormalizedPath(getBaseAddonDir(), dirString);
 
-			writeln(pathStr);
-			writeln(fileName);
-
 			if(!exists(pathStr))
 			{
 				mkdirRecurse(pathStr);
