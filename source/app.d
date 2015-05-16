@@ -23,8 +23,11 @@ void ensureConfigDirExists()
 
 	debug
 	{
-		//INFO: We remove the config directory here so any changes to default.config.lua will be in sync with config.lua in debug mode.
-		rmdirRecurse(configPath);
+		if(exists(configPath))
+		{
+			//INFO: We remove the config directory here so any changes to default.config.lua will be in sync with config.lua in debug mode.
+			rmdirRecurse(configPath);
+		}
 	}
 
 	if(!exists(configPath))
