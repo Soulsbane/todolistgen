@@ -4,7 +4,7 @@ import std.file;
 
 import api.path;
 
-void extractFiles() pure @safe
+void extractFiles()
 {
 	immutable string[string] data =
 	[
