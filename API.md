@@ -22,6 +22,9 @@ Removes fileName from the currently in use addon's directory.
 #FileUtils.RemoveFileFromOutputDir(fileName)
 Removes fileName from the todo list output directory.
 
+#FileUtils.CreateTodoFile(fileExtension)
+Creates a file in the output directory with using AppConfigVar DefaultTodoFileName with the fileExtension passed to this function.
+
 #Path.GetInstallDir()
 Returns the directory where todolistgen is installed
 
