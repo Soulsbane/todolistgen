@@ -16,6 +16,9 @@ Copies fileName to the todo list output directory.
 #FileUtils.GetDefaultTodoFileName()
 Returns the fileName used to generate a todo list. By default this file is named todo. This setting is stored in config.lua in the AppConfigVars table.
 
+#FileUtils.RegisterFileForRemoval(fileName)
+Registers a fileName that will be removed before a directory is scanned.
+
 #FileUtils.RemoveFileFromAddonDir(fileName)
 Removes fileName from the currently in use addon's directory.
 
