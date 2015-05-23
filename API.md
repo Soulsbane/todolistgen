@@ -44,7 +44,7 @@ Returns the path to the module directory found in the install directory.
 Returns the path where the todo list will be created.
 
 #Path.GetConfigDir()
-Returns the path to the applications's config directory. On Linux /home/user/.config/Raijinsoft/todolistgen
+Returns the path to the applications's config directory. On Linux /home/user/.config/Raijinsoft/todolistgen and typically C:\Documents and Settings\username\Local Settings\Application Data\Raijinsoft\todolistgen on windows.
 
 #Path.Normalize(...)
 Combines one or more path segments. Directory separators are inserted between segments if necessary. For example, passing Normalize("foo", "bar", "baz") will return "foo/bar/baz".
