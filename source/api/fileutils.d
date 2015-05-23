@@ -2,9 +2,12 @@ module api.fileutils;
 
 import std.file;
 import std.path;
+import std.stdio;
+import std.string;
 
 import api.path;
 import config;
+import fileremover;
 
 void copyFileTo(string from, string to) @trusted
 {
@@ -42,4 +45,10 @@ string getDefaultTodoFileName() @trusted
 	string value = config.getAppConfigVariable("DefaultTodoFileName");
 
 	return value;
+}
+
+void registerFileForRemoval(string fileName)
+{
+	auto fileRemover = new FileRemover;
+	fileRemover.addFileToRemovalList(fileName);
 }

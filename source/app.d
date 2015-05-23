@@ -16,6 +16,7 @@ import args;
 import config;
 import api.path;
 import addonextractor;
+import fileremover;
 
 void ensureConfigDirExists()
 {
@@ -23,10 +24,14 @@ void ensureConfigDirExists()
 
 	debug
 	{
-		if(exists(configPath))
+		string configFile = buildNormalizedPath(configPath, "config.lua");
+
+		if(exists(configFile))
 		{
-			//INFO: We remove the config directory here so any changes to default.config.lua will be in sync with config.lua in debug mode.
-			rmdirRecurse(configPath);
+			//INFO: We remove the config file here so any changes to default.config.lua will be in sync with config.lua in debug mode.
+			//rmdirRecurse(configPath); //FIXME: Only remove config.lua at the very least.
+			//TODO: We should probably remove addons folder also.
+			remove(configFile);
 		}
 	}
 
@@ -95,8 +100,11 @@ void processDir(immutable string dir, immutable string outputFormat, immutable s
 
 	if(created)
 	{
+		auto fileRemover = new FileRemover;
+
 		writeln("Processing ", walkLength(numFilesToProcess), " files...");
 		addon.callFunction("Initialize");
+		fileRemover.removeRegisteredFiles();
 
 		foreach(DirEntry e; std.parallelism.parallel(dirEntries(dir, pattern, SpanMode.breadth)))
 		{

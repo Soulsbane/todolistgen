@@ -6,6 +6,7 @@ local Normalize = Path.Normalize
 function Initialize()
 	TasksTemplate = FileReader.ReadText(Normalize(DEFAULT_TEMPLATE_PATH, "tasks.elt"))
 	FileUtils.RemoveFileFromOutputDir("default.css")
+	FileUtils.RegisterFileForRemoval("default.css")
 
 	FileHandle, TodoFileName = FileUtils.CreateTodoFile("html")
 	print("Exporting list to " .. TodoFileName)
