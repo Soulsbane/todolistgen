@@ -50,20 +50,12 @@ public:
 
 	void addFileToRemovalList(immutable string fileName)
 	{
-		immutable string baseFileRemovalName = buildNormalizedPath(getConfigDir(), "removefiles.dat");
-		File removeFilesHandle;
-
-		if(exists(baseFileRemovalName))
-		{
-			removeFilesHandle.open(baseFileRemovalName, "a");
-		}
-		else
-		{
-			removeFilesHandle.open(baseFileRemovalName, "w+");
-		}
 
 		if(!isFileInList(fileName))
 		{
+			immutable string baseFileRemovalName = buildNormalizedPath(getConfigDir(), "removefiles.dat");
+			auto removeFilesHandle = File(baseFileRemovalName, "a+");
+
 			removeFilesHandle.writeln(fileName);
 		}
 	}
