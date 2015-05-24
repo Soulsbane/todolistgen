@@ -6,6 +6,7 @@ import std.stdio;
 import std.string;
 
 import api.path;
+import config;
 
 class FileRemover
 {
@@ -16,19 +17,6 @@ public:
 		if(exists(baseFileRemovalName))
 		{
 			files_ = readText(baseFileRemovalName).splitLines();
-		}
-	}
-
-	void removeRegisteredFiles() @trusted
-	{
-		foreach(file; files_)
-		{
-			immutable string fileToRemove = buildNormalizedPath(getOutputDir(), file);
-
-			if(exists(fileToRemove))
-			{
-				remove(fileToRemove);
-			}
 		}
 	}
 
@@ -44,7 +32,45 @@ public:
 		}
 	}
 
+	void removeFiles() @trusted
+	{
+		removeTodoFiles();
+		removeRegisteredFiles();
+	}
+
 private:
+	void removeRegisteredFiles() @trusted
+	{
+		foreach(file; files_)
+		{
+			immutable string fileToRemove = buildNormalizedPath(getOutputDir(), file);
+
+			if(exists(fileToRemove))
+			{
+				remove(fileToRemove);
+			}
+		}
+	}
+
+	void removeTodoFiles() @trusted
+	{
+		auto config = new LuaConfig;
+		bool deleteTodoFiles = config.getAppConfigVariable!bool("DeleteAllTodoFilesAtStart");
+		string defaultTodoFileName = config.getAppConfigVariable("DefaultTodoFileName");
+
+		if(deleteTodoFiles)
+		{
+			foreach (string name; dirEntries(".", SpanMode.shallow))
+			{
+				if(name.baseName.startsWith(defaultTodoFileName ~ "."))
+				{
+					remove(name);
+				}
+			}
+
+		}
+	}
+
 	bool isFileInList(immutable string fileName) @safe
 	{
 		bool found = false;

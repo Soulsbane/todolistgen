@@ -41,25 +41,6 @@ void ensureConfigDirExists()
 	}
 }
 
-void removeTodoFiles() @trusted
-{
-	auto config = new LuaConfig;
-	bool deleteTodoFiles = config.getAppConfigVariable!bool("DeleteAllTodoFilesAtStart");
-	string defaultTodoFileName = config.getAppConfigVariable("DefaultTodoFileName");
-
-	if(deleteTodoFiles)
-	{
-		foreach (string name; dirEntries(".", SpanMode.shallow))
-		{
-			if(name.baseName.startsWith(defaultTodoFileName ~ "."))
-			{
-				remove(name);
-			}
-		}
-
-	}
-}
-
 void processFile(immutable string fileName, immutable string outputFormat) @trusted
 {
 	if(exists(fileName))
@@ -100,11 +81,8 @@ void processDir(immutable string dir, immutable string outputFormat, immutable s
 
 	if(created)
 	{
-		auto fileRemover = new FileRemover;
-
 		writeln("Processing ", walkLength(numFilesToProcess), " files...");
 		addon.callFunction("Initialize");
-		fileRemover.removeRegisteredFiles();
 
 		foreach(DirEntry e; std.parallelism.parallel(dirEntries(dir, pattern, SpanMode.breadth)))
 		{
@@ -181,8 +159,10 @@ void handleArguments(string[] args) @trusted
 
 void main(string[] args)
 {
+	auto fileRemover = new FileRemover;
+
 	ensureConfigDirExists();
 	extractFiles();
-	removeTodoFiles();
+	fileRemover.removeFiles();
 	handleArguments(args);
 }
