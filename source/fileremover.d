@@ -9,12 +9,38 @@ import api.path;
 
 class FileRemover
 {
+public:
 	this()
 	{
 		string baseFileRemovalName = buildNormalizedPath(getConfigDir(), "removefiles.dat");
 		if(exists(baseFileRemovalName))
 		{
 			files_ = readText(baseFileRemovalName).splitLines();
+		}
+	}
+
+	void removeRegisteredFiles() @trusted
+	{
+		foreach(file; files_)
+		{
+			immutable string fileToRemove = buildNormalizedPath(getOutputDir(), file);
+
+			if(exists(fileToRemove))
+			{
+				remove(fileToRemove);
+			}
+		}
+	}
+
+	void addFileToRemovalList(immutable string fileName) @trusted
+	{
+
+		if(!isFileInList(fileName))
+		{
+			immutable string baseFileRemovalName = buildNormalizedPath(getConfigDir(), "removefiles.dat");
+			auto removeFilesHandle = File(baseFileRemovalName, "a+");
+
+			removeFilesHandle.writeln(fileName);
 		}
 	}
 
@@ -32,32 +58,6 @@ private:
 			}
 		}
 		return found;
-	}
-
-public:
-	void removeRegisteredFiles() @trusted
-	{
-		foreach(file; files_)
-		{
-			immutable string fileToRemove = buildNormalizedPath(getOutputDir(), file);
-
-			if(exists(fileToRemove))
-			{
-				remove(fileToRemove);
-			}
-		}
-	}
-
-	void addFileToRemovalList(immutable string fileName)
-	{
-
-		if(!isFileInList(fileName))
-		{
-			immutable string baseFileRemovalName = buildNormalizedPath(getConfigDir(), "removefiles.dat");
-			auto removeFilesHandle = File(baseFileRemovalName, "a+");
-
-			removeFilesHandle.writeln(fileName);
-		}
 	}
 
 private:
