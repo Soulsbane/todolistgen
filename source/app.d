@@ -17,7 +17,7 @@ import api.path;
 import addonextractor;
 import fileremover;
 
-void ensureConfigDirExists()
+void ensureConfigDirExists() @trusted
 {
 	immutable string configPath = getConfigDir();
 
@@ -28,8 +28,6 @@ void ensureConfigDirExists()
 		if(exists(configFile))
 		{
 			//INFO: We remove the config file here so any changes to default.config.lua will be in sync with config.lua in debug mode.
-			//rmdirRecurse(configPath); //FIXME: Only remove config.lua at the very least.
-			//TODO: We should probably remove addons folder also.
 			remove(configFile);
 		}
 	}
