@@ -13,7 +13,6 @@ import todofilereader;
 import todotask;
 import luaaddon;
 import args;
-import config;
 import api.path;
 import addonextractor;
 import fileremover;
