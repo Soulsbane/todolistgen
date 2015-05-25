@@ -11,6 +11,10 @@
 			"buildOptions": ["optimize"],
 			"dflags": ["-Jsource", "-Jaddons"]
 		},
+		"unittest": {
+			"buildOptions": ["debugMode", "debugInfo", "debugInfoC"],
+			"dflags": ["-vcolumns", "-color", "-Jsource", "-Jaddons"]
+		},
 		"debug": {
 			"buildOptions": ["debugMode", "debugInfo", "debugInfoC"],
 			"dflags": ["-vcolumns", "-color", "-Jsource", "-Jaddons"]
