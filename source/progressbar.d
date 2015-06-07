@@ -15,7 +15,6 @@ class ProgressBar
 		size_t max_width = 40;
 		size_t width = default_width;
 
-		ulong start_time;
 		size_t iterations;
 		size_t counter;
 
@@ -83,6 +82,7 @@ class ProgressBar
 
 		void next(immutable string fileName) {
 			clear();
+
 			version(Windows)
 			{
 				write(fileName);
