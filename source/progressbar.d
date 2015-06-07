@@ -35,11 +35,11 @@ class ProgressBar
 			write("\r");
 		}
 
-		string progressbarText(string header_text, string footer_text) {
+		string progressbarText(string header_text) {
 			immutable auto ratio = cast(double)counter / iterations;
 			string result = "";
 
-			double bar_length = width - header_text.length - footer_text.length;
+			double bar_length = width - header_text.length;
 			if(bar_length > max_width && max_width > 0) {
 				bar_length = max_width;
 			}
@@ -47,19 +47,18 @@ class ProgressBar
 			for(; i < ratio * bar_length; i++) result ~= "o";
 			for(; i < bar_length; i++) result ~= " ";
 
-			return header_text ~ result ~ footer_text;
+			return header_text ~ result;
 		}
 
 
 		void print() {
 			immutable auto ratio = cast(double)counter / iterations;
 			auto header = appender!string();
-			auto footer = appender!string();
 
 			header.formattedWrite("%s %3d%% |", "Processing", cast(int)(ratio * 100));
 
 			clear();
-			write(progressbarText(header.data, footer.data));
+			write(progressbarText(header.data));
 		}
 
 	public:
