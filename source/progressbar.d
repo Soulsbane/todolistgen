@@ -18,39 +18,59 @@ class ProgressBar
 		size_t iterations;
 		size_t counter;
 
-		size_t getTerminalWidth() {
+		size_t getTerminalWidth()
+		{
 			size_t column;
 			winsize ws;
-			if(ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) != -1) {
+
+			if(ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) != -1)
+			{
 				column = ws.ws_col;
 			}
-			if(column == 0) column = default_width;
+
+			if(column == 0)
+			{
+				column = default_width;
+			}
 
 			return column;
 		}
 
 
-		void clear() {
+		void clear()
+		{
 			write("\x1B[2K");
 			write("\r");
 		}
 
-		string progressbarText(string header_text) {
+		string progressbarText(string header_text)
+		{
 			immutable auto ratio = cast(double)counter / iterations;
 			string result = "";
-
 			double bar_length = width - header_text.length;
-			if(bar_length > max_width && max_width > 0) {
+
+			if(bar_length > max_width && max_width > 0)
+			{
 				bar_length = max_width;
 			}
+
 			size_t i = 0;
-			for(; i < ratio * bar_length; i++) result ~= "o";
-			for(; i < bar_length; i++) result ~= " ";
+
+			for(; i < ratio * bar_length; i++)
+			{
+				result ~= "o";
+			}
+
+			for(; i < bar_length; i++)
+			{
+				result ~= " ";
+			}
 
 			return header_text ~ result;
 		}
 
-		void print() {
+		void print()
+		{
 			immutable auto ratio = cast(double)counter / iterations;
 			auto header = appender!string();
 
@@ -62,16 +82,20 @@ class ProgressBar
 
 	public:
 
-		this(size_t iterations) {
-			if(iterations <= 0) iterations = 1;
+		this(size_t iterations)
+		{
+			if(iterations <= 0)
+			{
+				iterations = 1;
+			}
 
 			counter = 0;
 			width = getTerminalWidth();
-
 			this.iterations = iterations;
 		}
 
-		void next(immutable string fileName) {
+		void next(immutable string fileName)
+		{
 			clear();
 
 			version(Windows)
