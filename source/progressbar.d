@@ -90,14 +90,6 @@ class ProgressBar
 		}
 
 		@property {
-			size_t count() { return counter; }
-			size_t count(size_t val) {
-				if(val > iterations) val = iterations;
-				return counter = val;
-			}
-		}
-
-		@property {
 			size_t maxWidth() { return max_width; }
 			size_t maxWidth(size_t w) {
 				return max_width = w;
