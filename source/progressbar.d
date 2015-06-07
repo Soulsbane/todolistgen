@@ -13,7 +13,7 @@ class ProgressBar
 
 		immutable static size_t defaultWidth_ = 80;
 		size_t maxWidth_ = 40;
-		size_t width = defaultWidth_;
+		size_t width_ = defaultWidth_;
 
 		size_t iterations_;
 		size_t counter_;
@@ -47,7 +47,7 @@ class ProgressBar
 		{
 			immutable auto ratio = cast(double)counter_ / iterations_;
 			string result = "";
-			double bar_length = width - header_text.length;
+			double bar_length = width_ - header_text.length;
 
 			if(bar_length > maxWidth_ && maxWidth_ > 0)
 			{
@@ -90,7 +90,7 @@ class ProgressBar
 			}
 
 			counter_ = 0;
-			width = getTerminalWidth();
+			width_ = getTerminalWidth();
 			this.iterations_ = iterations;
 		}
 
