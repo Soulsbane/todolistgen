@@ -9,112 +9,111 @@ import core.sys.posix.sys.ioctl;
 
 class ProgressBar
 {
-	private:
+private:
+	size_t getTerminalWidth()
+	{
+		size_t column;
+		winsize ws;
 
-		immutable static size_t defaultWidth_ = 80;
-		size_t maxWidth_ = 40;
-		size_t width_ = defaultWidth_;
-
-		size_t iterations_;
-		size_t counter_;
-
-		size_t getTerminalWidth()
+		if(ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) != -1)
 		{
-			size_t column;
-			winsize ws;
-
-			if(ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) != -1)
-			{
-				column = ws.ws_col;
-			}
-
-			if(column == 0)
-			{
-				column = defaultWidth_;
-			}
-
-			return column;
+			column = ws.ws_col;
 		}
 
-
-		void clear()
+		if(column == 0)
 		{
-			write("\x1B[2K");
-			write("\r");
+			column = defaultWidth_;
 		}
 
-		string progressbarText(string header_text)
+		return column;
+	}
+
+
+	void clear()
+	{
+		write("\x1B[2K");
+		write("\r");
+	}
+
+	string progressbarText(string header_text)
+	{
+		immutable auto ratio = cast(double)counter_ / iterations_;
+		string result = "";
+		double bar_length = width_ - header_text.length;
+
+		if(bar_length > maxWidth_ && maxWidth_ > 0)
 		{
-			immutable auto ratio = cast(double)counter_ / iterations_;
-			string result = "";
-			double bar_length = width_ - header_text.length;
-
-			if(bar_length > maxWidth_ && maxWidth_ > 0)
-			{
-				bar_length = maxWidth_;
-			}
-
-			size_t i = 0;
-
-			for(; i < ratio * bar_length; i++)
-			{
-				result ~= "o";
-			}
-
-			for(; i < bar_length; i++)
-			{
-				result ~= "-";
-			}
-
-			return header_text ~ result;
+			bar_length = maxWidth_;
 		}
 
-		void print()
+		size_t i = 0;
+
+		for(; i < ratio * bar_length; i++)
 		{
-			immutable auto ratio = cast(double)counter_ / iterations_;
-			auto header = appender!string();
-
-			header.formattedWrite("%s %3d%% |", "Processing", cast(int)(ratio * 100));
-
-			clear();
-			write(progressbarText(header.data));
+			result ~= "o";
 		}
 
-	public:
-
-		this(size_t iterations)
+		for(; i < bar_length; i++)
 		{
-			if(iterations <= 0)
-			{
-				iterations = 1;
-			}
-
-			counter_ = 0;
-			width_ = getTerminalWidth();
-			this.iterations_ = iterations;
+			result ~= "-";
 		}
 
-		void next(immutable string fileName)
+		return header_text ~ result;
+	}
+
+	void print()
+	{
+		immutable auto ratio = cast(double)counter_ / iterations_;
+		auto header = appender!string();
+
+		header.formattedWrite("%s %3d%% |", "Processing", cast(int)(ratio * 100));
+
+		clear();
+		write(progressbarText(header.data));
+	}
+
+public:
+	this(size_t iterations)
+	{
+		if(iterations <= 0)
 		{
-			clear();
-
-			version(Windows)
-			{
-				write(fileName);
-			}
-			else
-			{
-				counter_++;
-
-				if(counter_ > iterations_)
-				{
-					counter_ = iterations_;
-				}
-
-				print();
-			}
-
-			stdout.flush();
+			iterations = 1;
 		}
+
+		counter_ = 0;
+		width_ = getTerminalWidth();
+		this.iterations_ = iterations;
+	}
+
+	void next(immutable string fileName)
+	{
+		clear();
+
+		version(Windows)
+		{
+			write(fileName);
+		}
+		else
+		{
+			counter_++;
+
+			if(counter_ > iterations_)
+			{
+				counter_ = iterations_;
+			}
+
+			print();
+		}
+
+		stdout.flush();
+	}
+
+private:
+	immutable static size_t defaultWidth_ = 80;
+	size_t maxWidth_ = 40;
+	size_t width_ = defaultWidth_;
+
+	size_t iterations_;
+	size_t counter_;
 }
 
