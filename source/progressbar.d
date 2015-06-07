@@ -50,7 +50,6 @@ class ProgressBar
 			return header_text ~ result;
 		}
 
-
 		void print() {
 			immutable auto ratio = cast(double)counter / iterations;
 			auto header = appender!string();
@@ -70,13 +69,6 @@ class ProgressBar
 			width = getTerminalWidth();
 
 			this.iterations = iterations;
-		}
-
-		@property {
-			size_t maxWidth() { return max_width; }
-			size_t maxWidth(size_t w) {
-				return max_width = w;
-			}
 		}
 
 		void next(immutable string fileName) {
