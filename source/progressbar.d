@@ -63,7 +63,7 @@ class ProgressBar
 
 			for(; i < bar_length; i++)
 			{
-				result ~= " ";
+				result ~= "-";
 			}
 
 			return header_text ~ result;
