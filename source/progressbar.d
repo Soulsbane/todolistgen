@@ -9,138 +9,138 @@ import core.sys.posix.sys.ioctl;
 
 class Progress
 {
-  private:
+	private:
 
-    immutable static size_t default_width = 80;
-    size_t max_width = 40;
-    size_t width = default_width;
+		immutable static size_t default_width = 80;
+		size_t max_width = 40;
+		size_t width = default_width;
 
-    ulong start_time;
-    string caption = "Progress";
-    size_t iterations;
-    size_t counter;
-
-
-    size_t getTerminalWidth() {
-      size_t column;
-      winsize ws;
-      if(ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) != -1) {
-        column = ws.ws_col;
-      }
-      if(column == 0) column = default_width;
-
-      return column;
-    }
+		ulong start_time;
+		string caption = "Progress";
+		size_t iterations;
+		size_t counter;
 
 
-    void clear() {
-      /*write("\r");
-      for(auto i = 0; i < width; i++) write(" ");
-      write("\r");*/
-    write("\x1B[2K");
-          write("\r");
-    }
+		size_t getTerminalWidth() {
+			size_t column;
+			winsize ws;
+			if(ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) != -1) {
+				column = ws.ws_col;
+			}
+			if(column == 0) column = default_width;
+
+			return column;
+		}
 
 
-    int calc_eta() {
-      immutable auto ratio = cast(double)counter / iterations;
-      auto current_time = Clock.currTime.toUnixTime();
-      auto duration = (current_time - start_time);
-      int hours, minutes, seconds;
-      double elapsed = (current_time - start_time);
-      int eta_sec = cast(int)((elapsed / ratio) - elapsed);
-
-      return eta_sec;
-    }
+		void clear() {
+			/*write("\r");
+			for(auto i = 0; i < width; i++) write(" ");
+			write("\r");*/
+		write("\x1B[2K");
+					write("\r");
+		}
 
 
-    string progressbarText(string header_text, string footer_text) {
-      immutable auto ratio = cast(double)counter / iterations;
-      string result = "";
+		int calc_eta() {
+			immutable auto ratio = cast(double)counter / iterations;
+			auto current_time = Clock.currTime.toUnixTime();
+			auto duration = (current_time - start_time);
+			int hours, minutes, seconds;
+			double elapsed = (current_time - start_time);
+			int eta_sec = cast(int)((elapsed / ratio) - elapsed);
 
-      double bar_length = width - header_text.length - footer_text.length;
-      if(bar_length > max_width && max_width > 0) {
-        bar_length = max_width;
-      }
-      size_t i = 0;
-      for(; i < ratio * bar_length; i++) result ~= "o";
-      for(; i < bar_length; i++) result ~= " ";
-
-      return header_text ~ result ~ footer_text;
-    }
+			return eta_sec;
+		}
 
 
-    void print() {
-      immutable auto ratio = cast(double)counter / iterations;
-      auto header = appender!string();
-      auto footer = appender!string();
+		string progressbarText(string header_text, string footer_text) {
+			immutable auto ratio = cast(double)counter / iterations;
+			string result = "";
 
-      header.formattedWrite("%s %3d%% |", caption, cast(int)(ratio * 100));
+			double bar_length = width - header_text.length - footer_text.length;
+			if(bar_length > max_width && max_width > 0) {
+				bar_length = max_width;
+			}
+			size_t i = 0;
+			for(; i < ratio * bar_length; i++) result ~= "o";
+			for(; i < bar_length; i++) result ~= " ";
 
-      if(counter <= 1 || ratio == 0.0) {
-        footer.formattedWrite("| ETA --:--:--:");
-      } else {
-        int h, m, s;
-        dur!"seconds"(calc_eta())
-          .split!("hours", "minutes", "seconds")(h, m, s);
-        footer.formattedWrite("| ETA %02d:%02d:%02d ", h, m, s);
-      }
-      clear();
-      write(progressbarText(header.data, footer.data));
-    }
+			return header_text ~ result ~ footer_text;
+		}
 
 
-    void update() {
-      width = getTerminalWidth();
+		void print() {
+			immutable auto ratio = cast(double)counter / iterations;
+			auto header = appender!string();
+			auto footer = appender!string();
 
-      clear();
+			header.formattedWrite("%s %3d%% |", caption, cast(int)(ratio * 100));
 
-      print();
-      stdout.flush();
-    }
+			if(counter <= 1 || ratio == 0.0) {
+				footer.formattedWrite("| ETA --:--:--:");
+			} else {
+				int h, m, s;
+				dur!"seconds"(calc_eta())
+					.split!("hours", "minutes", "seconds")(h, m, s);
+				footer.formattedWrite("| ETA %02d:%02d:%02d ", h, m, s);
+			}
+			clear();
+			write(progressbarText(header.data, footer.data));
+		}
 
 
-  public:
+		void update() {
+			width = getTerminalWidth();
 
-    this(size_t iterations) {
-      if(iterations <= 0) iterations = 1;
+			clear();
 
-      counter = 0;
-      this.iterations = iterations;
-      start_time = Clock.currTime.toUnixTime;
-    }
+			print();
+			stdout.flush();
+		}
 
-    @property {
-      string title() { return caption; }
-      string title(string text) { return caption = text; }
-    }
 
-    @property {
-      size_t count() { return counter; }
-      size_t count(size_t val) {
-        if(val > iterations) val = iterations;
-        return counter = val;
-      }
-    }
+	public:
 
-    @property {
-      size_t maxWidth() { return max_width; }
-      size_t maxWidth(size_t w) {
-        return max_width = w;
-      }
-    }
+		this(size_t iterations) {
+			if(iterations <= 0) iterations = 1;
 
-    void reset() {
-      counter = 0;
-      start_time = Clock.currTime.toUnixTime;
-    }
+			counter = 0;
+			this.iterations = iterations;
+			start_time = Clock.currTime.toUnixTime;
+		}
 
-    void next() {
-      counter++;
-      if(counter > iterations) counter = iterations;
+		@property {
+			string title() { return caption; }
+			string title(string text) { return caption = text; }
+		}
 
-      update();
-    }
+		@property {
+			size_t count() { return counter; }
+			size_t count(size_t val) {
+				if(val > iterations) val = iterations;
+				return counter = val;
+			}
+		}
+
+		@property {
+			size_t maxWidth() { return max_width; }
+			size_t maxWidth(size_t w) {
+				return max_width = w;
+			}
+		}
+
+		void reset() {
+			counter = 0;
+			start_time = Clock.currTime.toUnixTime;
+		}
+
+		void next() {
+			counter++;
+			if(counter > iterations) counter = iterations;
+
+			update();
+		}
 
 
 }
