@@ -22,7 +22,6 @@
 	},
 	"dependencies": {
 		"luad": "~master",
-		"standardpaths":"*",
-		"progress-d": "~>1.0.0"
+		"standardpaths":"*"
 	}
 }

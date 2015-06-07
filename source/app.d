@@ -16,6 +16,7 @@ import args;
 import api.path;
 import addonextractor;
 import fileremover;
+import progressbar;
 
 void ensureConfigDirExists() @trusted
 {
@@ -78,31 +79,21 @@ void processDir(immutable string dir, immutable string outputFormat, immutable s
 
 	if(created)
 	{
-		import progress;
-
 		auto filesLength = walkLength(numFilesToProcess);
-		Progress p = new Progress(filesLength);
+		ProgressBar p = new ProgressBar(filesLength);
 
-		p.title = "Processing";
-		writeln("Processing ", filesLength, " files...");
+		writeln(filesLength, " files to process.");
 		addon.callFunction("Initialize");
 
 		foreach(DirEntry e; std.parallelism.parallel(dirEntries(dir, pattern, SpanMode.breadth)))
 		{
+			auto name = buildNormalizedPath(e.name);
+
 			if(e.isFile)
 			{
-				auto name = buildNormalizedPath(e.name);
-
 				if(!name.startsWith(".")) // TODO: Find a better way to represent hidden files
 				{
 					TaskValues[] tasks = reader.readFile(name);
-
-					version(Windows) // FIXME: Really we should fork progress-D and customize it to fit with todolistgen
-					{
-						write("\x1B[2K");
-						write("\r");
-						write(name);
-					}
 
 					if(tasks.length > 0)
 					{
@@ -110,17 +101,10 @@ void processDir(immutable string dir, immutable string outputFormat, immutable s
 					}
 				}
 			}
-			version(linux)
-			{
-				p.next();
-			}
+			p.next(name);
 		}
 
-		version(Windows)
-		{
-			write("\x1B[2K");
-		}
-
+		write("\x1B[2K");
 		writeln();
 
 		foreach(fileName; sort(files.keys))

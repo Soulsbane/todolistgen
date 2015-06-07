@@ -34,11 +34,8 @@ class ProgressBar
 
 
 		void clear() {
-			/*write("\r");
-			for(auto i = 0; i < width; i++) write(" ");
-			write("\r");*/
-		write("\x1B[2K");
-					write("\r");
+			write("\x1B[2K");
+			write("\r");
 		}
 
 
@@ -75,30 +72,11 @@ class ProgressBar
 			auto header = appender!string();
 			auto footer = appender!string();
 
-			header.formattedWrite("%s %3d%% |", caption, cast(int)(ratio * 100));
+			header.formattedWrite("%s %3d%% |", "Processing", cast(int)(ratio * 100));
 
-			if(counter <= 1 || ratio == 0.0) {
-				footer.formattedWrite("| ETA --:--:--:");
-			} else {
-				int h, m, s;
-				dur!"seconds"(calc_eta())
-					.split!("hours", "minutes", "seconds")(h, m, s);
-				footer.formattedWrite("| ETA %02d:%02d:%02d ", h, m, s);
-			}
 			clear();
 			write(progressbarText(header.data, footer.data));
 		}
-
-
-		void update() {
-			width = getTerminalWidth();
-
-			clear();
-
-			print();
-			stdout.flush();
-		}
-
 
 	public:
 
@@ -106,6 +84,8 @@ class ProgressBar
 			if(iterations <= 0) iterations = 1;
 
 			counter = 0;
+			width = getTerminalWidth();
+
 			this.iterations = iterations;
 			start_time = Clock.currTime.toUnixTime;
 		}
@@ -135,13 +115,20 @@ class ProgressBar
 			start_time = Clock.currTime.toUnixTime;
 		}
 
-		void next() {
-			counter++;
-			if(counter > iterations) counter = iterations;
+		void next(immutable string fileName) {
+			clear();
+			version(Windows)
+			{
+				write(fileName);
+			}
+			else
+			{
+				counter++;
+				if(counter > iterations) counter = iterations;
+				print();
+			}
 
-			update();
+			stdout.flush();
 		}
-
-
 }
 
