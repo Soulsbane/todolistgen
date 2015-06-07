@@ -1,4 +1,4 @@
-module progress;
+module progressbar;
 
 import std.stdio;
 import std.range;
@@ -7,7 +7,7 @@ import std.datetime;
 import core.sys.posix.unistd;
 import core.sys.posix.sys.ioctl;
 
-class Progress
+class ProgressBar
 {
 	private:
 
