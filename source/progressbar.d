@@ -16,7 +16,6 @@ class ProgressBar
 		size_t width = default_width;
 
 		ulong start_time;
-		string caption = "Progress";
 		size_t iterations;
 		size_t counter;
 
@@ -88,11 +87,6 @@ class ProgressBar
 
 			this.iterations = iterations;
 			start_time = Clock.currTime.toUnixTime;
-		}
-
-		@property {
-			string title() { return caption; }
-			string title(string text) { return caption = text; }
 		}
 
 		@property {
