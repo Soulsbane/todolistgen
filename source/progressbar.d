@@ -15,8 +15,8 @@ class ProgressBar
 		size_t maxWidth_ = 40;
 		size_t width = defaultWidth_;
 
-		size_t iterations;
-		size_t counter;
+		size_t iterations_;
+		size_t counter_;
 
 		size_t getTerminalWidth()
 		{
@@ -45,7 +45,7 @@ class ProgressBar
 
 		string progressbarText(string header_text)
 		{
-			immutable auto ratio = cast(double)counter / iterations;
+			immutable auto ratio = cast(double)counter_ / iterations_;
 			string result = "";
 			double bar_length = width - header_text.length;
 
@@ -71,7 +71,7 @@ class ProgressBar
 
 		void print()
 		{
-			immutable auto ratio = cast(double)counter / iterations;
+			immutable auto ratio = cast(double)counter_ / iterations_;
 			auto header = appender!string();
 
 			header.formattedWrite("%s %3d%% |", "Processing", cast(int)(ratio * 100));
@@ -89,9 +89,9 @@ class ProgressBar
 				iterations = 1;
 			}
 
-			counter = 0;
+			counter_ = 0;
 			width = getTerminalWidth();
-			this.iterations = iterations;
+			this.iterations_ = iterations;
 		}
 
 		void next(immutable string fileName)
@@ -104,8 +104,13 @@ class ProgressBar
 			}
 			else
 			{
-				counter++;
-				if(counter > iterations) counter = iterations;
+				counter_++;
+
+				if(counter_ > iterations_)
+				{
+					counter_ = iterations_;
+				}
+
 				print();
 			}
 
