@@ -19,7 +19,6 @@ class ProgressBar
 		size_t iterations;
 		size_t counter;
 
-
 		size_t getTerminalWidth() {
 			size_t column;
 			winsize ws;
@@ -36,19 +35,6 @@ class ProgressBar
 			write("\x1B[2K");
 			write("\r");
 		}
-
-
-		int calc_eta() {
-			immutable auto ratio = cast(double)counter / iterations;
-			auto current_time = Clock.currTime.toUnixTime();
-			auto duration = (current_time - start_time);
-			int hours, minutes, seconds;
-			double elapsed = (current_time - start_time);
-			int eta_sec = cast(int)((elapsed / ratio) - elapsed);
-
-			return eta_sec;
-		}
-
 
 		string progressbarText(string header_text, string footer_text) {
 			immutable auto ratio = cast(double)counter / iterations;
@@ -86,7 +72,6 @@ class ProgressBar
 			width = getTerminalWidth();
 
 			this.iterations = iterations;
-			start_time = Clock.currTime.toUnixTime;
 		}
 
 		@property {
@@ -94,11 +79,6 @@ class ProgressBar
 			size_t maxWidth(size_t w) {
 				return max_width = w;
 			}
-		}
-
-		void reset() {
-			counter = 0;
-			start_time = Clock.currTime.toUnixTime;
 		}
 
 		void next(immutable string fileName) {
