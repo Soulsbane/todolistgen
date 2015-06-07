@@ -1,7 +1,7 @@
 local TemplateMod = require("etlua")
 local FileHandle, TodoFileName, TasksTemplate
-local DEFAULT_TEMPLATE_PATH = Path.GetAddonDir() .. "/templates/default/"
 local Normalize = Path.Normalize
+local DEFAULT_TEMPLATE_PATH = Normalize(Path.GetAddonDir(), "templates", "default")
 
 function Initialize()
 	TasksTemplate = FileReader.ReadText(Normalize(DEFAULT_TEMPLATE_PATH, "tasks.elt"))
