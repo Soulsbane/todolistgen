@@ -11,9 +11,9 @@ class ProgressBar
 {
 	private:
 
-		immutable static size_t default_width = 80;
-		size_t max_width = 40;
-		size_t width = default_width;
+		immutable static size_t defaultWidth_ = 80;
+		size_t maxWidth_ = 40;
+		size_t width = defaultWidth_;
 
 		size_t iterations;
 		size_t counter;
@@ -30,7 +30,7 @@ class ProgressBar
 
 			if(column == 0)
 			{
-				column = default_width;
+				column = defaultWidth_;
 			}
 
 			return column;
@@ -49,9 +49,9 @@ class ProgressBar
 			string result = "";
 			double bar_length = width - header_text.length;
 
-			if(bar_length > max_width && max_width > 0)
+			if(bar_length > maxWidth_ && maxWidth_ > 0)
 			{
-				bar_length = max_width;
+				bar_length = maxWidth_;
 			}
 
 			size_t i = 0;
