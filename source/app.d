@@ -78,7 +78,13 @@ void processDir(immutable string dir, immutable string outputFormat, immutable s
 
 	if(created)
 	{
-		writeln("Processing ", walkLength(numFilesToProcess), " files...");
+		import progress;
+
+		auto filesLength = walkLength(numFilesToProcess);
+		Progress p = new Progress(filesLength);
+
+		p.title = "Processing";
+		writeln("Processing ", filesLength, " files...");
 		addon.callFunction("Initialize");
 
 		foreach(DirEntry e; std.parallelism.parallel(dirEntries(dir, pattern, SpanMode.breadth)))
@@ -91,9 +97,9 @@ void processDir(immutable string dir, immutable string outputFormat, immutable s
 				{
 					TaskValues[] tasks = reader.readFile(name);
 
-					write("\x1B[2K");
+					/*write("\x1B[2K");
 					write("\r");
-					write(name);
+					write(name);*/
 
 					if(tasks.length > 0)
 					{
@@ -101,10 +107,12 @@ void processDir(immutable string dir, immutable string outputFormat, immutable s
 					}
 				}
 			}
+			p.next();
 		}
 
-		write("\x1B[2K");
-		write("\n");
+		/*write("\x1B[2K");
+		write("\n");*/
+		writeln();
 
 		foreach(fileName; sort(files.keys))
 		{
