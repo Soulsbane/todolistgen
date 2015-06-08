@@ -35,33 +35,33 @@ private:
 		write("\r");
 	}
 
-	string progressbarText(string header_text)
+	string getProgressbarText(immutable string headerText)
 	{
 		immutable auto ratio = cast(double)counter_ / iterations_;
 		string result = "";
-		double bar_length = width_ - header_text.length;
+		double barLength = width_ - headerText.length;
 
-		if(bar_length > maxWidth_ && maxWidth_ > 0)
+		if(barLength > maxWidth_ && maxWidth_ > 0)
 		{
-			bar_length = maxWidth_;
+			barLength = maxWidth_;
 		}
 
 		size_t i = 0;
 
-		for(; i < ratio * bar_length; i++)
+		for(; i < ratio * barLength; i++)
 		{
 			result ~= "o";
 		}
 
-		for(; i < bar_length; i++)
+		for(; i < barLength; i++)
 		{
 			result ~= "-";
 		}
 
-		return header_text ~ result;
+		return headerText ~ result;
 	}
 
-	void print()
+	void updateProgressBar()
 	{
 		immutable auto ratio = cast(double)counter_ / iterations_;
 		auto header = appender!string();
@@ -69,7 +69,7 @@ private:
 		header.formattedWrite("%s %3d%% |", "Processing", cast(int)(ratio * 100));
 
 		clear();
-		write(progressbarText(header.data));
+		write(getProgressbarText(header.data));
 	}
 
 public:
@@ -102,7 +102,7 @@ public:
 				counter_ = iterations_;
 			}
 
-			print();
+			updateProgressBar();
 		}
 
 		stdout.flush();
