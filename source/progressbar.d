@@ -35,7 +35,7 @@ private:
 		write("\r");
 	}
 
-	string getProgressbarText(immutable string headerText)
+	string getProgressBarText(immutable string headerText)
 	{
 		immutable auto ratio = cast(double)counter_ / iterations_;
 		string result = "";
@@ -69,7 +69,7 @@ private:
 		header.formattedWrite("%s %3d%% |", "Processing", cast(int)(ratio * 100));
 
 		clear();
-		write(getProgressbarText(header.data));
+		write(getProgressBarText(header.data));
 	}
 
 public:
