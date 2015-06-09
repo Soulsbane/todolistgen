@@ -38,7 +38,7 @@ private:
 	string getProgressBarText(immutable string headerText)
 	{
 		immutable auto ratio = cast(double)counter_ / iterations_;
-		string result = "";
+		string result;
 		double barLength = width_ - headerText.length;
 
 		if(barLength > maxWidth_ && maxWidth_ > 0)
@@ -112,7 +112,6 @@ private:
 	immutable static size_t defaultWidth_ = 80;
 	size_t maxWidth_ = 40;
 	size_t width_ = defaultWidth_;
-
 	size_t iterations_;
 	size_t counter_;
 }
