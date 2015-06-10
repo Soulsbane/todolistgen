@@ -8,8 +8,6 @@ function Initialize()
 	FileUtils.RegisterFileForRemoval("default.css")
 
 	FileHandle, TodoFileName = FileUtils.CreateTodoFile("html")
-	print("Exporting list to " .. TodoFileName)
-
 	FileHandle:write(FileReader.ReadText(Normalize(DEFAULT_TEMPLATE_PATH, "header.html")))
 end
 
@@ -18,6 +16,7 @@ function Deinitialize()
 	FileUtils.CopyFileToOutputDir(Normalize(DEFAULT_TEMPLATE_PATH, "default.css"))
 
 	io.close(FileHandle)
+	print("Exporting list to " .. TodoFileName)
 end
 
 function ProcessTasks(tasks, fileName)

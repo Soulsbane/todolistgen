@@ -6,8 +6,6 @@ end
 
 function Initialize()
 	FileHandle, TodoFileName = FileUtils.CreateTodoFile("xml")
-	print("Exporting list to " .. TodoFileName)
-
 	FileHandle:write([[<?xml version="1.0" encoding="UTF-8"?>\n]])
 	FileHandle:write("<todo>\n")
 end
@@ -15,6 +13,7 @@ end
 function Deinitialize()
 	FileHandle:write("</todo>\n")
 	io.close(FileHandle)
+	print("Exporting list to " .. TodoFileName)
 end
 
 function ProcessTasks(tasks, fileName)

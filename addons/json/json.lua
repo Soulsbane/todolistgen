@@ -2,14 +2,13 @@ local FileHandle, TodoFileName
 
 function Initialize()
 	FileHandle, TodoFileName = FileUtils.CreateTodoFile("json")
-	print("Exporting list to " .. TodoFileName)
-
 	FileHandle:write("{\n")
 end
 
 function Deinitialize()
 	FileHandle:write("}\n")
 	io.close(FileHandle)
+	print("Exporting list to " .. TodoFileName)
 end
 
 function ProcessTasks(tasks, fileName, lastFile)

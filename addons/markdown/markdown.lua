@@ -2,11 +2,11 @@ local FileHandle, TodoFileName
 
 function Initialize()
 	FileHandle, TodoFileName = FileUtils.CreateTodoFile("md")
-	print("Exporting list to " .. TodoFileName)
 end
 
 function Deinitialize()
 	io.close(FileHandle)
+	print("Exporting list to " .. TodoFileName)
 end
 
 function ProcessTasks(tasks, fileName)
