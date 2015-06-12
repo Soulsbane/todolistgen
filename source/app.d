@@ -80,7 +80,7 @@ void processDir(immutable string dir, immutable string outputFormat, immutable s
 	if(created)
 	{
 		auto filesLength = walkLength(numFilesToProcess);
-		ProgressBar p = new ProgressBar(filesLength);
+		auto progress = getProgressObject(filesLength);
 
 		writeln(filesLength, " files to process.");
 		addon.callFunction("Initialize");
@@ -101,7 +101,7 @@ void processDir(immutable string dir, immutable string outputFormat, immutable s
 					}
 				}
 			}
-			p.next(name);
+			progress.update(name);
 		}
 
 		write("\x1B[2K");

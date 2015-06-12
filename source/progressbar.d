@@ -33,7 +33,18 @@ import std.datetime;
 import core.sys.posix.unistd;
 import core.sys.posix.sys.ioctl;
 
-class ProgressBar
+class Progress
+{
+	abstract void update(immutable string fileName);
+
+	final void clear()
+	{
+		write("\x1B[2K");
+		write("\r");
+	}
+}
+
+class ProgressBar : Progress
 {
 private:
 	size_t getTerminalWidth()
@@ -52,13 +63,6 @@ private:
 		}
 
 		return column;
-	}
-
-
-	void clear()
-	{
-		write("\x1B[2K");
-		write("\r");
 	}
 
 	string getProgressBarText(immutable string headerText)
@@ -111,26 +115,17 @@ public:
 		this.iterations_ = iterations;
 	}
 
-	void next(immutable string fileName)
+	override void update(immutable string fileName)
 	{
 		clear();
+		counter_++;
 
-		version(Windows)
+		if(counter_ > iterations_)
 		{
-			write(fileName);
-		}
-		else
-		{
-			counter_++;
-
-			if(counter_ > iterations_)
-			{
-				counter_ = iterations_;
-			}
-
-			updateProgressBar();
+			counter_ = iterations_;
 		}
 
+		updateProgressBar();
 		stdout.flush();
 	}
 
@@ -140,5 +135,27 @@ private:
 	size_t width_ = defaultWidth_;
 	size_t iterations_;
 	size_t counter_;
+}
+
+class ProgressText : Progress
+{
+	override void update(immutable string fileName)
+	{
+		clear();
+		write(fileName);
+		stdout.flush();
+	}
+}
+
+Progress getProgressObject(size_t iterations)
+{
+	version(Windows)
+	{
+		return new ProgressText;
+	}
+	else
+	{
+		return new ProgressBar(iterations);
+	}
 }
 
