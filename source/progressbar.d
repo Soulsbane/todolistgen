@@ -37,7 +37,7 @@ class Progress
 {
 	abstract void update(immutable string fileName);
 
-	final void clear()
+	final void clear() @safe
 	{
 		write("\x1B[2K");
 		write("\r");
@@ -47,7 +47,7 @@ class Progress
 class ProgressBar : Progress
 {
 private:
-	size_t getTerminalWidth()
+	size_t getTerminalWidth() @trusted
 	{
 		size_t column;
 		winsize ws;
@@ -65,7 +65,7 @@ private:
 		return column;
 	}
 
-	string getProgressBarText(immutable string headerText)
+	string getProgressBarText(immutable string headerText) pure @safe
 	{
 		immutable auto ratio = cast(double)counter_ / iterations_;
 		string result;
@@ -77,7 +77,6 @@ private:
 		}
 
 		size_t i = 0;
-
 		for(; i < ratio * barLength; i++)
 		{
 			result ~= "o";
@@ -91,7 +90,7 @@ private:
 		return headerText ~ result;
 	}
 
-	void updateProgressBar()
+	void updateProgressBar() @safe
 	{
 		immutable auto ratio = cast(double)counter_ / iterations_;
 		auto header = appender!string();
@@ -103,7 +102,7 @@ private:
 	}
 
 public:
-	this(size_t iterations)
+	this(size_t iterations) @safe
 	{
 		if(iterations <= 0)
 		{
@@ -115,7 +114,7 @@ public:
 		this.iterations_ = iterations;
 	}
 
-	override void update(immutable string fileName)
+	override void update(immutable string fileName) @trusted
 	{
 		clear();
 		counter_++;
@@ -131,7 +130,7 @@ public:
 
 private:
 	immutable static size_t defaultWidth_ = 80;
-	size_t maxWidth_ = 40;
+	immutable size_t maxWidth_ = 40;
 	size_t width_ = defaultWidth_;
 	size_t iterations_;
 	size_t counter_;
@@ -139,7 +138,7 @@ private:
 
 class ProgressText : Progress
 {
-	override void update(immutable string fileName)
+	override void update(immutable string fileName) @trusted
 	{
 		clear();
 		write(fileName);
@@ -147,7 +146,7 @@ class ProgressText : Progress
 	}
 }
 
-Progress getProgressObject(size_t iterations)
+Progress getProgressObject(immutable size_t iterations) @safe
 {
 	version(Windows)
 	{
