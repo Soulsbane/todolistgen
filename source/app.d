@@ -43,13 +43,14 @@ void processFile(immutable string fileName, immutable string outputFormat) @trus
 {
 	if(exists(fileName))
 	{
-		auto reader = new TodoFileReader;
 		auto addon = new LuaAddon;
-		auto tasks = reader.readFile(fileName);
 		immutable bool created = addon.create(outputFormat);
 
 		if(created)
 		{
+			auto reader = new TodoFileReader;
+			auto tasks = reader.readFile(fileName);
+
 			writeln("Processing ", fileName);
 
 			addon.callFunction("Initialize");
@@ -69,16 +70,15 @@ void processFile(immutable string fileName, immutable string outputFormat) @trus
 
 void processDir(immutable string dir, immutable string outputFormat, immutable string pattern) @trusted
 {
-	auto reader = new TodoFileReader;
-	TaskValues[][string] files;
-	uint filesCounter = 0;
-	auto numFilesToProcess = dirEntries(dir, pattern, SpanMode.breadth);
-
 	auto addon = new LuaAddon;
 	immutable bool created = addon.create(outputFormat);
 
 	if(created)
 	{
+		auto reader = new TodoFileReader;
+		TaskValues[][string] files;
+		uint filesCounter = 0;
+		auto numFilesToProcess = dirEntries(dir, pattern, SpanMode.breadth);
 		auto filesLength = walkLength(numFilesToProcess);
 		auto progress = getProgressObject(filesLength);
 
