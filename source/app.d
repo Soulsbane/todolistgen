@@ -53,9 +53,16 @@ void processFile(immutable string fileName, immutable string outputFormat) @trus
 
 			writeln("Processing ", fileName);
 
-			addon.callFunction("Initialize");
-			addon.processTasks(fileName, tasks, true);
-			addon.callFunction("Deinitialize");
+			if(tasks.length > 0)
+			{
+				addon.callFunction("Initialize");
+				addon.processTasks(fileName, tasks, true);
+				addon.callFunction("Deinitialize");
+			}
+			else
+			{
+				writeln("NO TASKS FOUND!");
+			}
 		}
 		else
 		{
@@ -107,21 +114,27 @@ void processDir(immutable string dir, immutable string outputFormat, immutable s
 		write("\x1B[2K");
 		writeln();
 
-		foreach(fileName; sort(files.keys))
+		if(files.length > 0)
 		{
-			filesCounter++;
+			foreach(fileName; sort(files.keys))
+			{
+				filesCounter++;
 
-			if(filesCounter == files.length)
-			{
-				addon.processTasks(fileName, files[fileName], true);
+				if(filesCounter == files.length)
+				{
+					addon.processTasks(fileName, files[fileName], true);
+				}
+				else
+				{
+					addon.processTasks(fileName, files[fileName], false);
+				}
 			}
-			else
-			{
-				addon.processTasks(fileName, files[fileName], false);
-			}
+			addon.callFunction("Deinitialize");
 		}
-
-		addon.callFunction("Deinitialize");
+		else
+		{
+			writeln("NO TASKS FOUND!");
+		}
 	}
 	else
 	{
