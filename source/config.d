@@ -43,7 +43,7 @@ public:
 private:
 	void load(string fileName) @trusted
 	{
-		immutable string configPath = getConfigDir();
+		immutable string configPath = getConfigFilesDir();
 		immutable string configFile = buildNormalizedPath(configPath, fileName);
 
 		if(!exists(configFile))

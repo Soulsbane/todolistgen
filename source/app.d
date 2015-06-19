@@ -20,7 +20,7 @@ import progressbar;
 
 void ensureConfigDirExists() @trusted
 {
-	immutable string configPath = getConfigDir();
+	immutable string configPath = getConfigFilesDir();
 
 	debug
 	{

@@ -99,6 +99,7 @@ private:
 		lua_["Path", "GetModuleDir"] = &api.path.getModuleDir;
 		lua_["Path", "GetOutputDir"] = &api.path.getOutputDir;
 		lua_["Path", "GetConfigDir"] = &api.path.getConfigDir;
+		lua_["Path", "GetConfigFilesDir"] = &api.path.getConfigFilesDir;
 		lua_["Path", "Normalize"] = &api.path.getNormalizedPath;
 	}
 

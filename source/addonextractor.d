@@ -53,8 +53,11 @@ void extractFiles()
 				mkdirRecurse(filePath);
 			}
 
-			auto fileHandle = File(pathWithFileName, "w");
-			fileHandle.write(import(name));
+			if(!exists(pathWithFileName))
+			{
+				auto fileHandle = File(pathWithFileName, "w");
+				fileHandle.write(import(name));
+			}
 		}
 	}
 }
