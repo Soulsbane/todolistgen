@@ -35,7 +35,7 @@ import core.sys.posix.sys.ioctl;
 
 class Progress
 {
-	abstract void update(immutable string fileName);
+	abstract void update(const string fileName);
 
 	final void clear() @safe
 	{
@@ -47,7 +47,7 @@ class Progress
 class ProgressBar : Progress
 {
 private:
-	size_t getTerminalWidth() @trusted
+	size_t getTerminalWidth() @trusted const
 	{
 		size_t column;
 		winsize ws;
@@ -65,7 +65,7 @@ private:
 		return column;
 	}
 
-	string getProgressBarText(immutable string headerText) pure @safe
+	string getProgressBarText(const string headerText) pure @safe const
 	{
 		immutable auto ratio = cast(double)counter_ / iterations_;
 		string result;
@@ -114,7 +114,7 @@ public:
 		this.iterations_ = iterations;
 	}
 
-	override void update(immutable string fileName) @trusted
+	override void update(const string fileName) @trusted
 	{
 		clear();
 		counter_++;
@@ -138,7 +138,7 @@ private:
 
 class ProgressText : Progress
 {
-	override void update(immutable string fileName) @trusted
+	override void update(const string fileName) @trusted
 	{
 		clear();
 		write(fileName);
@@ -146,7 +146,7 @@ class ProgressText : Progress
 	}
 }
 
-Progress getProgressObject(immutable size_t iterations) @safe
+Progress getProgressObject(const size_t iterations) @safe
 {
 	version(Windows)
 	{

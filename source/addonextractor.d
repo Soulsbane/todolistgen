@@ -45,8 +45,8 @@ void extractFiles()
 	{
 		foreach(name; FileNames!())
 		{
-			string filePath = dirName(buildNormalizedPath(getBaseAddonDir(), name));
-			string pathWithFileName = buildNormalizedPath(getBaseAddonDir(), name);
+			immutable string filePath = dirName(buildNormalizedPath(getBaseAddonDir(), name));
+			immutable string pathWithFileName = buildNormalizedPath(getBaseAddonDir(), name);
 
 			if(!exists(filePath))
 			{

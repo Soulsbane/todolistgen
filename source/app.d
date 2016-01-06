@@ -24,24 +24,24 @@ void ensureConfigDirExists() @trusted
 
 	debug
 	{
-		string configFile = buildNormalizedPath(configPath, "config.lua");
+		immutable string configFile = buildNormalizedPath(configPath, "config.lua");
 
-		if(exists(configFile))
+		if(configFile.exists)
 		{
 			//INFO: We remove the config file here so any changes to default.config.lua will be in sync with config.lua in debug mode.
-			remove(configFile);
+			configFile.remove;
 		}
 	}
 
-	if(!exists(configPath))
+	if(!configPath.exists)
 	{
-		mkdirRecurse(configPath);
+		configPath.mkdirRecurse;
 	}
 }
 
-void processFile(immutable string fileName, immutable string outputFormat) @trusted
+void processFile(const string fileName, const string outputFormat) @trusted
 {
-	if(exists(fileName))
+	if(fileName.exists)
 	{
 		auto addon = new LuaAddon;
 		immutable bool created = addon.create(outputFormat);
@@ -75,7 +75,7 @@ void processFile(immutable string fileName, immutable string outputFormat) @trus
 	}
 }
 
-void processDir(immutable string dir, immutable string outputFormat, immutable string pattern) @trusted
+void processDir(const string dir, const string outputFormat, const string pattern) @trusted
 {
 	auto addon = new LuaAddon;
 	immutable bool created = addon.create(outputFormat);
@@ -86,7 +86,7 @@ void processDir(immutable string dir, immutable string outputFormat, immutable s
 		TaskValues[][string] files;
 		uint filesCounter = 0;
 		auto numFilesToProcess = dirEntries(dir, pattern, SpanMode.breadth);
-		auto filesLength = walkLength(numFilesToProcess);
+		immutable auto filesLength = walkLength(numFilesToProcess);
 		auto progress = getProgressObject(filesLength);
 
 		writeln(filesLength, " files to process.");
@@ -148,7 +148,7 @@ void handleArguments(string[] args) @trusted
 
 	if(args.length > 1)
 	{
-		string value = args[1];
+		immutable string value = args[1];
 
 		if(value.startsWith("--dir")  || value.startsWith("--format") || value.startsWith("--pattern"))
 		{

@@ -24,12 +24,12 @@ public:
 		getopt(args, std.getopt.config.passThrough, "dir", &args_["dir"], "format", &args_["format"], "pattern", &args_["pattern"], "help", &printHelp);
 	}
 
-	T getValue(T = string)(immutable string key) @safe
+	T getValue(T = string)(const string key) @safe const
 	{
 		return to!T(args_[key]);
 	}
 
-	bool isValidValue(immutable string key) @safe
+	bool isValidValue(const string key) @safe
 	{
 		return (args_[key] != null);
 	}

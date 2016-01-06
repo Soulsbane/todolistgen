@@ -18,13 +18,13 @@ public:
 		pattern_ = getConfigPattern();
 	}
 
-	TaskValues[] readFile(immutable string fileName) @trusted
+	TaskValues[] readFile(const string fileName) @trusted
 	{
 		TaskValues[] tasks;
 
 		foreach(ulong i, string line; File(fileName, "r").lines)
 		{
-			if(line.isValid()) // INFO: Make sure the line is actually text.
+			if(line.isValid) // INFO: Make sure the line is actually text.
 			{
 				auto values = createTask(fileName, i + 1, line);
 				if(values.length > 0)
@@ -37,7 +37,7 @@ public:
 	}
 
 private:
-	TaskValues  createTask(immutable string curFileName, immutable ulong lineNum, immutable string line) @safe
+	TaskValues createTask(const string curFileName, const ulong lineNum, const string line) @safe
 	{
 		auto re = regex(pattern_, "g");
 		auto match = matchFirst(line, re);
@@ -57,7 +57,7 @@ private:
 		return values;
 	}
 
-	string getConfigPattern() @trusted
+	string getConfigPattern() @trusted const
 	{
 		auto config = new LuaConfig;
 		auto variable = config.getTable("TodoTaskPatterns");

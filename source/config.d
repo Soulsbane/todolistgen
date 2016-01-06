@@ -23,7 +23,7 @@ public:
 		writeln("An error occured while processing config file! See below for details.\n\n", error);
 	}
 
-	LuaTable getTable(string name) @trusted
+	LuaTable getTable(const string name) @trusted
 	{
 		LuaTable variable = lua_.get!LuaTable(name);
 		return variable;
@@ -34,22 +34,23 @@ public:
 		return lua_.get!T(name);
 	}
 
-	T getAppConfigVariable(T = string)(string name)
+	T getAppConfigVariable(T = string)(const string name)
 	{
 		auto value = lua_.get!T("AppConfigVars", name);
 		return value;
 	}
 
 private:
-	void load(string fileName) @trusted
+	void load(const string fileName) @trusted
 	{
 		immutable string configPath = getConfigFilesDir();
 		immutable string configFile = buildNormalizedPath(configPath, fileName);
 
-		if(!exists(configFile))
+		if(!configFile.exists)
 		{
 			immutable string configText = import("default.config.lua");
 			auto file = File(configFile, "w+");
+
 			file.write(configText);
 		}
 

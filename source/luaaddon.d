@@ -30,7 +30,7 @@ public:
 		writeln("Lua parsing error!\n", error, "\n");
 	}
 
-	void processTasks(immutable string fileName, TaskValues[] tasks, bool lastFile)
+	void processTasks(const string fileName, TaskValues[] tasks, bool lastFile)
 	{
 		if(hasFunction("ProcessTasks"))
 		{
@@ -38,7 +38,7 @@ public:
 		}
 	}
 
-	void callFunction(immutable string name)
+	void callFunction(const string name)
 	{
 		if(hasFunction(name))
 		{
@@ -46,20 +46,21 @@ public:
 		}
 	}
 
-	bool hasFunction(immutable string name)
+	bool hasFunction(const string name)
 	{
 		if(lua_[name].isNil)
 		{
 			return false;
 		}
+
 		return true;
 	}
 
-	bool create(immutable string outputFormat)
+	bool create(const string outputFormat)
 	{
 		immutable string fileName = buildNormalizedPath(getAddonDir(), outputFormat) ~ ".lua";
 
-		if(exists(fileName))
+		if(fileName.exists)
 		{
 			setupAPIFunctions();
 			setupPackagePaths();

@@ -1,7 +1,7 @@
 {
 	"fileVersion": 1,
 	"versions": {
-		"luad": "~master",
-		"standardpaths": "0.0.4",
+		"standardpaths": "0.2.0",
+		"luad": "~master"
 	}
 }

@@ -13,16 +13,15 @@ class FileRemover
 public:
 	this()
 	{
-		string baseFileRemovalName = buildNormalizedPath(getConfigDir(), "removefiles.dat");
-		if(exists(baseFileRemovalName))
+		immutable string baseFileRemovalName = buildNormalizedPath(getConfigDir(), "removefiles.dat");
+		if(baseFileRemovalName.exists)
 		{
 			files_ = readText(baseFileRemovalName).splitLines();
 		}
 	}
 
-	void addFileToRemovalList(immutable string fileName) @trusted
+	void addFileToRemovalList(const string fileName) @trusted
 	{
-
 		if(!isFileInList(fileName))
 		{
 			immutable string baseFileRemovalName = buildNormalizedPath(getConfigDir(), "removefiles.dat");
@@ -45,9 +44,9 @@ private:
 		{
 			immutable string fileToRemove = buildNormalizedPath(getOutputDir(), file);
 
-			if(exists(fileToRemove))
+			if(fileToRemove.exists)
 			{
-				remove(fileToRemove);
+				fileToRemove.remove;
 			}
 		}
 	}
@@ -55,8 +54,8 @@ private:
 	void removeTodoFiles() @trusted
 	{
 		auto config = new LuaConfig;
-		bool deleteTodoFiles = config.getAppConfigVariable!bool("DeleteAllTodoFilesAtStart");
-		string defaultTodoFileName = config.getAppConfigVariable("DefaultTodoFileName");
+		immutable bool deleteTodoFiles = config.getAppConfigVariable!bool("DeleteAllTodoFilesAtStart");
+		immutable string defaultTodoFileName = config.getAppConfigVariable("DefaultTodoFileName");
 
 		if(deleteTodoFiles)
 		{
@@ -64,14 +63,14 @@ private:
 			{
 				if(name.baseName.startsWith(defaultTodoFileName ~ "."))
 				{
-					remove(name);
+					name.remove;
 				}
 			}
 
 		}
 	}
 
-	bool isFileInList(immutable string fileName) @safe
+	bool isFileInList(const string fileName) @safe
 	{
 		bool found = false;
 
