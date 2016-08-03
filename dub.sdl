@@ -18,6 +18,7 @@ buildType "unittest" {
 }
 dependency "luad" version="~master"
 dependency "standardpaths" version=">=0.0.0"
+dependency "raijin" version="*"
 sourcePaths "source/"
 importPaths "source/"
 configuration "application" {
