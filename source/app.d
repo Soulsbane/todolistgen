@@ -8,6 +8,7 @@ import std.algorithm;
 static import std.parallelism;
 
 import standardpaths;
+import raijin.terminal.progressbar;
 
 import todofilereader;
 import todotask;
@@ -16,7 +17,6 @@ import args;
 import api.path;
 import addonextractor;
 import fileremover;
-import progressbar;
 
 void ensureConfigDirExists() @trusted
 {
@@ -84,16 +84,17 @@ void processDir(const string dir, const string outputFormat, const string patter
 	{
 		auto reader = new TodoFileReader;
 		TaskValues[][string] files;
-		uint filesCounter = 0;
-		auto numFilesToProcess = dirEntries(dir, pattern, SpanMode.breadth);
-		immutable auto filesLength = walkLength(numFilesToProcess);
-		auto progress = getProgressObject(filesLength);
+		immutable auto filesLength = walkLength(dirEntries(dir, pattern, SpanMode.breadth));
+		ProgressBar progress;
+		size_t counter;
 
 		writeln(filesLength, " files to process.");
 		addon.callFunction("Initialize");
+		progress.create(filesLength, "Searching:", "Complete", 100);
 
 		foreach(DirEntry e; std.parallelism.parallel(dirEntries(dir, pattern, SpanMode.breadth)))
 		{
+			++counter;
 			auto name = buildNormalizedPath(e.name);
 
 			if(e.isFile)
@@ -108,19 +109,19 @@ void processDir(const string dir, const string outputFormat, const string patter
 					}
 				}
 			}
-			progress.update(name);
+			progress.update(counter);
 		}
 
-		write("\x1B[2K");
-		writeln();
 
 		if(files.length > 0)
 		{
+			counter = 0;
+			
 			foreach(fileName; sort(files.keys))
 			{
-				filesCounter++;
+				counter++;
 
-				if(filesCounter == files.length)
+				if(counter == files.length)
 				{
 					addon.processTasks(fileName, files[fileName], true);
 				}
