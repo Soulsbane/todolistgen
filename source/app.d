@@ -152,7 +152,7 @@ void handleArguments(string[] args) @trusted
 	{
 		immutable string value = args[1];
 
-		if(value.startsWithOr("--dir", "--format", "--pattern"))
+		if(value.startsWith("--dir", "--format", "--pattern"))
 		{
 			processDir(_Args.dir, _Args.format, _Args.pattern);
 		}
