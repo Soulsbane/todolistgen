@@ -1,39 +1,26 @@
 module args;
 
-import std.getopt;
-import std.conv;
-import std.stdio;
+import raijin.utils.getoptmixin;
+import raijin.utils.debugtools;
 
-static void printHelp() @trusted
+@GetOptPassThru
+struct ValidArguments
 {
-	immutable string argsText = import("args");
-	writeln(argsText);
+	@GetOptDescription("Sets the directory that should be scanned. [Default: .].")
+	string dir;
+	@GetOptDescription("The output format the results should be in. [Default: stdout].")
+	string format;
+	@GetOptDescription("The pattern to use. [Default: *.*]")
+	string pattern;
 }
 
-class CommandLineArgs
+ValidArguments _Args;
+
+void initializeGetOpt(string[] arguments)
 {
-public:
-	this() {}
+	_Args.dir = ".";
+	_Args.format = "stdout";
+	_Args.pattern = "*.*";
 
-	this(string[] args)
-	{
-		args_["dir"] = ".";
-		args_["format"] = "stdout";
-		args_["pattern"] = "*.*";
-
-		getopt(args, std.getopt.config.passThrough, "dir", &args_["dir"], "format", &args_["format"], "pattern", &args_["pattern"], "help", &printHelp);
-	}
-
-	T getValue(T = string)(const string key) @safe const
-	{
-		return to!T(args_[key]);
-	}
-
-	bool isValidValue(const string key) @safe
-	{
-		return (args_[key] != null);
-	}
-
-private:
-	static string[string] args_;
+	generateGetOptCode!ValidArguments(arguments, _Args);
 }

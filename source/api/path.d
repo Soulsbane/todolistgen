@@ -2,6 +2,7 @@ module api.path;
 
 import std.file;
 import std.path;
+import args;
 
 enum string organizationName = "Raijinsoft";
 enum string applicationName = "todolistgen";
@@ -27,9 +28,7 @@ string getBaseAddonDir()
 
 string getAddonDir()
 {
-	import args;
-	auto cmd = new CommandLineArgs;
-	string outputFormat = cmd.getValue("format");
+	string outputFormat = _Args.format;
 
 	// INFO: Addons are found in different locations depending on build type.
 	debug

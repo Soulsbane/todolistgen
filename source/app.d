@@ -9,6 +9,7 @@ static import std.parallelism;
 
 import standardpaths;
 import raijin.terminal.progressbar;
+import raijin.utils.string;
 
 import todofilereader;
 import todotask;
@@ -116,7 +117,7 @@ void processDir(const string dir, const string outputFormat, const string patter
 		if(files.length > 0)
 		{
 			counter = 0;
-			
+
 			foreach(fileName; sort(files.keys))
 			{
 				counter++;
@@ -145,27 +146,27 @@ void processDir(const string dir, const string outputFormat, const string patter
 
 void handleArguments(string[] args) @trusted
 {
-	auto cmd = new CommandLineArgs(args);
+	initializeGetOpt(args);
 
 	if(args.length > 1)
 	{
 		immutable string value = args[1];
 
-		if(value.startsWith("--dir")  || value.startsWith("--format") || value.startsWith("--pattern"))
+		if(value.startsWithOr("--dir", "--format", "--pattern"))
 		{
-			processDir(cmd.getValue("dir"), cmd.getValue("format"), cmd.getValue("pattern"));
+			processDir(_Args.dir, _Args.format, _Args.pattern);
 		}
 		else
 		{
 			if(!value.startsWith("--help"))
 			{
-				processFile(value, cmd.getValue("format"));
+				processFile(value, _Args.format);
 			}
 		}
 	}
 	else
 	{
-		processDir(cmd.getValue("dir"), cmd.getValue("format"), cmd.getValue("pattern"));
+		processDir(_Args.dir, _Args.format, _Args.pattern);
 	}
 }
 
