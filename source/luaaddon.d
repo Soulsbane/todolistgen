@@ -1,5 +1,6 @@
 module luaaddon;
 
+import std.stdio;
 import std.file;
 import std.path;
 
@@ -26,7 +27,6 @@ public:
 
 	static void panic(LuaState lua, in char[] error)
 	{
-		import std.stdio;
 		writeln("Lua parsing error!\n", error, "\n");
 	}
 
