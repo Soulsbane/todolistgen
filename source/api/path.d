@@ -58,12 +58,12 @@ string getModuleDir()
 
 string getConfigDir()
 {
-	return buildNormalizedPath(writablePath(StandardPath.Config), organizationName, applicationName);
+	return buildNormalizedPath(writablePath(StandardPath.config), organizationName, applicationName);
 }
 
 string getConfigFilesDir()
 {
-	return buildNormalizedPath(writablePath(StandardPath.Config), organizationName, applicationName, "config");
+	return buildNormalizedPath(writablePath(StandardPath.config), organizationName, applicationName, "config");
 }
 
 string getNormalizedPath(const(char)[][] params...)
