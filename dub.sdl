@@ -1,31 +1,6 @@
 name "todolistgen"
-version "~2.0"
 description "Generates a todo list from various sources and outputs in various formats(markdown, json, html, csv etc."
-homepage "http://raijinsoft.com"
 authors "Paul Crane"
-copyright "Copyright © 2014, Paul Crane"
-buildType "debug" {
-	dflags "-vcolumns" "-color" "-Jsource" "-Jaddons"
-	buildOptions "debugMode" "debugInfo" "debugInfoC"
-}
-buildType "release" {
-	dflags "-Jsource" "-Jaddons"
-	buildOptions "optimize"
-}
-buildType "unittest" {
-	dflags "-vcolumns" "-color" "-Jsource" "-Jaddons"
-	buildOptions "debugMode" "debugInfo" "debugInfoC"
-}
+copyright "Copyright © 2018, Paul Crane"
+license "proprietary"
 dependency "luad" version="~master"
-dependency "standardpaths" version=">=0.0.0"
-dependency "raijin" version="*"
-sourcePaths "source/"
-importPaths "source/"
-configuration "application" {
-	targetType "executable"
-	mainSourceFile "source/app.d"
-}
-configuration "library" {
-	targetType "library"
-	excludedSourceFiles "source/app.d"
-}
