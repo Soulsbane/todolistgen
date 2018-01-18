@@ -6,6 +6,7 @@ import std.string;
 import std.regex;
 import std.conv;
 import std.file;
+import luaaddon.luaconfig;
 
 alias string[string] TaskValues;
 
