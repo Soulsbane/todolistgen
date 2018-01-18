@@ -1,6 +1,25 @@
 import std.stdio;
+import ctoptions.getoptmixin;
+import dapplicationbase;
 
-void main()
+@GetOptPassThru
+struct Options
 {
-	writeln("Edit source/app.d to start your project.");
+	@GetOptOptions("Sets the directory that should be scanned. [Default: .].")
+	string dir;
+	@GetOptOptions("The output format the results should be in. [Default: stdout].")
+	string format;
+	@GetOptOptions("The pattern to use. [Default: *.*]")
+	string pattern;
+}
+
+class TodoListGenApp : Application!Options
+{
+
+}
+
+void main(string[] arguments)
+{
+	auto app = new TodoListGenApp;
+	app.create("Raijinsoft", "todolistgen", arguments);
 }
