@@ -15,7 +15,19 @@ struct Options
 
 class TodoListGenApp : Application!Options
 {
+	void processDir() @trusted
+	{
+	}
 
+	override void onValidArguments()
+	{
+		processDir();
+	}
+
+	override void onNoArguments()
+	{
+		processDir();
+	}
 }
 
 void main(string[] arguments)
