@@ -4,6 +4,10 @@ import std.file : exists, getcwd, thisExePath;
 import std.path : dirName, buildNormalizedPath;
 
 import luaaddon.addonpaths;
+import dfileutils;
+import dpathutils;
+
+import inputcollector;
 
 class ApplicationPaths : AddonPaths
 {
@@ -12,8 +16,8 @@ class ApplicationPaths : AddonPaths
 	{
 		super(addonName, applicationName, organizationName);
 	}
-	// TODO: Perhaps support these methods?
-	/*string getOutputDir()
+
+	string getOutputDir()
 	{
 		return buildNormalizedPath(getcwd(), getValueFor("ProjectName"));
 	}
@@ -34,5 +38,4 @@ class ApplicationPaths : AddonPaths
 		string file = buildNormalizedPath(getOutputDir(), dir);
 		return file.exists;
 	}
-	*/
 }
