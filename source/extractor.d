@@ -32,15 +32,15 @@ enum moduleFilesList =
 [
 ];
 
-void extractGenerators()
+void extractGenerators(const string addonName, const string applicationName, const string organizationName = string.init)
 {
 	debug
 	{}
 	else
 	{
-		ApplicationPaths paths; //FIXME: Will not compile. applicationpaths module doesn't exist
+		auto paths = new ApplicationPaths(addonName, applicationName, organizationName);
 
-		extractImportFiles!generatorFilesList(paths.getBaseGeneratorDir());
+		extractImportFiles!generatorFilesList(paths.getBaseAddonDir());
 		extractImportFiles!moduleFilesList(paths.getModuleDir());
 	}
 }
