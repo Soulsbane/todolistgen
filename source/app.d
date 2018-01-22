@@ -8,9 +8,11 @@ import std.algorithm;
 static import std.parallelism;
 
 import ctoptions.getoptmixin;
+import luaaddon.addonpaths;
 import dapplicationbase;
 
 import todofilereader;
+import api.path;
 
 @GetOptPassThru
 struct Options
@@ -25,6 +27,34 @@ struct Options
 
 class TodoListGenApp : Application!Options
 {
+	override void create(const string organizationName, const string applicationName, string[] arguments)
+	{
+		super.create(organizationName, applicationName, arguments);
+		addonPaths_ = new ApplicationPaths(options.getFormat(), applicationName, organizationName);
+		ensureConfigDirExists();
+	}
+
+	void ensureConfigDirExists() @trusted
+	{
+		immutable string configPath = addonPaths_.getConfigFilesDir();
+
+		debug
+		{
+			immutable string configFile = buildNormalizedPath(configPath, "config.lua");
+
+			if(configFile.exists)
+			{
+				//INFO: We remove the config file here so any changes to default.config.lua will be in sync with config.lua in debug mode.
+				configFile.remove;
+			}
+		}
+
+		if(!configPath.exists)
+		{
+			configPath.mkdirRecurse;
+		}
+	}
+
 	void processDir() @trusted
 	{
 		//auto addon = new LuaAddon;
@@ -107,6 +137,11 @@ class TodoListGenApp : Application!Options
 	{
 		processDir();
 	}
+
+private:
+	ApplicationPaths addonPaths_;
+	immutable string applicationName_ = "todolistgen";
+	immutable string organizationName_ = "Raijinsoft";
 }
 
 void main(string[] arguments)
