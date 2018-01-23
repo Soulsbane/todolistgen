@@ -67,7 +67,7 @@ private:
 		{
 			if(value == true)
 			{
-				found = key;
+				found = key; // NOTE: This isn't a bug. Support for multiple patterns to match will be added later.
 			}
 		}
 		return found;
