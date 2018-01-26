@@ -3,6 +3,8 @@ module generator;
 import std.file;
 import std.path;
 
+//import api.fileutils; //FIXME: Needs ported to new path class and needs dfileutils.FileRemover.
+import api.filereader;
 import api.path;
 import config;
 import luaaddon;
@@ -39,10 +41,10 @@ class Generator : LuaAddon
 	{
 		createTable("FileUtils", "FileReader", "AppConfig", "Path");
 
-	/*	lua_["FileReader", "ReadText"] = &api.filereader.readText;
-		lua_["FileReader", "GetLines"] = &api.filereader.getLines;
+		registerFunction("FileReader", "ReadText", &api.filereader.readText);
+		registerFunction("FileReader", "GetLines", &api.filereader.getLines);
 
-		lua_["FileUtils"] = lua_.newTable;
+	/*	lua_["FileUtils"] = lua_.newTable;
 		lua_["FileUtils", "CopyFileTo"] = &api.fileutils.copyFileTo;
 		lua_["FileUtils", "CopyFileToOutputDir"] = &api.fileutils.copyFileToOutputDir;
 		lua_["FileUtils", "GetDefaultTodoFileName"] = &api.fileutils.getDefaultTodoFileName;
