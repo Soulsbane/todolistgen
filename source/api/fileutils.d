@@ -1,6 +1,6 @@
 module api.fileutils;
 
-import std.file;
+/*import std.file;
 import std.path;
 import std.stdio;
 import std.string;
@@ -52,3 +52,4 @@ void registerFileForRemoval(string fileName)
 	auto fileRemover = new FileRemover;
 	fileRemover.addFileToRemovalList(fileName);
 }
+*/
