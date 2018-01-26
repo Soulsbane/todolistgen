@@ -1,6 +1,6 @@
 module config;
 
-enum OrganizationName = "Raijinsoft";
-enum ApplicationName = "todolistgen";
+enum ORGANIZATIONNAME = "Raijinsoft";
+enum APPLICATIONNAME = "todolistgen";
 
 
