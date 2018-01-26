@@ -8,13 +8,14 @@ import dfileutils;
 import dpathutils;
 
 import inputcollector;
+import config;
 
 class ApplicationPaths : AddonPaths
 {
 
-	this(const string addonName, const string applicationName, const string organizationName = string.init)
+	this(const string addonName)
 	{
-		super(addonName, applicationName, organizationName);
+		super(addonName, APPLICATIONNAME, ORGANIZATIONNAME);
 	}
 
 	string getOutputDir()

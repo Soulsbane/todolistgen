@@ -12,6 +12,7 @@ import luaaddon.addonpaths;
 import dapplicationbase;
 
 import todofilereader;
+import config;
 import api.path;
 
 @GetOptPassThru
@@ -30,7 +31,7 @@ class TodoListGenApp : Application!Options
 	override void create(const string organizationName, const string applicationName, string[] arguments)
 	{
 		super.create(organizationName, applicationName, arguments);
-		addonPaths_ = new ApplicationPaths(options.getFormat(), applicationName, organizationName);
+		addonPaths_ = new ApplicationPaths(options.getFormat());
 		ensureConfigDirExists();
 	}
 
@@ -147,5 +148,5 @@ private:
 void main(string[] arguments)
 {
 	auto app = new TodoListGenApp;
-	app.create("Raijinsoft", "todolistgen", arguments);
+	app.create(ORGANIZATIONNAME, APPLICATIONNAME, arguments);
 }
