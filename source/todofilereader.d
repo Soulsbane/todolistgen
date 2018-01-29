@@ -6,7 +6,8 @@ import std.string;
 import std.regex;
 import std.conv;
 import std.file;
-import luaaddon.luaconfig;
+
+import config;
 
 alias string[string] TaskValues;
 
@@ -59,7 +60,9 @@ private:
 
 	string getConfigPattern() @trusted const
 	{
-		auto config = new LuaConfig;
+		auto config = new Config;
+		config.load("config.lua");
+
 		auto variable = config.getTable("TodoTaskPatterns");
 		string found;
 

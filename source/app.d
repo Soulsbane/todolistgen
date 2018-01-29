@@ -59,23 +59,23 @@ class TodoListGenApp : Application!Options
 
 	void processDir() @trusted
 	{
-		//auto addon = new LuaAddon;
-		//immutable bool created = addon.create(outputFormat);
+		auto addon = new Generator;
+		immutable bool created = addon.create(options.getFormat("stdout"));
 
-		//if(created)
-		//{
+		if(created)
+		{
 			immutable string dir = options.getDir(".");
 			immutable string outputFormat = options.getFormat("stdout");
 			immutable string pattern = options.getPattern("*.*");
 			immutable auto filesLength = walkLength(dirEntries(dir, pattern, SpanMode.breadth));
 
 			TaskValues[][string] files;
-			//auto reader = new TodoFileReader;//FIXME: Will error at the moment since the config file doesn't exist.
+			auto reader = new TodoFileReader;//FIXME: Will error at the moment since the config file doesn't exist.
 			//ProgressBar progress;
 			size_t counter;
 
 			writeln(filesLength, " files to process.");
-			//addon.callFunction("Initialize");
+			addon.callFunction("Initialize");
 			//progress.create(filesLength, "Searching:", "Complete", 100);
 
 			foreach(DirEntry e; std.parallelism.parallel(dirEntries(dir, pattern, SpanMode.breadth)))
@@ -87,8 +87,7 @@ class TodoListGenApp : Application!Options
 				{
 					if(!name.startsWith(".")) // TODO: Find a better way to represent hidden files
 					{
-						//TaskValues[] tasks = reader.readFile(name);
-						TaskValues[] tasks;
+						TaskValues[] tasks = reader.readFile(name);
 
 						if(tasks.length > 0)
 						{
@@ -110,24 +109,24 @@ class TodoListGenApp : Application!Options
 
 					if(counter == files.length)
 					{
-						//addon.processTasks(fileName, files[fileName], true);
+						addon.processTasks(fileName, files[fileName], true);
 					}
 					else
 					{
-						//addon.processTasks(fileName, files[fileName], false);
+						addon.processTasks(fileName, files[fileName], false);
 					}
 				}
-				//addon.callFunction("Deinitialize");
+				addon.callFunction("Deinitialize");
 			}
 			else
 			{
 				writeln("NO TASKS FOUND!");
 			}
-		/*}
+		}
 		else
 		{
-			writeln(outputFormat, " output format not found!");
-		}*/
+			writeln(options.getFormat("stdout"), " output format not found!");
+		}
 	}
 
 	override void onValidArguments()

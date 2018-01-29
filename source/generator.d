@@ -2,6 +2,7 @@ module generator;
 
 import std.file;
 import std.path;
+import std.stdio;
 
 //import api.fileutils; //FIXME: Needs ported to new path class and needs dfileutils.FileRemover.
 import api.filereader;
