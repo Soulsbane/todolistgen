@@ -39,4 +39,9 @@ class ApplicationPaths : AddonPaths
 		string file = buildNormalizedPath(getOutputDir(), dir);
 		return file.exists;
 	}
+
+	override string getAddonDirName()
+	{
+		return "generators";
+	}
 }
