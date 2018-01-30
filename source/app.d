@@ -14,6 +14,7 @@ import dapplicationbase;
 import todofilereader;
 import config;
 import generator;
+import extractor;
 import api.path;
 
 @GetOptPassThru
@@ -34,6 +35,7 @@ class TodoListGenApp : Application!Options
 		super.create(organizationName, applicationName, arguments);
 		addonPaths_ = new ApplicationPaths(options.getFormat());
 		ensureConfigDirExists();
+		extractGenerators(options.getFormat("stdout"));
 	}
 
 	void ensureConfigDirExists() @trusted

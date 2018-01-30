@@ -1,4 +1,4 @@
-module addonextractor;
+module extractor;
 
 import std.stdio;
 import std.path;
@@ -32,13 +32,13 @@ enum moduleFilesList =
 [
 ];
 
-void extractGenerators(const string addonName, const string applicationName, const string organizationName = string.init)
+void extractGenerators(const string addonName)
 {
 	debug
 	{}
 	else
 	{
-		auto paths = new ApplicationPaths(addonName, applicationName, organizationName);
+		auto paths = new ApplicationPaths(addonName);
 
 		extractImportFiles!generatorFilesList(paths.getBaseAddonDir());
 		extractImportFiles!moduleFilesList(paths.getModuleDir());
