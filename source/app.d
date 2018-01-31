@@ -4,8 +4,11 @@ import std.file;
 import std.path;
 import std.range;
 import std.algorithm;
+import std.conv;
+import std.format;
 
 static import std.parallelism;
+import progress;
 
 import ctoptions.getoptmixin;
 import luaaddon.addonpaths;
@@ -74,7 +77,13 @@ class TodoListGenApp : Application!Options
 			TaskValues[][string] files;
 			auto reader = new TodoFileReader;//FIXME: Will error at the moment since the config file doesn't exist.
 			//ProgressBar progress;
+			ShadyBar b = new ShadyBar();
 			size_t counter;
+
+			b.message = {return "Processing";};
+			b.suffix = {return format("%0.0f", b.percent).to!string ~ "% ";};
+			b.width = 64;
+			b.max = filesLength;
 
 			writeln(filesLength, " files to process.");
 			addon.callFunction("Initialize");
@@ -99,7 +108,10 @@ class TodoListGenApp : Application!Options
 				}
 
 				//progress.update(counter);
+				b.next();
 			}
+
+			b.finish();
 
 			if(files.length > 0)
 			{
