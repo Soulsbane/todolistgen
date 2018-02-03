@@ -40,20 +40,16 @@ class Generator : LuaAddon
 
 	void setupAPIFunctions()
 	{
-		createTable("FileUtils", "FileReader", "AppConfig", "Path", "IO");
+		createTable("FileUtils", "FileReader", "AppConfig", "Path", "IO", "Config");
 
 		registerFunction("FileReader", "ReadText", &api.filereader.readText); /// FIXME: Deprecated use IO Instead.
 		registerFunction("FileReader", "GetLines", &api.filereader.getLines); /// FIXME: Deprecated use IO Instead.
 
-		/*lua_["FileUtils", "CopyFileTo"] = &api.fileutils.copyFileTo;
-		lua_["FileUtils", "CopyFileToOutputDir"] = &api.fileutils.copyFileToOutputDir;
-		lua_["FileUtils", "GetDefaultTodoFileName"] = &api.fileutils.getDefaultTodoFileName;
-		lua_["FileUtils", "RemoveFileFromAddonDir"] = &api.fileutils.removeFileFromAddonDir;
-		lua_["FileUtils", "RemoveFileFromOutputDir"] = &api.fileutils.removeFileFromOutputDir;
-		lua_["FileUtils", "RegisterFileForRemoval"] = &api.fileutils.registerFileForRemoval;*/
+		//registerFunction("Config", "GetDefaultTodoFileName"] = &api.fileutils.getDefaultTodoFileName);
 
 		registerFunction("IO", "ReadText", &api.filereader.readText);
 		registerFunction("IO", "GetLines", &api.filereader.getLines);
+		//registerFunction("IO", "RegisterFileForRemoval"] = &api.fileutils.registerFileForRemoval);
 
 		registerFunction("Path", "GetInstallDir", &paths_.getInstallDir);
 		registerFunction("Path", "GetBaseAddonDir", &paths_.getBaseAddonDir);
@@ -64,6 +60,10 @@ class Generator : LuaAddon
 		registerFunction("Path", "GetConfigDir", &paths_.getConfigDir);
 		registerFunction("Path", "GetConfigFilesDir", &paths_.getConfigFilesDir);
 		registerFunction("Path", "Normalize", &paths_.getNormalizedPath);
+		registerFunction("Path", "CopyFileTo", &paths_.copyFileTo);
+		registerFunction("Path", "CopyFileToOutputDir", &paths_.copyFileToOutputDir);
+		registerFunction("Path", "RemoveFileFromAddonDir", &paths_.removeFileFromAddonDir);
+		registerFunction("Path", "RemoveFileFromOutputDir", &paths_.removeFileFromOutputDir);
 	}
 
 	void setupPackagePaths()

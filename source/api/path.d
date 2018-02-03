@@ -1,7 +1,7 @@
 module api.path;
 
-import std.file : exists, getcwd, thisExePath;
-import std.path : dirName, buildNormalizedPath;
+import std.file;// : exists, getcwd, thisExePath;
+import std.path;// : baseName, dirName, buildNormalizedPath;
 
 import luaaddon.addonpaths;
 import dfileutils;
@@ -38,6 +38,36 @@ class ApplicationPaths : AddonPaths
 	{
 		string file = buildNormalizedPath(getOutputDir(), dir);
 		return file.exists;
+	}
+
+	void copyFileTo(string from, string to) @trusted
+	{
+		copy(from, to, PreserveAttributes.yes);
+	}
+
+	void copyFileToOutputDir(string fileName) @trusted
+	{
+		copy(fileName, buildNormalizedPath(getcwd(), baseName(fileName)), PreserveAttributes.yes);
+	}
+
+	void removeFileFromAddonDir(string fileName) @trusted
+	{
+		string file = buildNormalizedPath(getAddonDir(), fileName);
+
+		if(file.exists)
+		{
+			remove(file);
+		}
+	}
+
+	void removeFileFromOutputDir(string fileName) @trusted
+	{
+		string file = buildNormalizedPath(getOutputDir(), fileName);
+
+		if(exists(file))
+		{
+			remove(file);
+		}
 	}
 
 	override string getAddonDirName()
