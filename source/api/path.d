@@ -74,4 +74,13 @@ class ApplicationPaths : AddonPaths
 	{
 		return "generators";
 	}
+
+
+	void registerFileForRemoval(string fileName)
+	{
+		remover_.add(fileName);
+	}
+
+private:
+	FileRemover remover_;
 }

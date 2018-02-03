@@ -49,7 +49,6 @@ class Generator : LuaAddon
 
 		registerFunction("IO", "ReadText", &api.filereader.readText);
 		registerFunction("IO", "GetLines", &api.filereader.getLines);
-		//registerFunction("IO", "RegisterFileForRemoval"] = &api.fileutils.registerFileForRemoval);
 
 		registerFunction("Path", "GetInstallDir", &paths_.getInstallDir);
 		registerFunction("Path", "GetBaseAddonDir", &paths_.getBaseAddonDir);
@@ -64,6 +63,7 @@ class Generator : LuaAddon
 		registerFunction("Path", "CopyFileToOutputDir", &paths_.copyFileToOutputDir);
 		registerFunction("Path", "RemoveFileFromAddonDir", &paths_.removeFileFromAddonDir);
 		registerFunction("Path", "RemoveFileFromOutputDir", &paths_.removeFileFromOutputDir);
+		registerFunction("Path", "RegisterFileForRemoval", &paths_.registerFileForRemoval);
 	}
 
 	void setupPackagePaths()
