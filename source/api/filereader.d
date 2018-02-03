@@ -1,14 +1,15 @@
 module api.filereader;
 
-import std.file;
 import std.string;
 
-string readText(string fileName) @trusted
+string readText(const string fileName)
 {
-	return std.file.readText(fileName);
+	import std.file : readText;
+	return readText(fileName);
 }
 
 string[] getLines(string fileName) @safe
 {
-	return .readText(fileName).splitLines();
+	import std.file : readText;
+	return readText(fileName).splitLines();
 }

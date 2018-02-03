@@ -40,20 +40,20 @@ class Generator : LuaAddon
 
 	void setupAPIFunctions()
 	{
-		createTable("FileUtils", "FileReader", "AppConfig", "Path");
+		createTable("FileUtils", "FileReader", "AppConfig", "Path", "IO");
 
-		registerFunction("FileReader", "ReadText", &api.filereader.readText);
-		registerFunction("FileReader", "GetLines", &api.filereader.getLines);
+		registerFunction("FileReader", "ReadText", &api.filereader.readText); /// FIXME: Deprecated use IO Instead.
+		registerFunction("FileReader", "GetLines", &api.filereader.getLines); /// FIXME: Deprecated use IO Instead.
 
-	/*	lua_["FileUtils"] = lua_.newTable;
-		lua_["FileUtils", "CopyFileTo"] = &api.fileutils.copyFileTo;
+		/*lua_["FileUtils", "CopyFileTo"] = &api.fileutils.copyFileTo;
 		lua_["FileUtils", "CopyFileToOutputDir"] = &api.fileutils.copyFileToOutputDir;
 		lua_["FileUtils", "GetDefaultTodoFileName"] = &api.fileutils.getDefaultTodoFileName;
 		lua_["FileUtils", "RemoveFileFromAddonDir"] = &api.fileutils.removeFileFromAddonDir;
 		lua_["FileUtils", "RemoveFileFromOutputDir"] = &api.fileutils.removeFileFromOutputDir;
-		lua_["FileUtils", "RegisterFileForRemoval"] = &api.fileutils.registerFileForRemoval;
+		lua_["FileUtils", "RegisterFileForRemoval"] = &api.fileutils.registerFileForRemoval;*/
 
-		registerFunction("IO", "ReadText", &readText);*/
+		registerFunction("IO", "ReadText", &api.filereader.readText);
+		registerFunction("IO", "GetLines", &api.filereader.getLines);
 
 		registerFunction("Path", "GetInstallDir", &paths_.getInstallDir);
 		registerFunction("Path", "GetBaseAddonDir", &paths_.getBaseAddonDir);
