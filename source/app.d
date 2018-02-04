@@ -23,11 +23,11 @@ import api.path;
 struct Options
 {
 	@GetOptOptions("Sets the directory that should be scanned. [Default: .].")
-	string dir;
+	string dir = ".";
 	@GetOptOptions("The output format the results should be in. [Default: stdout].")
-	string format;
+	string format = "stdout";
 	@GetOptOptions("The pattern to use. [Default: *.*]")
-	string pattern;
+	string pattern = "*.*";
 }
 
 class TodoListGenApp : Application!Options
