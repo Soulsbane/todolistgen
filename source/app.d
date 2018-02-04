@@ -62,6 +62,7 @@ class TodoListGenApp : Application!Options
 
 	void processDir() @trusted
 	{
+		//TODO: Change Initialize and Deinitialize to OnCreate and OnDestroy.
 		auto addon = new Generator;
 		immutable bool created = addon.create(options.getFormat("stdout"));
 

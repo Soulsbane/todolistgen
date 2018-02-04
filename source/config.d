@@ -31,6 +31,7 @@ class Config : LuaConfig
 
 	string getDefaultTodoFileName() @trusted
 	{
+		//TODO: Use a better name for main config table than AppConfigVars.
 		return getTableVariableValue("AppConfigVars", "DefaultTodoFileName");
 	}
 }
