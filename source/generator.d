@@ -46,8 +46,6 @@ class Generator : LuaAddon
 		registerFunction("FileReader", "ReadText", &api.filereader.readText); /// FIXME: Deprecated use IO Instead.
 		registerFunction("FileReader", "GetLines", &api.filereader.getLines); /// FIXME: Deprecated use IO Instead.
 
-		//registerFunction("Config", "GetDefaultTodoFileName"] = &api.fileutils.getDefaultTodoFileName);
-
 		registerFunction("IO", "ReadText", &api.filereader.readText);
 		registerFunction("IO", "GetLines", &api.filereader.getLines);
 
