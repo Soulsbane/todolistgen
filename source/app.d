@@ -10,7 +10,6 @@ import std.format;
 static import std.parallelism;
 import progress;
 
-import ctoptions.getoptmixin;
 import luaaddon.addonpaths;
 import dapplicationbase;
 
@@ -33,9 +32,8 @@ struct Options
 
 class TodoListGenApp : Application!Options
 {
-	override void create(const string organizationName, const string applicationName, string[] arguments)
+	void start()
 	{
-		super.create(organizationName, applicationName, arguments);
 		addonPaths_ = new ApplicationPaths(options.getFormat());
 		ensureConfigDirExists();
 		extractGenerators(options.getFormat("stdout"));
@@ -163,4 +161,5 @@ void main(string[] arguments)
 {
 	auto app = new TodoListGenApp;
 	app.create(ORGANIZATIONNAME, APPLICATIONNAME, arguments);
+	app.start();
 }
