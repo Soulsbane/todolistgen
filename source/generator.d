@@ -20,6 +20,7 @@ class Generator : LuaAddon
 
 		if(fileName.exists)
 		{
+			loadConfig();
 			setupAPIFunctions();
 			setupPackagePaths();
 			loadDefaultModules();
@@ -64,6 +65,8 @@ class Generator : LuaAddon
 		registerFunction("Path", "RemoveFileFromAddonDir", &paths_.removeFileFromAddonDir);
 		registerFunction("Path", "RemoveFileFromOutputDir", &paths_.removeFileFromOutputDir);
 		registerFunction("Path", "RegisterFileForRemoval", &paths_.registerFileForRemoval);
+
+		registerFunction("Config", "GetDefaultTodoFileName", &config_.getDefaultTodoFileName);
 	}
 
 	void setupPackagePaths()
@@ -80,6 +83,13 @@ class Generator : LuaAddon
 		loadFile(buildNormalizedPath(paths_.getModuleDir(), "fileutils.lua"));
 	}
 
+	void loadConfig()
+	{
+		config_ = new Config;
+		config_.load("config.lua");
+	}
+
 private:
 	ApplicationPaths paths_;
+	Config config_;
 }

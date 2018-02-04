@@ -28,5 +28,10 @@ class Config : LuaConfig
 
 		loadFile(configFile);
 	}
+
+	string getDefaultTodoFileName() @trusted
+	{
+		return getTableVariableValue("AppConfigVars", "DefaultTodoFileName");
+	}
 }
 
