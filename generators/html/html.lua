@@ -5,7 +5,7 @@ local DEFAULT_TEMPLATE_PATH = Normalize(Path.GetAddonDir(), "templates", "defaul
 
 function Initialize()
 	TasksTemplate = FileReader.ReadText(Normalize(DEFAULT_TEMPLATE_PATH, "tasks.elt"))
-	FileUtils.RegisterFileForRemoval("default.css")
+	Path.RemoveFileFromOutputDir("default.css")
 
 	FileHandle, TodoFileName = FileUtils.CreateTodoFile("html")
 	FileHandle:write(FileReader.ReadText(Normalize(DEFAULT_TEMPLATE_PATH, "header.html")))
@@ -13,7 +13,7 @@ end
 
 function Deinitialize()
 	FileHandle:write(FileReader.ReadText(Normalize(DEFAULT_TEMPLATE_PATH, "footer.html")))
-	FileUtils.CopyFileToOutputDir(Normalize(DEFAULT_TEMPLATE_PATH, "default.css"))
+	Path.CopyFileToOutputDir(Normalize(DEFAULT_TEMPLATE_PATH, "default.css"))
 
 	io.close(FileHandle)
 	print("Exporting list to " .. TodoFileName)
