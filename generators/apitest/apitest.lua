@@ -2,7 +2,7 @@ local DataFile = Path.Normalize(Path.GetAddonDir(), "data.txt")
 
 local function TestFileCopy()
 	print("Copying data.txt to output dir...")
-	FileUtils.CopyFileToOutputDir(DataFile)
+	Path.CopyFileToOutputDir(DataFile)
 end
 
 local function TestGetLines()
@@ -18,7 +18,7 @@ local function TestReadText()
 end
 
 local function TestConfig()
-	local fileName = FileUtils.GetDefaultTodoFileName()
+	local fileName = Config.GetDefaultTodoFileName()
 
 	print("GetDefaultTodoFileName: ", fileName)
 	print("AppConfig.GetValue: ", AppConfig.GetValue("DefaultTodoFileName"))
@@ -52,7 +52,7 @@ end
 
 function Deinitialize()
 	print("Removing data.txt from output dir...")
-	FileUtils.RemoveFileFromOutputDir("data.txt")
+	Path.RemoveFileFromOutputDir("data.txt")
 end
 
 function ProcessTasks(tasks, fileName)

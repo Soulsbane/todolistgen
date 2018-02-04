@@ -1,7 +1,8 @@
 local AppConfig = AppConfig
 
 local function LoadConfig()
-	local file = loadfile(Path.Normalize(Path:GetConfigDir(), "config.lua"))
+	print("LOADCONFIG", Path.Normalize(Path:GetConfigFilesDir(), "config.lua"))
+	local file = loadfile(Path.Normalize(Path:GetConfigFilesDir(), "config.lua"))
 	file()
 end
 
