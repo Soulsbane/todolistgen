@@ -23,11 +23,11 @@ import api.path;
 struct Options
 {
 	@GetOptOptions("Sets the directory that should be scanned. [Default: .].")
-	string dir = ".";
+	string dir;
 	@GetOptOptions("The output format the results should be in. [Default: stdout].")
-	string format = "stdout";
+	string format;
 	@GetOptOptions("The pattern to use. [Default: *.*]")
-	string pattern = "*.*";
+	string pattern;
 	@GetOptOptions("Will search only seach the file that was passed.")
 	string file;
 }
@@ -36,7 +36,7 @@ class TodoListGenApp : Application!Options
 {
 	void start()
 	{
-		addonPaths_ = new ApplicationPaths(options.getFormat());
+		addonPaths_ = new ApplicationPaths(options.getFormat("stdout"));
 		ensureConfigDirExists();
 		extractGenerators(options.getFormat("stdout"));
 	}
@@ -89,7 +89,7 @@ class TodoListGenApp : Application!Options
 			}
 			else
 			{
-				writeln(options.getFormat(), " output format not found!");
+				writeln(options.getFormat("stdout"), " output format not found!");
 			}
 		}
 		else
