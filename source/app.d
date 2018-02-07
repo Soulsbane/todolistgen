@@ -111,7 +111,7 @@ class TodoListGenApp : Application!Options
 			immutable auto filesLength = walkLength(dirEntries(dir, pattern, SpanMode.breadth));
 
 			TaskValues[][string] files;
-			auto reader = new TodoFileReader;//FIXME: Will error at the moment since the config file doesn't exist.
+			auto reader = new TodoFileReader;
 			//ProgressBar progress;
 			ShadyBar b = new ShadyBar();
 			size_t counter;
