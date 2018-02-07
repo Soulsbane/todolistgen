@@ -33,9 +33,9 @@ class Generator : LuaAddon
 
 	void processTasks(const string fileName, TaskValues[] tasks, bool lastFile)
 	{
-		if(hasFunction("ProcessTasks"))
+		if(hasFunction("OnProcessTasks"))
 		{
-			callFunction("ProcessTasks", state_.newTable(tasks), fileName, lastFile);
+			callFunction("OnProcessTasks", state_.newTable(tasks), fileName, lastFile);
 		}
 	}
 

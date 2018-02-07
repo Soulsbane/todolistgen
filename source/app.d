@@ -78,9 +78,9 @@ class TodoListGenApp : Application!Options
 
 				if(tasks.length > 0)
 				{
-					addon.callFunction("Initialize");
+					addon.callFunction("OnCreate");
 					addon.processTasks(fileName, tasks, true);
-					addon.callFunction("Deinitialize");
+					addon.callFunction("OnDestroy");
 				}
 				else
 				{
@@ -100,7 +100,6 @@ class TodoListGenApp : Application!Options
 
 	void processDir() @trusted
 	{
-		//TODO: Change Initialize and Deinitialize to OnCreate and OnDestroy.
 		auto addon = new Generator;
 		immutable bool created = addon.create(options.getFormat("stdout"));
 
@@ -123,7 +122,7 @@ class TodoListGenApp : Application!Options
 			b.max = filesLength;
 
 			writeln(filesLength, " files to process.");
-			addon.callFunction("Initialize");
+			addon.callFunction("OnCreate");
 			//progress.create(filesLength, "Searching:", "Complete", 100);
 
 			foreach(DirEntry e; std.parallelism.parallel(dirEntries(dir, pattern, SpanMode.breadth)))
@@ -167,7 +166,8 @@ class TodoListGenApp : Application!Options
 						addon.processTasks(fileName, files[fileName], false);
 					}
 				}
-				addon.callFunction("Deinitialize");
+
+				addon.callFunction("OnDestroy");
 			}
 			else
 			{

@@ -1,15 +1,15 @@
 local FileHandle, TodoFileName
 
-function Initialize()
+function OnCreate()
 	FileHandle, TodoFileName = FileUtils.CreateTodoFile("md")
 end
 
-function Deinitialize()
+function OnDestroy()
 	io.close(FileHandle)
 	print("Exporting list to " .. TodoFileName)
 end
 
-function ProcessTasks(tasks, fileName)
+function OnProcessTasks(tasks, fileName)
 	FileHandle:write("## " .. fileName .. "\n")
 	FileHandle:write("Tag | " .. "Line Number | " .. "Message" .. "\n")
 	FileHandle:write("----| " .. "------------| " .. "-------" .. "\n")

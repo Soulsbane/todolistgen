@@ -40,7 +40,7 @@ local function TestRemoveFiles()
 	FileUtils.RemoveFileFromOutputDir("apitestfile2.lua")
 end
 
-function Initialize()
+function OnCreate()
 	print("Initializing...")
 	TestFileCopy()
 	TestGetLines()
@@ -50,7 +50,7 @@ function Initialize()
 	--TestRemoveFiles() --INFO: This is commented out since the files might not exist unless created when testing.]]
 end
 
-function Deinitialize()
+function OnDestroy()
 	print("Removing data.txt from output dir...")
 	Path.RemoveFileFromOutputDir("data.txt")
 end

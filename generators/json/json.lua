@@ -1,17 +1,17 @@
 local FileHandle, TodoFileName
 
-function Initialize()
+function OnCreate()
 	FileHandle, TodoFileName = FileUtils.CreateTodoFile("json")
 	FileHandle:write("{\n")
 end
 
-function Deinitialize()
+function OnDestroy()
 	FileHandle:write("}\n")
 	io.close(FileHandle)
 	print("Exporting list to " .. TodoFileName)
 end
 
-function ProcessTasks(tasks, fileName, lastFile)
+function OnProcessTasks(tasks, fileName, lastFile)
 		FileHandle:write(string.format("\t%q: [\n" , fileName))
 
 		for i, task in pairs(tasks) do

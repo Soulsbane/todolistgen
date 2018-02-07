@@ -1,10 +1,10 @@
-function Initialize()
+function OnCreate()
 end
 
-function Deinitialize()
+function OnDestroy()
 end
 
-function ProcessTasks(tasks, fileName)
+function OnProcessTasks(tasks, fileName)
 	for i, task in ipairs(tasks) do
 		print(task.fileName, task.lineNumber, task.tag, task.message)
 	end
