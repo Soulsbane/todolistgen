@@ -28,6 +28,8 @@ struct Options
 	string format = "stdout";
 	@GetOptOptions("The pattern to use. [Default: *.*]")
 	string pattern = "*.*";
+	@GetOptOptions("Will search only seach the file that was passed.")
+	string file;
 }
 
 class TodoListGenApp : Application!Options
@@ -57,6 +59,42 @@ class TodoListGenApp : Application!Options
 		if(!configPath.exists)
 		{
 			configPath.mkdirRecurse;
+		}
+	}
+
+	void processFile(const string fileName) @trusted
+	{
+		if(fileName.exists)
+		{
+			auto addon = new Generator;
+			immutable bool created = addon.create(options.getFormat("stdout"));
+
+			if(created)
+			{
+				auto reader = new TodoFileReader;
+				auto tasks = reader.readFile(fileName);
+
+				writeln("Processing ", fileName);
+
+				if(tasks.length > 0)
+				{
+					addon.callFunction("Initialize");
+					addon.processTasks(fileName, tasks, true);
+					addon.callFunction("Deinitialize");
+				}
+				else
+				{
+					writeln("NO TASKS FOUND!");
+				}
+			}
+			else
+			{
+				writeln(options.getFormat(), " output format not found!");
+			}
+		}
+		else
+		{
+			writeln("Failed to open ", fileName, ". File not found!");
 		}
 	}
 
@@ -144,7 +182,15 @@ class TodoListGenApp : Application!Options
 
 	override void onValidArguments()
 	{
-		processDir();
+		if(options.hasFile()) // --file argument was passed
+		{
+			immutable string fileName = options.getFile();
+			processFile(fileName);
+		}
+		else
+		{
+			processDir();
+		}
 	}
 
 	override void onNoArguments()
