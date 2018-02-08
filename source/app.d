@@ -200,8 +200,6 @@ class TodoListGenApp : Application!Options
 
 private:
 	ApplicationPaths addonPaths_;
-	immutable string applicationName_ = "todolistgen";
-	immutable string organizationName_ = "Raijinsoft";
 }
 
 void main(string[] arguments)
