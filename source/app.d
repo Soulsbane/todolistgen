@@ -116,8 +116,8 @@ class TodoListGenApp : Application!Options
 			ShadyBar b = new ShadyBar();
 			size_t counter;
 
-			b.message = {return "Processing";};
-			b.suffix = {return format("%0.0f", b.percent).to!string ~ "% ";};
+			b.message = { return "Searching"; };
+			b.suffix = { return format("%0.0f", b.percent).to!string ~ "% "; };
 			b.width = 64;
 			b.max = filesLength;
 
