@@ -8,10 +8,10 @@ import std.conv;
 import std.format;
 
 static import std.parallelism;
-import progress;
 
 import luaaddon.addonpaths;
 import dapplicationbase;
+import dtermutils;
 
 import todofilereader;
 import config;
@@ -112,18 +112,12 @@ class TodoListGenApp : Application!Options
 
 			TaskValues[][string] files;
 			auto reader = new TodoFileReader;
-			//ProgressBar progress;
-			ShadyBar b = new ShadyBar();
+			ProgressBar progress;
 			size_t counter;
-
-			b.message = { return "Searching"; };
-			b.suffix = { return format("%0.0f", b.percent).to!string ~ "% "; };
-			b.width = 64;
-			b.max = filesLength;
 
 			writeln(filesLength, " files to process.");
 			addon.callFunction("OnCreate");
-			//progress.create(filesLength, "Searching:", "Complete", 100);
+			progress.create(filesLength, "Searching:", "Complete", 100);
 
 			foreach(DirEntry e; std.parallelism.parallel(dirEntries(dir, pattern, SpanMode.breadth)))
 			{
@@ -143,11 +137,8 @@ class TodoListGenApp : Application!Options
 					}
 				}
 
-				//progress.update(counter);
-				b.next();
+				progress.update(counter);
 			}
-
-			b.finish();
 
 			if(files.length > 0)
 			{
