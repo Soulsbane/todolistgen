@@ -9,6 +9,7 @@ import api.path;
 import config;
 import luaaddon;
 import todofilereader;
+import dtermutils;
 
 class Generator : LuaAddon
 {
@@ -64,6 +65,14 @@ class Generator : LuaAddon
 		registerFunction("Path", "RegisterFileForRemoval", &paths_.registerFileForRemoval);
 
 		registerFunction("Config", "GetDefaultTodoFileName", &config_.getDefaultTodoFileName);
+
+		registerFunction("InputCollector", "Prompt", &inputCollector_.prompt);
+		registerFunction("InputCollector", "HasValueFor", &inputCollector_.hasValueFor);
+		registerFunction("InputCollector", "GetValueFor", &inputCollector_.getValueFor);
+		registerFunction("InputCollector", "EnablePrompt", &inputCollector_.disablePrompt);
+		registerFunction("InputCollector", "DisablePrompt", &inputCollector_.enablePrompt);
+		registerFunction("InputCollector", "IsPromptEnabled", &inputCollector_.isPromptEnabled);
+		registerFunction("InputCollector", "GetAllPromptValues", &inputCollector_.getAllPromptValues);
 	}
 
 	void setupPackagePaths()
@@ -89,4 +98,5 @@ class Generator : LuaAddon
 private:
 	ApplicationPaths paths_;
 	Config config_;
+	InputCollector inputCollector_;
 }
