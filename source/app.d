@@ -106,7 +106,6 @@ class TodoListGenApp : Application!Options
 		if(created)
 		{
 			immutable string dir = options.getDir(".");
-			immutable string outputFormat = options.getFormat("stdout");
 			immutable string pattern = options.getPattern("*.*");
 			immutable auto filesLength = walkLength(dirEntries(dir, pattern, SpanMode.breadth));
 
@@ -196,6 +195,7 @@ private:
 void main(string[] arguments)
 {
 	auto app = new TodoListGenApp;
+
 	app.create(ORGANIZATIONNAME, APPLICATIONNAME, arguments);
 	app.start();
 }
