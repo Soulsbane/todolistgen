@@ -54,7 +54,7 @@ end
 
 function OnDestroy()
 	print("Removing data.txt from output dir...")
-	Path.RemoveFileFromOutputDir("data.txt")
+	--Path.RemoveFileFromOutputDir("data.txt") //FIXME: This will sometimes cause the program to hang.
 end
 
 function ProcessTasks(tasks, fileName)
