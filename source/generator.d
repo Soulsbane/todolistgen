@@ -41,7 +41,7 @@ class Generator : LuaAddon
 
 	void setupAPIFunctions()
 	{
-		createTable("FileUtils", "FileReader", "AppConfig", "Path", "IO", "Config");
+		createTable("FileUtils", "FileReader", "AppConfig", "Path", "IO", "Config", "Input");
 
 		registerFunction("FileReader", "ReadText", &api.filereader.readText); /// FIXME: Deprecated use IO Instead.
 		registerFunction("FileReader", "GetLines", &api.filereader.getLines); /// FIXME: Deprecated use IO Instead.
@@ -73,6 +73,8 @@ class Generator : LuaAddon
 		registerFunction("InputCollector", "DisablePrompt", &inputCollector_.enablePrompt);
 		registerFunction("InputCollector", "IsPromptEnabled", &inputCollector_.isPromptEnabled);
 		registerFunction("InputCollector", "GetAllPromptValues", &inputCollector_.getAllPromptValues);
+
+		registerFunction("Input", "ConfirmationPrompt", &confirmationPrompt);
 	}
 
 	void setupPackagePaths()

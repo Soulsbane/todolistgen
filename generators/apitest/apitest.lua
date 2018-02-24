@@ -48,6 +48,8 @@ function OnCreate()
 	TestPaths()
 	TestReadText()
 	--TestRemoveFiles() --INFO: This is commented out since the files might not exist unless created when testing.]]
+	InputCollector.Prompt("Hello", "What is your name? ", "Gene")
+	Input.ConfirmationPrompt("Are you sure you want to quit?")
 end
 
 function OnDestroy()
@@ -57,5 +59,3 @@ end
 
 function ProcessTasks(tasks, fileName)
 end
-
-
