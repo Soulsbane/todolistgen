@@ -120,7 +120,7 @@ class TodoListGenApp : Application!Options
 			foreach(DirEntry e; std.parallelism.parallel(dirEntries(dir, pattern, SpanMode.breadth)))
 			{
 				++counter;
-				auto name = buildNormalizedPath(e.name);
+				immutable string name = buildNormalizedPath(e.name);
 
 				if(e.isFile)
 				{
