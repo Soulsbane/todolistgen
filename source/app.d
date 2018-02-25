@@ -38,7 +38,6 @@ class TodoListGenApp : Application!Options
 	{
 		addonPaths_ = new ApplicationPaths(options.getFormat("stdout"));
 		ensureConfigDirExists();
-		extractGenerators(options.getFormat("stdout"));
 	}
 
 	void ensureConfigDirExists() @trusted
@@ -196,6 +195,7 @@ void main(string[] arguments)
 {
 	auto app = new TodoListGenApp;
 
+	extractGenerators("stdout");
 	app.create(ORGANIZATION_NAME, APPLICATION_NAME, arguments);
 	app.start();
 }
