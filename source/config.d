@@ -7,8 +7,8 @@ import std.stdio;
 import luaaddon.luaconfig;
 import api.path;
 
-enum ORGANIZATIONNAME = "Raijinsoft";
-enum APPLICATIONNAME = "todolistgen";
+enum ORGANIZATION_NAME = "Raijinsoft";
+enum APPLICATION_NAME = "todolistgen";
 
 class Config : LuaConfig
 {

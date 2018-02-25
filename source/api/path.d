@@ -15,7 +15,7 @@ class ApplicationPaths : AddonPaths
 
 	this(const string addonName)
 	{
-		super(addonName, APPLICATIONNAME, ORGANIZATIONNAME);
+		super(addonName, APPLICATION_NAME, ORGANIZATION_NAME);
 	}
 
 	string getOutputDir()

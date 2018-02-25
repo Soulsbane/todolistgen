@@ -196,6 +196,6 @@ void main(string[] arguments)
 {
 	auto app = new TodoListGenApp;
 
-	app.create(ORGANIZATIONNAME, APPLICATIONNAME, arguments);
+	app.create(ORGANIZATION_NAME, APPLICATION_NAME, arguments);
 	app.start();
 }
