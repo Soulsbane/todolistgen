@@ -30,6 +30,8 @@ enum generatorFilesList =
 
 enum moduleFilesList =
 [
+	"appconfig.lua",
+	"fileutils.lua"
 ];
 
 void extractGenerators(const string addonName)
@@ -40,7 +42,7 @@ void extractGenerators(const string addonName)
 	{
 		auto paths = new ApplicationPaths(addonName);
 
-		extractImportFiles!generatorFilesList(paths.getBaseAddonDir());
-		extractImportFiles!moduleFilesList(paths.getModuleDir());
+		extractImportFiles!generatorFilesList(paths.getBaseAddonDir(), Yes.overwrite);
+		extractImportFiles!moduleFilesList(paths.getModuleDir(), Yes.overwrite);
 	}
 }
