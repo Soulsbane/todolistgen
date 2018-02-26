@@ -7,4 +7,5 @@ todolistgen
 testfiles/
 /foobar/*
 .vscode
+data.txt
 
