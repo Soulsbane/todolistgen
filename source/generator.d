@@ -31,7 +31,7 @@ class Generator : LuaAddon
 		return false;
 	}
 
-	void processTasks(const string fileName, TaskValues[] tasks, bool lastFile)
+	void processTasks(const string fileName, TaskValues[] tasks, const bool lastFile)
 	{
 		if(hasFunction("OnProcessTasks"))
 		{
