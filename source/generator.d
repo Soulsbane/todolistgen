@@ -41,10 +41,7 @@ class Generator : LuaAddon
 
 	void setupAPIFunctions()
 	{
-		createTable("FileUtils", "FileReader", "AppConfig", "Path", "IO", "Config", "Input");
-
-		registerFunction("FileReader", "ReadText", &api.filereader.readText); /// FIXME: Deprecated use IO Instead.
-		registerFunction("FileReader", "GetLines", &api.filereader.getLines); /// FIXME: Deprecated use IO Instead.
+		createTable("FileUtils", "AppConfig", "Path", "IO", "Config", "Input");
 
 		registerFunction("IO", "ReadText", &api.filereader.readText);
 		registerFunction("IO", "GetLines", &api.filereader.getLines);
