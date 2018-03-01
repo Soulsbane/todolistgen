@@ -6,7 +6,7 @@ local function TestFileCopy()
 end
 
 local function TestGetLines()
-	local lines = FileReader.GetLines(DataFile)
+	local lines = IO.GetLines(DataFile)
 
 	for i, line in ipairs(lines) do
 		print("line: ", line)
@@ -14,7 +14,7 @@ local function TestGetLines()
 end
 
 local function TestReadText()
-	print(FileReader.ReadText(DataFile))
+	print(IO.ReadText(DataFile))
 end
 
 local function TestConfig()
@@ -42,11 +42,11 @@ end
 
 function OnCreate()
 	print("Initializing...")
-	TestFileCopy()
-	TestGetLines()
+	--TestFileCopy()
+	--TestGetLines()
 	TestConfig()
 	TestPaths()
-	TestReadText()
+	--TestReadText()
 	--TestRemoveFiles() --INFO: This is commented out since the files might not exist unless created when testing.]]
 	InputCollector.Prompt("Hello", "What is your name? ", "Gene")
 	Input.ConfirmationPrompt("Are you sure you want to quit?")
