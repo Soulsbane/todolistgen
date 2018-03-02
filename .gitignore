@@ -9,3 +9,12 @@ testfiles/
 .vscode
 data.txt
 
+
+default.css
+todo.csv
+todo.html
+todo.md
+todo.json
+todo.xml
+todolistgen.ipr
+todolistgen.iws
