@@ -24,12 +24,12 @@ struct Options
 {
 	@GetOptOptions("Sets the directory that should be scanned. [Default: .].")
 	string dir;
-	@GetOptOptions("The output format the results should be in. [Default: stdout].")
-	string format;
 	@GetOptOptions("The pattern to use. [Default: *.*]")
 	string pattern;
 	@GetOptOptions("Will search only seach the file that was passed.")
 	string file;
+	@GetOptOptions("The output format the results should be in. [Default: stdout].")
+	string format;
 }
 
 class TodoListGenApp : Application!Options
