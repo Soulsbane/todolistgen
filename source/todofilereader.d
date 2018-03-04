@@ -50,7 +50,7 @@ private:
 			values["fileName"] = curFileName;
 			values["lineNumber"] = to!string(lineNum);
 
-			for(int i = 0; i <= (nc.length - 1); i++)
+			for(int i; i <= (nc.length - 1); i++)
 			{
 				values[to!string(nc[i])] = to!string(match[nc[i]]);
 			}
