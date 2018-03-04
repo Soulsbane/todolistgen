@@ -14,8 +14,7 @@ class Config : LuaConfig
 {
 	void load(const string fileName, const string addonName = string.init) @trusted
 	{
-		auto paths = new ApplicationPaths(addonName);
-		immutable string configPath = paths.getConfigFilesDir();
+		immutable string configPath = _AppPaths.getConfigFilesDir();
 		immutable string configFile = buildNormalizedPath(configPath, fileName);
 
 		if(!configFile.exists)

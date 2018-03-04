@@ -10,12 +10,19 @@ import dpathutils;
 import inputcollector;
 import config;
 
+ApplicationPaths _AppPaths;
+
 class ApplicationPaths : AddonPaths
 {
 
 	this(const string addonName)
 	{
 		super(addonName, APPLICATION_NAME, ORGANIZATION_NAME);
+	}
+
+	void create(const string addonName)
+	{
+		super.create(addonName, APPLICATION_NAME, ORGANIZATION_NAME);
 	}
 
 	string getOutputDir()
@@ -83,4 +90,9 @@ class ApplicationPaths : AddonPaths
 
 private:
 	FileRemover remover_;
+}
+
+static this()
+{
+	_AppPaths = new ApplicationPaths("stdout");
 }

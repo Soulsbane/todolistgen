@@ -9,7 +9,6 @@ import std.format;
 
 static import std.parallelism;
 
-import luaaddon.addonpaths;
 import dapplicationbase;
 import dtermutils;
 
@@ -36,13 +35,13 @@ class TodoListGenApp : Application!Options
 {
 	void start()
 	{
-		addonPaths_ = new ApplicationPaths(options.getFormat("stdout"));
+		_AppPaths.setAddonName(options.getFormat("stdout"));
 		ensureConfigDirExists();
 	}
 
 	void ensureConfigDirExists() @trusted
 	{
-		immutable string configPath = addonPaths_.getConfigFilesDir();
+		immutable string configPath = _AppPaths.getConfigFilesDir();
 
 		debug
 		{
@@ -186,16 +185,13 @@ class TodoListGenApp : Application!Options
 	{
 		processDir();
 	}
-
-private:
-	ApplicationPaths addonPaths_;
 }
 
 void main(string[] arguments)
 {
 	auto app = new TodoListGenApp;
 
-	extractGenerators("stdout");
+	extractGenerators();
 	app.create(ORGANIZATION_NAME, APPLICATION_NAME, arguments);
 	app.start();
 }

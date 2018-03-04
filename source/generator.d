@@ -15,8 +15,8 @@ class Generator : LuaAddon
 {
 	bool create(const string outputFormat)
 	{
-		paths_ = new ApplicationPaths(outputFormat);
-		immutable string fileName = buildNormalizedPath(paths_.getAddonDir(), outputFormat) ~ ".lua";
+		_AppPaths = new ApplicationPaths(outputFormat);
+		immutable string fileName = buildNormalizedPath(_AppPaths.getAddonDir(), outputFormat) ~ ".lua";
 
 		if(fileName.exists)
 		{
@@ -46,20 +46,20 @@ class Generator : LuaAddon
 		registerFunction("IO", "ReadText", &api.filereader.readText);
 		registerFunction("IO", "GetLines", &api.filereader.getLines);
 
-		registerFunction("Path", "GetInstallDir", &paths_.getInstallDir);
-		registerFunction("Path", "GetBaseAddonDir", &paths_.getBaseAddonDir);
-		registerFunction("Path", "GetAddonDir", &paths_.getAddonDir);
-		registerFunction("Path", "GetAddonModuleDir", &paths_.getAddonModulesDir);
-		registerFunction("Path", "GetModuleDir", &paths_.getModuleDir);
-		registerFunction("Path", "GetOutputDir", &paths_.getOutputDir);
-		registerFunction("Path", "GetConfigDir", &paths_.getConfigDir);
-		registerFunction("Path", "GetConfigFilesDir", &paths_.getConfigFilesDir);
-		registerFunction("Path", "Normalize", &paths_.getNormalizedPath);
-		registerFunction("Path", "CopyFileTo", &paths_.copyFileTo);
-		registerFunction("Path", "CopyFileToOutputDir", &paths_.copyFileToOutputDir);
-		registerFunction("Path", "RemoveFileFromAddonDir", &paths_.removeFileFromAddonDir);
-		registerFunction("Path", "RemoveFileFromOutputDir", &paths_.removeFileFromOutputDir);
-		registerFunction("Path", "RegisterFileForRemoval", &paths_.registerFileForRemoval);
+		registerFunction("Path", "GetInstallDir", &_AppPaths.getInstallDir);
+		registerFunction("Path", "GetBaseAddonDir", &_AppPaths.getBaseAddonDir);
+		registerFunction("Path", "GetAddonDir", &_AppPaths.getAddonDir);
+		registerFunction("Path", "GetAddonModuleDir", &_AppPaths.getAddonModulesDir);
+		registerFunction("Path", "GetModuleDir", &_AppPaths.getModuleDir);
+		registerFunction("Path", "GetOutputDir", &_AppPaths.getOutputDir);
+		registerFunction("Path", "GetConfigDir", &_AppPaths.getConfigDir);
+		registerFunction("Path", "GetConfigFilesDir", &_AppPaths.getConfigFilesDir);
+		registerFunction("Path", "Normalize", &_AppPaths.getNormalizedPath);
+		registerFunction("Path", "CopyFileTo", &_AppPaths.copyFileTo);
+		registerFunction("Path", "CopyFileToOutputDir", &_AppPaths.copyFileToOutputDir);
+		registerFunction("Path", "RemoveFileFromAddonDir", &_AppPaths.removeFileFromAddonDir);
+		registerFunction("Path", "RemoveFileFromOutputDir", &_AppPaths.removeFileFromOutputDir);
+		registerFunction("Path", "RegisterFileForRemoval", &_AppPaths.registerFileForRemoval);
 
 		registerFunction("Config", "GetDefaultTodoFileName", &config_.getDefaultTodoFileName);
 
@@ -76,16 +76,16 @@ class Generator : LuaAddon
 
 	void setupPackagePaths()
 	{
-		immutable string baseModulePath = buildNormalizedPath(paths_.getInstallDir(), "modules");
-		immutable string genModulePath = buildNormalizedPath(paths_.getAddonModulesDir());
+		immutable string baseModulePath = buildNormalizedPath(_AppPaths.getInstallDir(), "modules");
+		immutable string genModulePath = buildNormalizedPath(_AppPaths.getAddonModulesDir());
 
 		registerPackagePaths(baseModulePath, genModulePath);
 	}
 
 	void loadDefaultModules()
 	{
-		loadFile(buildNormalizedPath(paths_.getModuleDir(), "appconfig.lua"));
-		loadFile(buildNormalizedPath(paths_.getModuleDir(), "fileutils.lua"));
+		loadFile(buildNormalizedPath(_AppPaths.getModuleDir(), "appconfig.lua"));
+		loadFile(buildNormalizedPath(_AppPaths.getModuleDir(), "fileutils.lua"));
 	}
 
 	void loadConfig()
@@ -95,7 +95,7 @@ class Generator : LuaAddon
 	}
 
 private:
-	ApplicationPaths paths_;
+	ApplicationPaths _AppPaths;
 	Config config_;
 	InputCollector inputCollector_;
 }

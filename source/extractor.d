@@ -34,15 +34,13 @@ enum moduleFilesList =
 	"fileutils.lua"
 ];
 
-void extractGenerators(const string addonName)
+void extractGenerators()
 {
 	debug
 	{}
 	else
 	{
-		auto paths = new ApplicationPaths(addonName);
-
-		extractImportFiles!generatorFilesList(paths.getBaseAddonDir(), Yes.overwrite);
-		extractImportFiles!moduleFilesList(paths.getModuleDir(), Yes.overwrite);
+		extractImportFiles!generatorFilesList(_AppPaths.getBaseAddonDir(), Yes.overwrite);
+		extractImportFiles!moduleFilesList(_AppPaths.getModuleDir(), Yes.overwrite);
 	}
 }
