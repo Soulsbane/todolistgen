@@ -8,8 +8,6 @@ testfiles/
 /foobar/*
 .vscode
 data.txt
-
-
 default.css
 todo.csv
 todo.html
