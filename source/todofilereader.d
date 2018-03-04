@@ -9,7 +9,7 @@ import std.file;
 
 import config;
 
-alias string[string] TaskValues;
+alias TaskValues = string[string];
 
 class TodoFileReader
 {
