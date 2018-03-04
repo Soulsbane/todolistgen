@@ -13,11 +13,11 @@ import dapplicationbase;
 import dtermutils;
 
 import constants;
+import api.path;
 import todofilereader;
 import config;
 import generator;
 import extractor;
-import api.path;
 
 @GetOptPassThru
 struct Options
@@ -34,10 +34,15 @@ struct Options
 
 class TodoListGenApp : Application!Options
 {
-	void start()
+	void setupEnvironment()
 	{
 		_AppPaths.setAddonName(options.getFormat("stdout"));
 		ensureConfigDirExists();
+	}
+
+	override void onCreate()
+	{
+		setupEnvironment();
 	}
 
 	void ensureConfigDirExists() @trusted
@@ -171,6 +176,8 @@ class TodoListGenApp : Application!Options
 
 	override void onValidArguments()
 	{
+		setupEnvironment();
+
 		if(options.hasFile()) // --file argument was passed
 		{
 			immutable string fileName = options.getFile();
@@ -184,6 +191,7 @@ class TodoListGenApp : Application!Options
 
 	override void onNoArguments()
 	{
+		setupEnvironment();
 		processDir();
 	}
 }
@@ -194,5 +202,4 @@ void main(string[] arguments)
 
 	extractGenerators();
 	app.create(ORGANIZATION_NAME, APPLICATION_NAME, arguments);
-	app.start();
 }

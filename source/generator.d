@@ -15,7 +15,6 @@ class Generator : LuaAddon
 {
 	bool create(const string outputFormat)
 	{
-		_AppPaths = new ApplicationPaths(outputFormat);
 		immutable string fileName = buildNormalizedPath(_AppPaths.getAddonDir(), outputFormat) ~ ".lua";
 
 		if(fileName.exists)
@@ -94,6 +93,5 @@ class Generator : LuaAddon
 	}
 
 private:
-	ApplicationPaths _AppPaths;
 	InputCollector inputCollector_;
 }
