@@ -8,7 +8,7 @@ import dfileutils;
 import dpathutils;
 
 import inputcollector;
-import config;
+import constants;
 
 ApplicationPaths _AppPaths;
 

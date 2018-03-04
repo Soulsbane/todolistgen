@@ -7,8 +7,7 @@ import std.stdio;
 import luaaddon.luaconfig;
 import api.path;
 
-enum ORGANIZATION_NAME = "Raijinsoft";
-enum APPLICATION_NAME = "todolistgen";
+Config _Config;
 
 class Config : LuaConfig
 {
@@ -33,5 +32,10 @@ class Config : LuaConfig
 		//TODO: Use a better name for main config table than AppConfigVars.
 		return getTableVariableValue("AppConfigVars", "DefaultTodoFileName");
 	}
+}
+
+static this()
+{
+	_Config = new Config;
 }
 

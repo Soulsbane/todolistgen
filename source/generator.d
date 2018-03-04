@@ -61,7 +61,7 @@ class Generator : LuaAddon
 		registerFunction("Path", "RemoveFileFromOutputDir", &_AppPaths.removeFileFromOutputDir);
 		registerFunction("Path", "RegisterFileForRemoval", &_AppPaths.registerFileForRemoval);
 
-		registerFunction("Config", "GetDefaultTodoFileName", &config_.getDefaultTodoFileName);
+		registerFunction("Config", "GetDefaultTodoFileName", &_Config.getDefaultTodoFileName);
 
 		registerFunction("InputCollector", "Prompt", &inputCollector_.prompt);
 		registerFunction("InputCollector", "HasValueFor", &inputCollector_.hasValueFor);
@@ -90,12 +90,10 @@ class Generator : LuaAddon
 
 	void loadConfig()
 	{
-		config_ = new Config;
-		config_.load("config.lua");
+		_Config.load("config.lua");
 	}
 
 private:
 	ApplicationPaths _AppPaths;
-	Config config_;
 	InputCollector inputCollector_;
 }

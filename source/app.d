@@ -12,6 +12,7 @@ static import std.parallelism;
 import dapplicationbase;
 import dtermutils;
 
+import constants;
 import todofilereader;
 import config;
 import generator;

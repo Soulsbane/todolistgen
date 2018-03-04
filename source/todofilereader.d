@@ -60,10 +60,7 @@ private:
 
 	string getConfigPattern() @trusted const
 	{
-		auto config = new Config;
-		config.load("config.lua");
-
-		auto variable = config.getTable("TodoTaskPatterns");
+		auto variable = _Config.getTable("TodoTaskPatterns");
 		string found;
 
 		foreach(string key, bool value; variable)
