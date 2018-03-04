@@ -43,6 +43,7 @@ private:
 		auto re = regex(pattern_, "g");
 		auto match = matchFirst(line, re);
 		auto nc = re.namedCaptures;
+		immutable size_t numNamedCaptures = nc.length - 1;
 		TaskValues values;
 
 		if(match)
@@ -50,7 +51,7 @@ private:
 			values["fileName"] = curFileName;
 			values["lineNumber"] = to!string(lineNum);
 
-			for(int i; i <= (nc.length - 1); i++)
+			for(int i; i <= numNamedCaptures; i++)
 			{
 				values[to!string(nc[i])] = to!string(match[nc[i]]);
 			}
