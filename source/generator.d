@@ -61,6 +61,9 @@ class Generator : LuaAddon
 		registerFunction("Path", "RegisterFileForRemoval", &_AppPaths.registerFileForRemoval);
 
 		registerFunction("Config", "GetDefaultTodoFileName", &_Config.getDefaultTodoFileName);
+		registerFunction("Config", "GetTableValue", &_Config.getTableValue);
+		registerFunction("Config", "GetValue", &_Config.getValue);
+		registerFunction("Config", "GetTable", &_Config.getTable);
 
 		registerFunction("InputCollector", "Prompt", &inputCollector_.prompt);
 		registerFunction("InputCollector", "HasValueFor", &inputCollector_.hasValueFor);

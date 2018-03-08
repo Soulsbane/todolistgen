@@ -32,6 +32,16 @@ class Config : LuaConfig
 		//TODO: Use a better name for main config table than AppConfigVars.
 		return getTableVariableValue("AppConfigVars", "DefaultTodoFileName");
 	}
+
+	string getTableValue(const string tableName, const string name)
+	{
+		return getTableVariableValue!string(tableName, name);
+	}
+
+	string getValue(const string name)
+	{
+		return getVariableValue!string(name);
+	}
 }
 
 static this()
