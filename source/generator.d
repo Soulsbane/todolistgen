@@ -40,7 +40,7 @@ class Generator : LuaAddon
 
 	void setupAPIFunctions()
 	{
-		createTable("FileUtils", "AppConfig", "Path", "IO", "Config", "Input");
+		createTable("FileUtils", /*"AppConfig",*/ "Path", "IO", "Config", "Input");
 
 		registerFunction("IO", "ReadText", &api.filereader.readText);
 		registerFunction("IO", "GetLines", &api.filereader.getLines);
@@ -86,7 +86,8 @@ class Generator : LuaAddon
 
 	void loadDefaultModules()
 	{
-		loadFile(buildNormalizedPath(_AppPaths.getModuleDir(), "appconfig.lua"));
+		/// Remove the module also.
+		//loadFile(buildNormalizedPath(_AppPaths.getModuleDir(), "appconfig.lua"));
 		loadFile(buildNormalizedPath(_AppPaths.getModuleDir(), "fileutils.lua"));
 		loadFile(buildNormalizedPath(_AppPaths.getModuleDir(), "ansicolors.lua"));
 		loadFile(buildNormalizedPath(_AppPaths.getModuleDir(), "globals.lua"));
