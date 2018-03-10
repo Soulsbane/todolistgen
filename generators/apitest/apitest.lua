@@ -23,10 +23,12 @@ local function TestConfig()
 	print("GetDefaultTodoFileName: ", fileName)
 	print("Config.GetTableValue: ", Config.GetTableValue("AppConfigVars", "DefaultTodoFileName"))
 
-	local vars = Config.GetTable("AppConfigVars") --FIXME: LuaD is returning a string instead of a LuaTable.
+	--[[	local tab = {x = 1, y = 2, z = 3}
+	local vars = Config.GetTable("AppConfigVars")
 	print(vars)
-	--[[for var in pairs(vars) do
-		print(var)
+	print(type(vars))
+	for k, v in pairs(vars) do
+		print(k, " => ", v)
 	end]]
 end
 
