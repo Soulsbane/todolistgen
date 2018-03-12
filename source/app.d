@@ -26,7 +26,7 @@ struct Options
 	string dir;
 	@GetOptOptions("The pattern to use. [Default: *.*]")
 	string pattern;
-	@GetOptOptions("Will search only seach the file that was passed.")
+	@GetOptOptions("Will only search the passed file name.")
 	string file;
 	@GetOptOptions("The output format the results should be in. [Default: stdout].")
 	string format;
