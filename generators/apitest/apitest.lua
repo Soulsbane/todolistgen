@@ -21,10 +21,10 @@ local function TestConfig()
 	local fileName = Config.GetDefaultTodoFileName()
 
 	print("GetDefaultTodoFileName: ", fileName)
-	print("Config.GetTableValue: ", Config.GetTableValue("AppConfigVars", "DefaultTodoFileName"))
+	print("Config.GetTableValue: ", Config.GetTableValue("Config", "DefaultTodoFileName"))
 
 	--[[	local tab = {x = 1, y = 2, z = 3}
-	local vars = Config.GetTable("AppConfigVars")
+	local vars = Config.GetTable("Config")
 	print(vars)
 	print(type(vars))
 	for k, v in pairs(vars) do

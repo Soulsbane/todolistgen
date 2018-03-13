@@ -8,7 +8,7 @@ end
 
 function AppConfig.GetValue(configVarName)
 	LoadConfig()
-	return AppConfigVars[configVarName]
+	return Config[configVarName]
 end
 
 return AppConfig
