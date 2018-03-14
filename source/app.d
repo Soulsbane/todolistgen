@@ -6,6 +6,7 @@ import std.range;
 import std.algorithm;
 import std.conv;
 import std.format;
+import std.array;
 
 static import std.parallelism;
 
@@ -30,6 +31,8 @@ struct Options
 	string file;
 	@GetOptOptions("The output format the results should be in. [Default: stdout].")
 	string format;
+	@GetOptOptions("A list of file extensions to ignore separated by comma. [d,cpp,rust]")
+	string ignore;
 }
 
 class TodoListGenApp : Application!Options
@@ -129,8 +132,8 @@ class TodoListGenApp : Application!Options
 
 				if(e.isFile)
 				{
-					if(!name.startsWith(".")) // TODO: Find a better way to represent hidden files
-					{
+					 // TODO: Find a better way to represent hidden files
+					if(!name.startsWith(".") && !isIgnoredFileType(name))					{
 						TaskValues[] tasks = reader.readFile(name);
 
 						if(tasks.length > 0)
@@ -172,6 +175,21 @@ class TodoListGenApp : Application!Options
 		{
 			writeln(options.getFormat("stdout"), " output format not found!");
 		}
+	}
+
+	bool isIgnoredFileType(const string fileName)
+	{
+		immutable auto fileExtensions = options.getIgnore("").split(",");
+
+		foreach(extension; fileExtensions)
+		{
+			if(fileName.endsWith(extension))
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	override void onValidArguments()
