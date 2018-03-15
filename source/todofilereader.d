@@ -40,35 +40,42 @@ public:
 private:
 	TaskValues createTask(const string curFileName, const ulong lineNum, const string line) @safe
 	{
-		auto re = regex(pattern_, "g");
-		auto match = matchFirst(line, re);
-		auto nc = re.namedCaptures;
-		immutable size_t numNamedCaptures = nc.length - 1;
 		TaskValues values;
 
-		if(match)
+		foreach(pattern; pattern_)
 		{
-			values["fileName"] = curFileName;
-			values["lineNumber"] = to!string(lineNum);
+			auto re = regex(pattern_, "g");
+			auto match = matchFirst(line, re);
+			auto nc = re.namedCaptures;
+			immutable size_t numNamedCaptures = nc.length - 1;
 
-			for(int i; i <= numNamedCaptures; i++)
+			if(match)
 			{
-				values[to!string(nc[i])] = to!string(match[nc[i]]);
+				values["fileName"] = curFileName;
+				values["lineNumber"] = to!string(lineNum);
+
+				for(int i; i <= numNamedCaptures; i++)
+				{
+					values[to!string(nc[i])] = to!string(match[nc[i]]);
+				}
 			}
 		}
+
 		return values;
 	}
 
-	string getConfigPattern() @trusted const
+	string[] getConfigPattern() @trusted const
 	{
 		auto variable = _Config.getTable("TodoTaskPatterns");
-		string found;
+		//string found;
+		string[] found;
 
 		foreach(string key, bool value; variable)
 		{
 			if(value == true)
 			{
-				found = key; // NOTE: This isn't a bug. Support for multiple patterns to match will be added later.
+				//found = key; // NOTE: This isn't a bug. Support for multiple patterns to match will be added later.
+				found ~= key;
 			}
 		}
 
@@ -76,5 +83,5 @@ private:
 	}
 
 private:
-	string pattern_;
+	string[] pattern_;
 }
