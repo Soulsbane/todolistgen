@@ -47,17 +47,22 @@ private:
 		{
 			auto re = regex(patterns_, "g");
 			auto match = matchFirst(line, re);
-			auto nc = re.namedCaptures;
-			immutable size_t numNamedCaptures = nc.length - 1;
 
 			if(match)
 			{
-				values["fileName"] = curFileName;
-				values["lineNumber"] = to!string(lineNum);
+				auto nc = re.namedCaptures;
 
-				for(int i; i <= numNamedCaptures; i++)
+				if(nc.length != 0)
 				{
-					values[to!string(nc[i])] = to!string(match[nc[i]]);
+					immutable size_t numNamedCaptures = nc.length - 1;
+
+					values["fileName"] = curFileName;
+					values["lineNumber"] = to!string(lineNum);
+
+					for(int i; i <= numNamedCaptures; i++)
+					{
+						values[to!string(nc[i])] = to!string(match[nc[i]]);
+					}
 				}
 			}
 		}
