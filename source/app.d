@@ -33,6 +33,8 @@ struct Options
 	string format;
 	@GetOptOptions("A list of file extensions to ignore separated by comma. [d,cpp,rust]")
 	string ignore;
+	//@GetOptOptions("Used to display only the tag passed separated by commas. [INFO, FIXME, TODO]")
+	//string tag;
 }
 
 class TodoListGenApp : Application!Options
