@@ -16,7 +16,7 @@ class TodoFileReader
 public:
 	this()
 	{
-		pattern_ = getConfigPattern();
+		patterns_ = getConfigPattern();
 	}
 
 	TaskValues[] readFile(const string fileName) @trusted
@@ -42,9 +42,9 @@ private:
 	{
 		TaskValues values;
 
-		foreach(pattern; pattern_)
+		foreach(pattern; patterns_)
 		{
-			auto re = regex(pattern_, "g");
+			auto re = regex(patterns_, "g");
 			auto match = matchFirst(line, re);
 			auto nc = re.namedCaptures;
 			immutable size_t numNamedCaptures = nc.length - 1;
@@ -81,5 +81,5 @@ private:
 	}
 
 private:
-	string[] pattern_;
+	string[] patterns_;
 }
