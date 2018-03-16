@@ -135,7 +135,8 @@ class TodoListGenApp : Application!Options
 				if(e.isFile)
 				{
 					 // TODO: Find a better way to represent hidden files
-					if(!name.startsWith(".") && !isIgnoredFileType(name))					{
+					if(!name.startsWith(".") && !isIgnoredFileType(name))
+					{
 						TaskValues[] tasks = reader.readFile(name);
 
 						if(tasks.length > 0)
