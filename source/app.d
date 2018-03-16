@@ -7,6 +7,7 @@ import std.algorithm;
 import std.conv;
 import std.format;
 import std.array;
+import std.typecons;
 
 static import std.parallelism;
 
@@ -88,7 +89,7 @@ class TodoListGenApp : Application!Options
 				if(tasks.length > 0)
 				{
 					addon.callFunction("OnCreate");
-					addon.processTasks(fileName, tasks, true);
+					addon.processTasks(fileName, tasks, Yes.isLastFile);
 					addon.callFunction("OnDestroy");
 				}
 				else
@@ -159,11 +160,11 @@ class TodoListGenApp : Application!Options
 
 					if(counter == files.length)
 					{
-						addon.processTasks(fileName, files[fileName], true);
+						addon.processTasks(fileName, files[fileName], Yes.isLastFile);
 					}
 					else
 					{
-						addon.processTasks(fileName, files[fileName], false);
+						addon.processTasks(fileName, files[fileName], No.isLastFile);
 					}
 				}
 

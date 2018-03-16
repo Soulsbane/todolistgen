@@ -3,6 +3,7 @@ module generator;
 import std.file;
 import std.path;
 import std.stdio;
+import std.typecons;
 
 import api.filereader;
 import api.path;
@@ -30,11 +31,11 @@ class Generator : LuaAddon
 		return false;
 	}
 
-	void processTasks(const string fileName, TaskValues[] tasks, bool lastFile)
+	void processTasks(const string fileName, TaskValues[] tasks, Flag!"isLastFile" isLastFile)
 	{
 		if(hasFunction("OnProcessTasks"))
 		{
-			callFunction("OnProcessTasks", state_.newTable(tasks), fileName, lastFile);
+			callFunction("OnProcessTasks", state_.newTable(tasks), fileName, cast(bool)isLastFile);
 		}
 	}
 
