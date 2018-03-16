@@ -34,6 +34,7 @@ public:
 				}
 			}
 		}
+
 		return tasks;
 	}
 
@@ -64,7 +65,7 @@ private:
 		return values;
 	}
 
-	string[] getConfigPattern() @trusted const
+	string[] getConfigPattern() const @trusted
 	{
 		auto variable = _Config.getTable("TodoTaskPatterns");
 		string[] found;
