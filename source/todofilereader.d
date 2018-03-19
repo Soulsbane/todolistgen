@@ -61,7 +61,10 @@ private:
 
 					for(int i; i <= numNamedCaptures; i++)
 					{
-						values[to!string(nc[i])] = to!string(match[nc[i]]);
+						immutable string key = to!string(nc[i]);
+						immutable string value = to!string(match[nc[i]]);
+
+						values[key] = value;
 					}
 				}
 			}
