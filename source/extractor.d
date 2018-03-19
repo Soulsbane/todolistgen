@@ -33,7 +33,8 @@ enum moduleFilesList =
 	"appconfig.lua",
 	"fileutils.lua",
 	"ansicolors.lua",
-	"globals.lua"
+	"globals.lua",
+	"etlua.lua"
 ];
 
 void extractGenerators()
