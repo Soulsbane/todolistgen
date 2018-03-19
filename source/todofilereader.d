@@ -19,7 +19,7 @@ public:
 		patterns_ = getConfigPattern();
 	}
 
-	TaskValues[] readFile(const string fileName) @trusted
+	TaskValues[] readFile(const string fileName, const string tags = string.init) @trusted
 	{
 		TaskValues[] tasks;
 
@@ -28,9 +28,21 @@ public:
 			if(line.isValid) // INFO: Make sure the line is actually text.
 			{
 				auto values = createTask(fileName, i + 1, line);
+
 				if(values.length > 0)
 				{
-					tasks ~= values;
+					// INFO: Check for a valid tag if the --tags option has a value.
+					if(values["tag"] && tags != string.init)
+					{
+						if(checkForValidTag(values["tag"], tags))
+						{
+							tasks ~= values;
+						}
+					}
+					else
+					{
+						tasks ~= values;
+					}
 				}
 			}
 		}
@@ -87,6 +99,21 @@ private:
 		}
 
 		return found;
+	}
+
+	bool checkForValidTag(const string tag, const string optionTags)
+	{
+		immutable auto splitTags = optionTags.split(",");
+
+		foreach(splitTag; splitTags)
+		{
+			if(tag == splitTag)
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 private:

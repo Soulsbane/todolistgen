@@ -34,8 +34,8 @@ struct Options
 	string format;
 	@GetOptOptions("A list of file extensions to ignore separated by comma. [d,cpp,rust]")
 	string ignore;
-	//@GetOptOptions("Used to display only the tag passed separated by commas. [INFO, FIXME, TODO]")
-	//string tag;
+	@GetOptOptions("Used to display only the tag passed separated by commas. [INFO, FIXME, TODO]")
+	string tags;
 }
 
 class TodoListGenApp : Application!Options
@@ -138,7 +138,7 @@ class TodoListGenApp : Application!Options
 					 // TODO: Find a better way to represent hidden files
 					if(!name.startsWith(".") && !isIgnoredFileType(name))
 					{
-						TaskValues[] tasks = reader.readFile(name);
+						TaskValues[] tasks = reader.readFile(name, options.getTags());
 
 						if(tasks.length > 0)
 						{
