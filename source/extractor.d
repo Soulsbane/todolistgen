@@ -1,12 +1,5 @@
 module extractor;
 
-import std.stdio;
-import std.path;
-import std.file: exists, mkdirRecurse;
-import std.algorithm;
-import std.array;
-import std.typetuple;
-
 import api.path;
 import dfileutils.extractor;
 
