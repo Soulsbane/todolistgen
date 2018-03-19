@@ -16,7 +16,6 @@ enum generatorFilesList =
 	"apitest/data.txt",
 	"csv/csv.lua",
 	"html/html.lua",
-	"html/modules/etlua.lua",
 	"html/templates/default/content.html",
 	"html/templates/default/footer.html",
 	"html/templates/default/header.html",
