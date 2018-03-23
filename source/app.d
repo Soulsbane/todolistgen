@@ -13,6 +13,7 @@ static import std.parallelism;
 
 import dapplicationbase;
 import dtermutils;
+import luaaddon.tocparser;
 
 import constants;
 import api.path;
@@ -48,9 +49,37 @@ class TodoListGenApp : Application!Options
 		ensureConfigDirExists();
 	}
 
+	auto getDirList(const string name, SpanMode mode)
+	{
+		auto dirs = dirEntries(name, mode)
+			.filter!(a => a.isDir && !a.name.startsWith("."))
+			.array;
+
+		return sort(dirs);
+	}
+
 	void createListOfGenerators()
 	{
-		writeln("Listing...");
+			writeln("The following generators are available:");
+			writeln;
+
+		foreach(dirName; getDirList(_AppPaths.getBaseAddonDir(), SpanMode.shallow))
+		{
+			TocParser!() parser;
+			immutable string baseName = dirName.baseName;
+			immutable string tocFileName = buildNormalizedPath(dirName, baseName ~ ".toc");
+
+			if(tocFileName.exists)
+			{
+				parser.loadFile(tocFileName);
+
+				immutable string description = parser.getDescription();
+				immutable string name = parser.getName();
+
+				writeln(name,  " - ", description);
+			}
+
+		}
 	}
 
 	override void onCreate()
