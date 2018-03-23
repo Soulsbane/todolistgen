@@ -36,8 +36,8 @@ struct Options
 	string ignore;
 	@GetOptOptions("Used to display only the tag passed separated by commas. [INFO, FIXME, TODO]")
 	string tags;
-	//@GetOptCallback("Generates a list of installed generators.")
-	//string list;
+	@GetOptOptions("Generates a list of installed generators.")
+	string list;
 }
 
 class TodoListGenApp : Application!Options
