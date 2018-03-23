@@ -37,7 +37,7 @@ struct Options
 	@GetOptOptions("Used to display only the tag passed separated by commas. [INFO, FIXME, TODO]")
 	string tags;
 	@GetOptOptions("Generates a list of installed generators.")
-	string list;
+	bool list;
 }
 
 class TodoListGenApp : Application!Options
@@ -46,6 +46,11 @@ class TodoListGenApp : Application!Options
 	{
 		_AppPaths.setAddonName(options.getFormat("stdout"));
 		ensureConfigDirExists();
+	}
+
+	void createListOfGenerators()
+	{
+		writeln("Listing...");
 	}
 
 	override void onCreate()
@@ -206,6 +211,10 @@ class TodoListGenApp : Application!Options
 		{
 			immutable string fileName = options.getFile();
 			processFile(fileName);
+		}
+		else if(options.hasList())
+		{
+			createListOfGenerators();
 		}
 		else
 		{
