@@ -45,6 +45,42 @@ struct Options
 
 class TodoListGenApp : Application!Options
 {
+public:
+	override void onCreate()
+	{
+		setupEnvironment();
+	}
+
+	override void onValidArguments()
+	{
+		setupEnvironment();
+
+		if(options.hasFile()) // --file argument was passed
+		{
+			immutable string fileName = options.getFile();
+			processFile(fileName);
+		}
+		else if(options.hasList())
+		{
+			createListOfGenerators();
+		}
+		else if(options.hasCreateGenerator())
+		{
+			createGenerator();
+		}
+		else
+		{
+			processDir();
+		}
+	}
+
+	override void onNoArguments()
+	{
+		setupEnvironment();
+		processDir();
+	}
+
+private:
 	void setupEnvironment()
 	{
 		_AppPaths.setAddonName(options.getFormat("stdout"));
@@ -84,10 +120,6 @@ class TodoListGenApp : Application!Options
 		}
 	}
 
-	override void onCreate()
-	{
-		setupEnvironment();
-	}
 
 	void ensureConfigDirExists() @trusted
 	{
@@ -261,34 +293,6 @@ class TodoListGenApp : Application!Options
 		}
 	}
 
-	override void onValidArguments()
-	{
-		setupEnvironment();
-
-		if(options.hasFile()) // --file argument was passed
-		{
-			immutable string fileName = options.getFile();
-			processFile(fileName);
-		}
-		else if(options.hasList())
-		{
-			createListOfGenerators();
-		}
-		else if(options.hasCreateGenerator())
-		{
-			createGenerator();
-		}
-		else
-		{
-			processDir();
-		}
-	}
-
-	override void onNoArguments()
-	{
-		setupEnvironment();
-		processDir();
-	}
 }
 
 void main(string[] arguments)
