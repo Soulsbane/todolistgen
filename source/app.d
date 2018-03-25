@@ -37,6 +37,8 @@ struct Options
 	string ignore;
 	@GetOptOptions("Used to display only the tag passed separated by commas. [INFO, FIXME, TODO]")
 	string tags;
+	@GetOptOptions("Creates a generator using the command argument for the name.[Generator Name]", "", "create-generator")
+	string createGenerator;
 	@GetOptOptions("Generates a list of installed generators.")
 	bool list;
 }
@@ -232,6 +234,12 @@ class TodoListGenApp : Application!Options
 		return false;
 	}
 
+	void createGenerator()
+	{
+		immutable name = options.getCreateGenerator();
+		writeln("Creating generator ", name, "...");
+	}
+
 	override void onValidArguments()
 	{
 		setupEnvironment();
@@ -244,6 +252,10 @@ class TodoListGenApp : Application!Options
 		else if(options.hasList())
 		{
 			createListOfGenerators();
+		}
+		else if(options.hasCreateGenerator())
+		{
+			createGenerator();
 		}
 		else
 		{
