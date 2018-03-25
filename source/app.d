@@ -234,10 +234,31 @@ class TodoListGenApp : Application!Options
 		return false;
 	}
 
+	bool hasGenerator(const string name)
+	{
+		foreach(dirName; getDirList(_AppPaths.getBaseAddonDir(), SpanMode.shallow))
+		{
+			if(dirName.baseName == name)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	void createGenerator()
 	{
 		immutable name = options.getCreateGenerator();
-		writeln("Creating generator ", name, "...");
+
+		if(!hasGenerator(name))
+		{
+
+		}
+		else
+		{
+			writeln("That generator already exists! Please use another name. Use --list for a list of generators.");
+		}
 	}
 
 	override void onValidArguments()
