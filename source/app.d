@@ -8,8 +8,12 @@ import std.conv;
 import std.format;
 import std.array;
 import std.typecons;
+import std.conv;
+import std.format;
 
 static import std.parallelism;
+
+import progress;
 
 import dapplicationbase;
 import dtermutils;
@@ -120,7 +124,6 @@ private:
 		}
 	}
 
-
 	void ensureConfigDirExists() @trusted
 	{
 		immutable string configPath = _AppPaths.getConfigFilesDir();
@@ -191,12 +194,16 @@ private:
 
 			TaskValues[][string] files;
 			auto reader = new TodoFileReader;
-			ProgressBar progress;
+			ShadyBar progress = new ShadyBar();
 			size_t counter;
+
+			progress.message = { return "Searching"; };
+			progress.suffix = { return format("%0.0f", progress.percent).to!string ~ "% "; };
+			progress.width = 64;
+			progress.max = filesLength;
 
 			writeln(filesLength, " files to process.");
 			addon.callFunction("OnCreate");
-			progress.create(filesLength, "Searching:", "Complete", 100);
 
 			foreach(DirEntry e; std.parallelism.parallel(dirEntries(dir, pattern, SpanMode.breadth)))
 			{
@@ -217,8 +224,10 @@ private:
 					}
 				}
 
-				progress.update(counter);
+				progress.next();
 			}
+
+			progress.finish();
 
 			if(files.length > 0)
 			{

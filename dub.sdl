@@ -3,12 +3,15 @@ description "Generates a todo list from various sources and outputs in various f
 authors "Paul Crane"
 copyright "Copyright © 2018, Paul Crane"
 license "proprietary"
+
 dependency "luad" version="~master"
+dependency "progress" version="~>5.0.1"
+
 dependency "luaaddon" version="*"
 dependency "ctoptions" version="*"
 dependency "dfileutils" version="*"
 dependency "dpathutils" version="*"
 dependency "dapplicationbase" version="*"
 dependency "dtermutils" version="*"
-stringImportPaths "generators" "modules" "source"
+
 stringImportPaths "generators" "modules" "source"
