@@ -194,7 +194,7 @@ private:
 
 			TaskValues[][string] files;
 			auto reader = new TodoFileReader;
-			ShadyBar progress = new ShadyBar();
+			ChargingBar progress = new ChargingBar();
 			size_t counter;
 
 			progress.message = { return "Searching"; };
