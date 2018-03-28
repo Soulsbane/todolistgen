@@ -17,7 +17,7 @@ class Generator : LuaAddon
 	bool create(const string outputFormat)
 	{
 		immutable string fileName = buildNormalizedPath(_AppPaths.getAddonDir(), outputFormat) ~ ".lua";
-		writeln(fileName);
+
 		if(fileName.exists)
 		{
 			loadConfig();
