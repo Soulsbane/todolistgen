@@ -8,6 +8,12 @@ enum generatorFilesList =
 	"apitest/apitest.lua",
 	"apitest/data.txt",
 	"csv/csv.lua",
+
+	"creator/creator.lua",
+	"creator/creator.toc",
+	"creator/templates/generator.lua.elt",
+	"creator/templates/generator.toc.elt",
+
 	"html/html.lua",
 	"html/templates/default/content.html",
 	"html/templates/default/footer.html",
