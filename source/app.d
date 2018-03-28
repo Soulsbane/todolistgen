@@ -41,8 +41,8 @@ struct Options
 	string ignore;
 	@GetOptOptions("Used to display only the tag passed separated by commas. [INFO, FIXME, TODO]")
 	string tags;
-	@GetOptOptions("Creates a generator using the command argument for the name.[Generator Name]", "", "create-generator")
-	string createGenerator;
+	@GetOptOptions("Starts an interactive session used to create a new generator.", "", "create-generator")
+	bool createGenerator;
 	@GetOptOptions("Generates a list of installed generators.")
 	bool list;
 }
@@ -290,19 +290,21 @@ private:
 
 	void createGenerator()
 	{
-		immutable name = options.getCreateGenerator();
+		//INFO: We have to set the format here since its not passed when using --create-generator
+		_AppPaths.setAddonName(options.getFormat("creator"));
+		ensureConfigDirExists();
 
-		if(!hasGenerator(name))
+		auto addon = new Generator;
+		immutable bool created = addon.create(options.getFormat("creator"));
+
+		if(created)
 		{
-			setupEnvironment();
-
-			auto addon = new Generator;
-			immutable bool created = addon.create(options.getFormat("stdout"));
-
+			addon.callFunction("OnCreate");
+			addon.callFunction("OnDestroy");
 		}
 		else
 		{
-			writeln("That generator already exists! Please use another name. Use --list for a list of generators.");
+			writeln("Failed to start Creator interactive session.");
 		}
 	}
 
