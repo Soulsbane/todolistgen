@@ -294,6 +294,10 @@ private:
 
 		if(!hasGenerator(name))
 		{
+			setupEnvironment();
+
+			auto addon = new Generator;
+			immutable bool created = addon.create(options.getFormat("stdout"));
 
 		}
 		else

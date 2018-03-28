@@ -1,0 +1,3 @@
+## Author: Paul Crane
+## Name: Creator
+## Description: Used to create a new generator in the user's generator directory.
