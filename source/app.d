@@ -111,7 +111,7 @@ private:
 			immutable string baseName = dirName.baseName;
 			immutable string tocFileName = buildNormalizedPath(dirName, baseName ~ ".toc");
 
-			if(tocFileName.exists)
+			if(tocFileName.exists && baseName != "creator")
 			{
 				parser.loadFile(tocFileName);
 
