@@ -7,4 +7,11 @@ function FileUtils.CreateTodoFile(fileExt)
 	return fileHandle, fileName
 end
 
+function FileUtils.CreateFileInOutputDir(fileName, openMode)
+	local mode = openMode or "w+"
+	local fileHandle = io.open(fileName, mode)
+
+	return fileHandle
+end
+
 return FileUtils
