@@ -45,6 +45,7 @@ class Generator : LuaAddon
 
 		registerFunction("IO", "ReadText", &api.filereader.readText);
 		registerFunction("IO", "GetLines", &api.filereader.getLines);
+		registerFunction("IO", "CreateOutputFile", &_AppPaths.createOutputFile);
 
 		registerFunction("Path", "GetInstallDir", &_AppPaths.getInstallDir);
 		registerFunction("Path", "GetBaseAddonDir", &_AppPaths.getBaseAddonDir);

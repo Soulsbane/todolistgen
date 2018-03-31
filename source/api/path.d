@@ -2,6 +2,7 @@ module api.path;
 
 import std.file;// : exists, getcwd, thisExePath;
 import std.path;// : baseName, dirName, buildNormalizedPath;
+import std.algorithm.searching : canFind;
 
 import luaaddon.addonpaths;
 import dfileutils;
@@ -34,6 +35,17 @@ class ApplicationPaths : AddonPaths
 	{
 		immutable string path = buildNormalizedPath(params);
 		return ensurePathExists(buildNormalizedPath(getOutputDir(), path));
+	}
+
+	void createOutputFile(const string fileName, const string data)
+	{
+		if(fileName.canFind(dirSeparator))
+		{
+			ensurePathExists(getOutputDir(), dirName(fileName));
+		}
+
+		immutable string outputFileName = buildNormalizedPath(getOutputDir(), fileName);
+		ensureFileExists(outputFileName, data);
 	}
 
 	bool removeDirFromOutputDir(const string dir)
