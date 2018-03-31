@@ -49,6 +49,7 @@ class Generator : LuaAddon
 		registerFunction("Path", "GetInstallDir", &_AppPaths.getInstallDir);
 		registerFunction("Path", "GetBaseAddonDir", &_AppPaths.getBaseAddonDir);
 		registerFunction("Path", "GetAddonDir", &_AppPaths.getAddonDir);
+		registerFunction("Path", "GetAddonDirFor", &_AppPaths.getAddonDirFor);
 		registerFunction("Path", "GetAddonModuleDir", &_AppPaths.getAddonModulesDir);
 		registerFunction("Path", "GetAddonTemplateDir", &_AppPaths.getAddonTemplatesDir);
 		registerFunction("Path", "GetModuleDir", &_AppPaths.getModuleDir);
