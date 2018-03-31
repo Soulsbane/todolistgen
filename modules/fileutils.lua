@@ -8,7 +8,7 @@ function IO.CreateTodoFile(fileExt)
 end
 
 function FileUtils.CreateTodoFile(fileExt)
-	IO.CreateTodoFile(fileExt)
+	return IO.CreateTodoFile(fileExt)
 end
 
 function IO.CreateFileInOutputDir(fileName, openMode)
