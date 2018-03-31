@@ -9,7 +9,7 @@ end
 
 function FileUtils.CreateFileInOutputDir(fileName, openMode)
 	local mode = openMode or "w+"
-	local fileHandle = io.open(fileName, mode)
+	local fileHandle = io.open(Path.Normalize(Path:GetOutputDir(), fileName, mode))
 
 	return fileHandle
 end
