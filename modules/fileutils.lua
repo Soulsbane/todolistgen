@@ -7,9 +7,13 @@ function FileUtils.CreateTodoFile(fileExt)
 	return fileHandle, fileName
 end
 
-function FileUtils.CreateFileInOutputDir(fileName, openMode)
+function IO.CreateTodoFile(fileExt)
+	IO.CreateTodoFile(fileExt)
+end
+
+function IO.CreateFileInOutputDir(fileName, openMode)
 	local mode = openMode or "w+"
-	local fileHandle = io.open(Path.Normalize(Path:GetOutputDir(), fileName, mode))
+	local fileHandle = io.open(Path.Normalize(Path:GetOutputDir(), fileName), mode)
 
 	return fileHandle
 end
