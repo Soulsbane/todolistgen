@@ -41,7 +41,7 @@ class Generator : LuaAddon
 
 	void setupAPIFunctions()
 	{
-		createTable("FileUtils", /*"AppConfig",*/ "Path", "IO", "Config", "Input");
+		createTable("FileUtils", "Helpers", "Path", "IO", "Config", "Input");
 
 		registerFunction("IO", "ReadText", &api.filereader.readText);
 		registerFunction("IO", "GetLines", &api.filereader.getLines);
@@ -96,6 +96,8 @@ class Generator : LuaAddon
 		loadFile(buildNormalizedPath(_AppPaths.getModuleDir(), "fileutils.lua"));
 		loadFile(buildNormalizedPath(_AppPaths.getModuleDir(), "ansicolors.lua"));
 		loadFile(buildNormalizedPath(_AppPaths.getModuleDir(), "globals.lua"));
+		loadFile(buildNormalizedPath(_AppPaths.getModuleDir(), "helpers.lua"));
+		loadFile(buildNormalizedPath(_AppPaths.getModuleDir(), "resty", "template.lua"));
 		loadFile(buildNormalizedPath(_AppPaths.getModuleDir(), "etlua.lua"));
 	}
 
