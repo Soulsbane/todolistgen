@@ -63,6 +63,7 @@ class Generator : LuaAddon
 		registerFunction("Path", "RemoveFileFromAddonDir", &_AppPaths.removeFileFromAddonDir);
 		registerFunction("Path", "RemoveFileFromOutputDir", &_AppPaths.removeFileFromOutputDir);
 		registerFunction("Path", "RegisterFileForRemoval", &_AppPaths.registerFileForRemoval);
+		// TODO: Add EnsurePathExists API
 
 		registerFunction("Config", "GetDefaultTodoFileName", &_Config.getDefaultTodoFileName);
 		registerFunction("Config", "GetTableValue", &_Config.getTableValue);

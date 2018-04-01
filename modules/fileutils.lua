@@ -22,4 +22,16 @@ function IO.CreateFileInOutputDir(fileName, openMode)
 	return IO.CreateFile(Path.Normalize(Path:GetOutputDir(), fileName), mode)
 end
 
+function IO.CreateFileInAddonDir(fileName, openMode)
+	return IO.CreateFile(Path.Normalize(Path:GetAddonDir(), fileName), mode)
+end
+
+function IO.CreateFileInAddonModuleDir(fileName, openMode)
+	return IO.CreateFile(Path.Normalize(Path.GetAddonModuleDir(), fileName), mode)
+end
+
+function IO.CreateFileInBaseAddonDir(fileName, openMode)
+	return IO.CreateFile(Path.Normalize(Path:GetBaseAddonDir(), fileName), mode)
+end
+
 return FileUtils
