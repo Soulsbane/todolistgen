@@ -11,11 +11,15 @@ function FileUtils.CreateTodoFile(fileExt)
 	return IO.CreateTodoFile(fileExt)
 end
 
-function IO.CreateFileInOutputDir(fileName, openMode)
+function IO.CreateFile(fileName, openMode)
 	local mode = openMode or "w+"
-	local fileHandle = io.open(Path.Normalize(Path:GetOutputDir(), fileName), mode)
+	local fileHandle = io.open(fileName, mode)
 
 	return fileHandle
+end
+
+function IO.CreateFileInOutputDir(fileName, openMode)
+	return IO.CreateFile(Path.Normalize(Path:GetOutputDir(), fileName), mode)
 end
 
 return FileUtils
