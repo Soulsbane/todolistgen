@@ -1,7 +1,7 @@
 local FileUtils = FileUtils
 
 function IO.CreateTodoFile(fileExt)
-	local fileName = Path:GetOutputDir() .. "/" .. Config.GetDefaultTodoFileName() .. "." .. fileExt
+	local fileName = Path.Normalize(Path.GetOutputDir(), Config.GetDefaultTodoFileName() .. "." .. fileExt)
 	fileHandle = io.open(fileName, "w+")
 
 	return fileHandle, fileName
