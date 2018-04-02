@@ -46,6 +46,11 @@ class Generator : LuaAddon
 		registerFunction("IO", "ReadText", &api.filereader.readText);
 		registerFunction("IO", "GetLines", &api.filereader.getLines);
 		registerFunction("IO", "CreateOutputFile", &_AppPaths.createOutputFile);
+		registerFunction("IO", "CopyFileTo", &_AppPaths.copyFileTo);
+		registerFunction("IO", "CopyFileToOutputDir", &_AppPaths.copyFileToOutputDir);
+		registerFunction("IO", "RemoveFileFromAddonDir", &_AppPaths.removeFileFromAddonDir);
+		registerFunction("IO", "RemoveFileFromOutputDir", &_AppPaths.removeFileFromOutputDir);
+		registerFunction("IO", "RegisterFileForRemoval", &_AppPaths.registerFileForRemoval);
 
 		registerFunction("Path", "GetInstallDir", &_AppPaths.getInstallDir);
 		registerFunction("Path", "GetBaseAddonDir", &_AppPaths.getBaseAddonDir);
@@ -58,11 +63,6 @@ class Generator : LuaAddon
 		registerFunction("Path", "GetConfigDir", &_AppPaths.getConfigDir);
 		registerFunction("Path", "GetConfigFilesDir", &_AppPaths.getConfigFilesDir);
 		registerFunction("Path", "Normalize", &_AppPaths.getNormalizedPath);
-		registerFunction("Path", "CopyFileTo", &_AppPaths.copyFileTo);
-		registerFunction("Path", "CopyFileToOutputDir", &_AppPaths.copyFileToOutputDir);
-		registerFunction("Path", "RemoveFileFromAddonDir", &_AppPaths.removeFileFromAddonDir);
-		registerFunction("Path", "RemoveFileFromOutputDir", &_AppPaths.removeFileFromOutputDir);
-		registerFunction("Path", "RegisterFileForRemoval", &_AppPaths.registerFileForRemoval);
 		// TODO: Add EnsurePathExists API
 
 		registerFunction("Config", "GetDefaultTodoFileName", &_Config.getDefaultTodoFileName);
