@@ -11,6 +11,7 @@ import config;
 import luaaddon;
 import todofilereader;
 import dtermutils;
+import dpathutils.exists;
 
 class Generator : LuaAddon
 {
@@ -63,7 +64,7 @@ class Generator : LuaAddon
 		registerFunction("Path", "GetConfigDir", &_AppPaths.getConfigDir);
 		registerFunction("Path", "GetConfigFilesDir", &_AppPaths.getConfigFilesDir);
 		registerFunction("Path", "Normalize", &_AppPaths.getNormalizedPath);
-		// TODO: Add EnsurePathExists API
+		registerFunction("Path", "EnsureExists", &dpathutils.exists.ensurePathExists);
 
 		registerFunction("Config", "GetDefaultTodoFileName", &_Config.getDefaultTodoFileName);
 		registerFunction("Config", "GetTableValue", &_Config.getTableValue);
