@@ -1,4 +1,4 @@
-module api.filereader;
+module api.io;
 
 import std.string;
 

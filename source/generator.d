@@ -5,7 +5,7 @@ import std.path;
 import std.stdio;
 import std.typecons;
 
-import api.filereader;
+import api.io;
 import api.path;
 import config;
 import luaaddon;
@@ -43,8 +43,8 @@ class Generator : LuaAddon
 	{
 		createTable("FileUtils", "Helpers", "Path", "IO", "Config", "Input");
 
-		registerFunction("IO", "ReadText", &api.filereader.readText);
-		registerFunction("IO", "GetLines", &api.filereader.getLines);
+		registerFunction("IO", "ReadText", &api.io.readText);
+		registerFunction("IO", "GetLines", &api.io.getLines);
 		registerFunction("IO", "CreateOutputFile", &_AppPaths.createOutputFile);
 		registerFunction("IO", "CopyFileTo", &_AppPaths.copyFileTo);
 		registerFunction("IO", "CopyFileToOutputDir", &_AppPaths.copyFileToOutputDir);
