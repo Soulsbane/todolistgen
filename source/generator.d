@@ -64,7 +64,7 @@ class Generator : LuaAddon
 		registerFunction("Path", "GetConfigDir", &_AppPaths.getConfigDir);
 		registerFunction("Path", "GetConfigFilesDir", &_AppPaths.getConfigFilesDir);
 		registerFunction("Path", "Normalize", &_AppPaths.getNormalizedPath);
-		registerFunction("Path", "EnsureExists", &dpathutils.exists.ensurePathExists);
+		registerFunction("Path", "EnsurePathExists", &dpathutils.exists.ensurePathExists);
 
 		registerFunction("Config", "GetDefaultTodoFileName", &_Config.getDefaultTodoFileName);
 		registerFunction("Config", "GetTableValue", &_Config.getTableValue);
