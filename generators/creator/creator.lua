@@ -1,5 +1,3 @@
-local TemplateMod = require("etlua")
-
 function OnCreate()
 	print("I'm creating")
 end
