@@ -28,7 +28,7 @@ class ApplicationPaths : AddonPaths
 
 	string getOutputDir()
 	{
-		return buildNormalizedPath(getcwd(), getValueFor("ProjectName"));
+		return buildNormalizedPath(getcwd());
 	}
 
 	bool createDirInOutputDir(const(char)[][] params...)
