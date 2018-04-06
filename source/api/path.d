@@ -1,7 +1,7 @@
 module api.path;
 
-import std.file;// : exists, getcwd, thisExePath;
-import std.path;// : baseName, dirName, buildNormalizedPath;
+import std.file;
+import std.path;
 import std.algorithm.searching : canFind;
 
 import luaaddon.addonpaths;
