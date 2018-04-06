@@ -8,7 +8,6 @@ import luaaddon.addonpaths;
 import dfileutils;
 import dpathutils;
 
-import inputcollector;
 import constants;
 
 ApplicationPaths _AppPaths;
