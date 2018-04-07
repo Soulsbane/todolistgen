@@ -5,7 +5,7 @@ local Normalize = Path.Normalize
 local DEFAULT_TEMPLATE_PATH = Normalize(Path.GetAddonDir(), "templates", "default")
 
 function OnCreate()
-	TasksTemplate = IO.ReadText(Normalize(DEFAULT_TEMPLATE_PATH, "tasks.elt"))
+	TasksTemplate = IO.ReadText(Normalize(DEFAULT_TEMPLATE_PATH, "tasks.tpl"))
 	IO.RemoveFileFromOutputDir("default.css")
 
 	FileHandle, TodoFileName = FileUtils.CreateTodoFile("html")
