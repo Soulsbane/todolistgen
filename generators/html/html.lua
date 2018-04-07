@@ -1,4 +1,5 @@
-local TemplateMod = require("etlua")
+--local TemplateMod = require("etlua")
+local TemplateMod = require("resty.template")
 local FileHandle, TodoFileName, TasksTemplate
 local Normalize = Path.Normalize
 local DEFAULT_TEMPLATE_PATH = Normalize(Path.GetAddonDir(), "templates", "default")
@@ -20,6 +21,8 @@ function OnDestroy()
 end
 
 function OnProcessTasks(tasks, fileName)
-	local template = TemplateMod.compile(TasksTemplate)
-	FileHandle:write((template({fileName = fileName, tasks = tasks})))
+	local func = TemplateMod.compile(TasksTemplate)
+	local str = func({fileName = fileName, tasks = tasks})
+
+	FileHandle:write(str)
 end
