@@ -34,9 +34,6 @@ function IO.CreateFileInBaseAddonDir(fileName, openMode)
 	return IO.CreateFile(Path.Normalize(Path.GetBaseAddonDir(), fileName), mode)
 end
 
---[[function IO.LoadTemplate(fileName)
-	return IO.ReadText(Path.Normalize(Path.GetAddonTemplateDir(), fileName))
-end]]
 function IO.LoadTemplate(fileName, ...)
 	return IO.ReadText(Path.Normalize(Path.GetAddonTemplateDir(), ..., fileName))
 end
