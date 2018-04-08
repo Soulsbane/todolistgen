@@ -2,19 +2,18 @@
 local TemplateMod = require("resty.template")
 local FileHandle, TodoFileName, TasksTemplate
 local Normalize = Path.Normalize
-local DEFAULT_TEMPLATE_PATH = Normalize(Path.GetAddonDir(), "templates", "default")
 
 function OnCreate()
-	TasksTemplate = IO.ReadText(Normalize(DEFAULT_TEMPLATE_PATH, "tasks.tpl"))
+	TasksTemplate = IO.LoadTemplate("tasks.tpl", "default")
 	IO.RemoveFileFromOutputDir("default.css")
 
 	FileHandle, TodoFileName = FileUtils.CreateTodoFile("html")
-	FileHandle:write(IO.ReadText(Normalize(DEFAULT_TEMPLATE_PATH, "header.html")))
+	FileHandle:write(IO.LoadTemplate("header.html", "default"))
 end
 
 function OnDestroy()
-	FileHandle:write(IO.ReadText(Normalize(DEFAULT_TEMPLATE_PATH, "footer.html")))
-	IO.CopyFileToOutputDir(Normalize(DEFAULT_TEMPLATE_PATH, "default.css"))
+	FileHandle:write(IO.LoadTemplate("footer.html", "default"))
+	IO.CopyFileToOutputDir(Normalize(Path.GetAddonTemplateDir(), "default", "default.css"))
 
 	io.close(FileHandle)
 	print("Exporting list to " .. TodoFileName)
