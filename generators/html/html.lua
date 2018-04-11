@@ -1,4 +1,3 @@
---local TemplateMod = require("etlua")
 local TemplateMod = require("resty.template")
 local FileHandle, TodoFileName, TasksTemplate
 local Normalize = Path.Normalize
