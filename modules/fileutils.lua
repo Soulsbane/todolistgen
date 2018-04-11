@@ -46,7 +46,13 @@ function IO.CreateFileInBaseAddonDir(fileName, openMode)
 end
 
 function IO.LoadTemplate(fileName, ...)
-	return IO.ReadText(Path.Normalize(Path.GetAddonTemplateDir(), ..., fileName))
+	local arguments = {...}
+
+	if(#arguments > 0) then
+		return IO.ReadText(Path.Normalize(Path.GetAddonTemplateDir(), ..., fileName))
+	else
+		return IO.ReadText(Path.Normalize(Path.GetAddonTemplateDir(), fileName))
+	end
 end
 
 function IO.LoadAndParseTemplate(fileName, ...)
@@ -67,6 +73,11 @@ function IO.LoadAndParseTemplate(fileName, ...)
 			return str
 		end
 	else
+		local loadedTemplate = IO.LoadTemplate(fileName, ...)
+		local func = TemplateMod.compile(loadedTemplate)
+		local str = func({})
+
+		return str
 	end
 end
 
