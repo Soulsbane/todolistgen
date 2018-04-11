@@ -1,4 +1,15 @@
 local FileUtils = FileUtils
+local TemplateMod = require("resty.template")
+
+local function slice(arr, first, last)
+	local sub = {}
+
+	for i = first, last do
+		sub[#sub + 1] = arr[i]
+	end
+
+	return sub
+end
 
 function IO.CreateTodoFile(fileExt)
 	local fileName = Path.Normalize(Path.GetOutputDir(), Config.GetDefaultTodoFileName() .. "." .. fileExt)
@@ -38,4 +49,27 @@ function IO.LoadTemplate(fileName, ...)
 	return IO.ReadText(Path.Normalize(Path.GetAddonTemplateDir(), ..., fileName))
 end
 
+function IO.LoadAndParseTemplate(fileName, ...)
+	local arguments = {...}
+
+	if #arguments > 0 then
+		if type(arguments[1]) == "table" then
+			local loadedTemplate = IO.LoadTemplate(fileName, unpack(slice(arguments, 2, #arguments)), fileName)
+			local func = TemplateMod.compile(loadedTemplate)
+			local str = func(arguments[1])
+
+			return str
+		else
+			local loadedTemplate = IO.LoadTemplate(fileName, ...)
+			local func = TemplateMod.compile(loadedTemplate)
+			local str = func({})
+
+			return str
+		end
+	else
+	end
+end
+--FileHandle:write(IO.LoadTemplate("footer.html", "default"))
+--FileHandle:write(IO.LoadAndParseTemplate("footer.html", "default"))
+FileHandle:write(IO.LoadAndParseTemplate("footer.html", _G, "default"))
 return FileUtils
