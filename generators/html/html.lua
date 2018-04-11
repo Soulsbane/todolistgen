@@ -1,9 +1,8 @@
 local TemplateMod = require("resty.template")
-local FileHandle, TodoFileName, TasksTemplate
+local FileHandle, TodoFileName
 local Normalize = Path.Normalize
 
 function OnCreate()
-	TasksTemplate = IO.LoadTemplate("tasks.tpl", "default")
 	IO.RemoveFileFromOutputDir("default.css")
 
 	FileHandle, TodoFileName = FileUtils.CreateTodoFile("html")
@@ -19,8 +18,6 @@ function OnDestroy()
 end
 
 function OnProcessTasks(tasks, fileName)
-	local func = TemplateMod.compile(TasksTemplate)
-	local str = func({fileName = fileName, tasks = tasks})
-
+	local str = IO.LoadAndParseTemplate("tasks.tpl", {fileName = fileName, tasks = tasks}, "default")
 	FileHandle:write(str)
 end
