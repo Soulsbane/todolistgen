@@ -48,7 +48,7 @@ end
 function IO.LoadTemplate(fileName, ...)
 	local arguments = {...}
 
-	if(#arguments > 0) then
+	if #arguments > 0 then
 		return IO.ReadText(Path.Normalize(Path.GetAddonTemplateDir(), ..., fileName))
 	else
 		return IO.ReadText(Path.Normalize(Path.GetAddonTemplateDir(), fileName))
