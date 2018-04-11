@@ -69,7 +69,5 @@ function IO.LoadAndParseTemplate(fileName, ...)
 	else
 	end
 end
---FileHandle:write(IO.LoadTemplate("footer.html", "default"))
---FileHandle:write(IO.LoadAndParseTemplate("footer.html", "default"))
-FileHandle:write(IO.LoadAndParseTemplate("footer.html", _G, "default"))
+
 return FileUtils
