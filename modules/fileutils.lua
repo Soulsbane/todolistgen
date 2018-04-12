@@ -65,7 +65,7 @@ function IO.LoadAndParseTemplate(fileName, ...)
 			local str = func(arguments[1])
 
 			return str
-		else
+		else --FIXME: If function last argument is a table it errors.
 			local loadedTemplate = IO.LoadTemplate(fileName, ...)
 			local func = TemplateMod.compile(loadedTemplate)
 			local str = func({})
