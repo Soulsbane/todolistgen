@@ -49,7 +49,11 @@ function IO.LoadTemplate(fileName, ...)
 	local arguments = {...}
 
 	if #arguments > 0 then
-		return IO.ReadText(Path.Normalize(Path.GetAddonTemplateDir(), unpack(arguments), fileName))
+		if type(arguments[1]) == "table" then
+			return IO.ReadText(Path.Normalize(Path.GetAddonTemplateDir(), fileName))
+		else
+			return IO.ReadText(Path.Normalize(Path.GetAddonTemplateDir(), unpack(arguments), fileName))
+		end
 	else
 		return IO.ReadText(Path.Normalize(Path.GetAddonTemplateDir(), fileName))
 	end
@@ -61,7 +65,7 @@ function IO.LoadAndParseTemplate(fileName, ...)
 	if #arguments > 0 then
 		if type(arguments[1]) == "table" then
 			if (#arguments == 1) then --INFO Sending only a table as the last argument causes Normalize to error.
-				local loadedTemplate = IO.LoadTemplate(fileName)
+				local loadedTemplate = IO.LoadTemplate(fileName, arguments[1])
 				local func = TemplateMod.compile(loadedTemplate)
 				local str = func({})
 
