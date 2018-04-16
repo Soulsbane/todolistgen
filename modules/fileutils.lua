@@ -50,9 +50,11 @@ function IO.LoadTemplate(fileName, ...)
 
 	if #arguments > 0 then
 		if type(arguments[1]) == "table" then
-			return IO.ReadText(Path.Normalize(Path.GetAddonTemplateDir(), fileName))
+			local temp = Path.Normalize(Path.GetAddonTemplateDir(), select(2, ...))
+			return IO.ReadText(Path.Normalize(temp, fileName))
 		else
-			return IO.ReadText(Path.Normalize(Path.GetAddonTemplateDir(), unpack(arguments), fileName))
+			local temp = Path.Normalize(Path.GetAddonTemplateDir(), select(1, ...))
+			return IO.ReadText(Path.Normalize(temp, fileName))
 		end
 	else
 		return IO.ReadText(Path.Normalize(Path.GetAddonTemplateDir(), fileName))
@@ -71,9 +73,9 @@ function IO.LoadAndParseTemplate(fileName, ...)
 
 				return str
 			else
-				local loadedTemplate = IO.LoadTemplate(fileName, unpack(slice(arguments, 2, #arguments)), fileName)
+				local loadedTemplate = IO.LoadTemplate(fileName, select(2, ...))
 				local func = TemplateMod.compile(loadedTemplate)
-				local str = func(arguments[1])
+				local str = func(arguments[1]) --The table arg
 
 				return str
 			end
