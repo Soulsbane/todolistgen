@@ -17,3 +17,5 @@ todo.xml
 todolistgen.ipr
 todolistgen.iws
 .nvimlog
+generators/html/templates/footer.html
+generators/html/templates/what/
