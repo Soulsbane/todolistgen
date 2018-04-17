@@ -1,6 +1,13 @@
 --Various functions that are missing from the Lua standard library.
 AnsiColors = require "ansicolors"
+TemplateMod = require("resty.template")
 
+--Override resty.templates escape method since we don't need string escaping.
+local function Escape(s, c)
+	return s
+end
+
+TemplateMod.escape = Escape
 --Global Date and Time variables for use in templates.
 Month = os.date("%m")
 Day = os.date("%d")
