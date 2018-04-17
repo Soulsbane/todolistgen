@@ -1,5 +1,4 @@
 local FileUtils = FileUtils
-local TemplateMod = require("resty.template")
 
 local function slice(arr, first, last)
 	local sub = {}
