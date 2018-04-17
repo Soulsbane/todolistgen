@@ -69,7 +69,7 @@ function IO.LoadAndParseTemplate(fileName, ...)
 			if (#arguments == 1) then --INFO Sending only a table as the last argument causes Normalize to error.
 				local loadedTemplate = IO.LoadTemplate(fileName, arguments[1])
 				local func = TemplateMod.compile(loadedTemplate)
-				local str = func({})
+				local str = func(arguments[1])
 
 				return str
 			else
