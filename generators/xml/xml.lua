@@ -7,7 +7,7 @@ end
 function OnCreate()
 	FileHandle, TodoFileName = FileUtils.CreateTodoFile("xml")
 	FileHandle:write([[<?xml version="1.0" encoding="UTF-8"?>]])
-	FileHandle:write("\n<todo>\n")
+	FileHandle:write('\n<todo version="1.0">\n')
 end
 
 function OnDestroy()
