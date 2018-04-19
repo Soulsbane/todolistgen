@@ -6,8 +6,8 @@ end
 
 function OnCreate()
 	FileHandle, TodoFileName = FileUtils.CreateTodoFile("xml")
-	FileHandle:write([[<?xml version="1.0" encoding="UTF-8"?>\n]])
-	FileHandle:write("<todo>\n")
+	FileHandle:write([[<?xml version="1.0" encoding="UTF-8"?>]])
+	FileHandle:write("\n<todo>\n")
 end
 
 function OnDestroy()
@@ -17,13 +17,15 @@ function OnDestroy()
 end
 
 function OnProcessTasks(tasks, fileName)
-	FileHandle:write("\t<task fileName=" .. "\"" .. fileName .. "\">\n")
+	FileHandle:write("<tasks fileName=" .. '"' .. fileName .. '">\n')
 
 	for i, task in ipairs(tasks) do
+		FileHandle:write("\t<task>\n")
 		WriteTags("tag", task.tag)
 		WriteTags("linenumber", task.lineNumber)
 		WriteTags("message", task.message)
+		FileHandle:write("\t</task>\n")
 	end
 
-	FileHandle:write("\t</task>\n")
+	FileHandle:write("</tasks>\n")
 end
