@@ -102,11 +102,28 @@ local function ansicolors(str)
 	return replaceCodes("%{reset}" .. str .. "%{reset}")
 end
 
+local function ansicolors(str, ...)
+	local additionalArgs = {...}
+	str = tostring(str or "")
+
+	if #additionalArgs > 0 then
+		local tempStr = replaceCodes("%{reset}" .. str .. "%{reset}")
+
+		for i = 1, #additionalArgs do
+			tempStr = tempStr .. replaceCodes("%{reset}" .. additionalArgs[i] .. "%{reset}")
+		end
+
+		return tempStr
+	else
+		return replaceCodes("%{reset}" .. str .. "%{reset}")
+	end
+end
+
 return setmetatable(
 	{noReset = replaceCodes},
 	{
-		__call = function(_, str)
-			return ansicolors(str)
+		__call = function(_, str, ...)
+		return ansicolors(str, ...)
 		end
 	}
 )
