@@ -17,6 +17,11 @@ local function TestReadText()
 	print(IO.ReadText(DataFile))
 end
 
+local function TestColors()
+	writeln("%{red}That's too bad quitting anyway!!!", " %{blue}Another sentence!", "Finally the end.")
+	writeln("%{white blink underline}Hahahahah...")
+end
+
 local function TestConfig()
 	local fileName = Config.GetDefaultTodoFileName()
 
@@ -63,6 +68,7 @@ end
 function OnDestroy()
 	print("Removing data.txt from output dir...")
 	--Path.RemoveFileFromOutputDir("data.txt") --FIXME: This will sometimes cause the program to hang.
+	TestColors()
 end
 
 function ProcessTasks(tasks, fileName)
