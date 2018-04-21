@@ -18,8 +18,8 @@ local function TestReadText()
 end
 
 local function TestColors()
-	writeln("%{red}That's too bad quitting anyway!!!", " %{blue}Another sentence!", "Finally the end.")
-	writeln("%{white blink underline}Hahahahah...")
+	IO.WriteLn("%{red}That's too bad quitting anyway!!!", " %{blue}Another sentence!", "Finally the end.")
+	IO.WriteLn("%{white blink underline}Hahahahah...")
 end
 
 local function TestConfig()
