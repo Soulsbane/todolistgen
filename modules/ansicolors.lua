@@ -27,6 +27,7 @@ local function isWindows()
 end
 
 local supported = not isWindows()
+
 if isWindows() then
 	supported = os.getenv("ANSICON")
 end
@@ -62,6 +63,7 @@ local keys = {
 }
 
 local escapeString = string.char(27) .. "[%dm"
+
 local function escapeNumber(number)
 	return escapeString:format(number)
 end
@@ -98,7 +100,6 @@ end
 
 local function ansicolors(str)
 	str = tostring(str or "")
-
 	return replaceCodes("%{reset}" .. str .. "%{reset}")
 end
 
@@ -123,7 +124,7 @@ return setmetatable(
 	{noReset = replaceCodes},
 	{
 		__call = function(_, str, ...)
-		return ansicolors(str, ...)
+			return ansicolors(str, ...)
 		end
 	}
 )
