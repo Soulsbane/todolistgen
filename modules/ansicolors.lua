@@ -62,9 +62,8 @@ local keys = {
 	whitebg = 47
 }
 
-local escapeString = string.char(27) .. "[%dm"
-
 local function escapeNumber(number)
+	local escapeString = string.char(27) .. "[%dm"
 	return escapeString:format(number)
 end
 
