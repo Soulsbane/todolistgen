@@ -14,6 +14,7 @@ import std.format;
 static import std.parallelism;
 
 import progress;
+import colored;
 
 import dapplicationbase;
 import dtermutils;
@@ -118,7 +119,7 @@ private:
 				immutable string description = parser.getDescription();
 				immutable string name = parser.getName();
 
-				writeln(name,  " - ", description);
+				writeln(name.blue.bold,  " - ", description);
 			}
 
 		}

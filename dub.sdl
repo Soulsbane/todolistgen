@@ -6,6 +6,7 @@ license "proprietary"
 
 dependency "luad" version="~master"
 dependency "progress" version="~>5.0.1"
+dependency "colored" version="~>0.0.12"
 
 dependency "luaaddon" version="*"
 dependency "ctoptions" version="*"
