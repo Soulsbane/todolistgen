@@ -74,6 +74,7 @@ local function escapeKeys(str)
 
 	local buffer = {}
 	local number
+
 	for word in str:gmatch("%w+") do
 		number = keys[word]
 		assert(number, "Unknown key: " .. word)
