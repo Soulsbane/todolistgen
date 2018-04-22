@@ -11,15 +11,15 @@ enum generatorFilesList =
 
 	"creator/creator.lua",
 	"creator/creator.toc",
-	"creator/templates/generator.lua.elt",
-	"creator/templates/generator.toc.elt",
+	"creator/templates/generator.lua.tpl",
+	"creator/templates/generator.toc.tpl",
 
 	"html/html.lua",
 	"html/templates/default/content.html",
 	"html/templates/default/footer.html",
 	"html/templates/default/header.html",
 	"html/templates/default/default.css",
-	"html/templates/default/tasks.elt",
+	"html/templates/default/tasks.tpl",
 	"json/json.lua",
 	"markdown/markdown.lua",
 	"stdout/stdout.lua",
@@ -28,12 +28,10 @@ enum generatorFilesList =
 
 enum moduleFilesList =
 [
-	"appconfig.lua",
 	"fileutils.lua",
 	"ansicolors.lua",
 	"globals.lua",
 	"helpers.lua",
-	"etlua.lua",
 	"resty/template.lua"
 ];
 
