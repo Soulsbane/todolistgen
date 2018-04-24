@@ -1,3 +1,3 @@
-## Author:
-## Name:
-## Description:
+## Author: {{Author}}
+## Name: {{Name}}
+## Description: {{Description}}
