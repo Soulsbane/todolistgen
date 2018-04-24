@@ -64,6 +64,11 @@ class ApplicationPaths : AddonPaths
 		return file.exists;
 	}
 
+	bool fileExists(const string dir)
+	{
+		return dir.exists;
+	}
+
 	void copyFileTo(string from, string to) @trusted
 	{
 		copy(from, to, PreserveAttributes.yes);
