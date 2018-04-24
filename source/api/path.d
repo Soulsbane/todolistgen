@@ -30,6 +30,12 @@ class ApplicationPaths : AddonPaths
 		return buildNormalizedPath(getcwd());
 	}
 
+	bool createDirInGeneratorDir(const(char)[][] params...)
+	{
+		immutable string path = buildNormalizedPath(params);
+		return ensurePathExists(buildNormalizedPath(getBaseAddonDir(), path));
+	}
+
 	bool createDirInOutputDir(const(char)[][] params...)
 	{
 		immutable string path = buildNormalizedPath(params);
