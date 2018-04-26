@@ -1,31 +1,15 @@
-import std.stdio;
-import std.string;
-import std.file;
-import std.path;
-import std.range;
-import std.algorithm;
-import std.conv;
-import std.format;
-import std.array;
-import std.typecons;
-import std.conv;
-import std.format;
-
+import std.stdio, std.string, std.file;
+import std.path, std.range, std.algorithm;
+import std.conv, std.format, std.array;
+import std.typecons, std.conv, std.format;
 static import std.parallelism;
 
-import progress;
-import colored;
+import progress, colored;
 
-import dapplicationbase;
-import dtermutils;
-import luaaddon.tocparser;
+import dapplicationbase, dtermutils, luaaddon.tocparser;
 
-import constants;
-import api.path;
-import todofilereader;
-import config;
-import generator;
-import extractor;
+import constants, api.path, todofilereader;
+import config, generator, extractor;
 
 @GetOptPassThru
 struct Options
