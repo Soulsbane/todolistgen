@@ -311,6 +311,12 @@ private:
 			if(shouldRemove)
 			{
 				writeln("Removing ", generatorToRemove);
+				rmdirRecurse(generatorToRemove);
+
+				if(generatorToRemove.exists)
+				{
+					writeln("Failed to remove ", generatorName);
+				}
 			}
 		}
 		else
