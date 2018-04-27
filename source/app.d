@@ -302,20 +302,20 @@ private:
 	void removeGenerator()
 	{
 		immutable string generatorName = options.getRemoveGenerator();
-		immutable bool shouldRemove = confirmationPrompt("Are you sure you want to remove " ~ generatorName ~ " (y/n): ");
+		immutable string generatorToRemove = buildNormalizedPath(_AppPaths.getBaseAddonDir(), generatorName);
 
-		if(shouldRemove)
+		if(generatorToRemove.exists)
 		{
-			immutable string generatorToRemove = buildNormalizedPath(_AppPaths.getBaseAddonDir(), generatorName);
+			immutable bool shouldRemove = confirmationPrompt("Are you sure you want to remove " ~ generatorName ~ " (y/n): ");
 
-			if(generatorToRemove.exists)
+			if(shouldRemove)
 			{
 				writeln("Removing ", generatorToRemove);
 			}
-			else
-			{
-				writeln(generatorName, "does not exist!");
-			}
+		}
+		else
+		{
+			writeln(generatorName, " does not exist!");
 		}
 	}
 
