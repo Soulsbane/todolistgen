@@ -28,6 +28,8 @@ struct Options
 	string tags;
 	@GetOptOptions("Starts an interactive session used to create a new generator.", "", "create-generator")
 	bool createGenerator;
+	@GetOptOptions("Removes an installed generator.", "", "remove-generator")
+	string removeGenerator;
 	@GetOptOptions("Generates a list of installed generators.")
 	bool list;
 }
@@ -56,6 +58,10 @@ public:
 		else if(options.hasCreateGenerator())
 		{
 			createGenerator();
+		}
+		else if(options.hasRemoveGenerator())
+		{
+			removeGenerator();
 		}
 		else
 		{
@@ -290,6 +296,26 @@ private:
 		else
 		{
 			writeln("Failed to start Creator interactive session.");
+		}
+	}
+
+	void removeGenerator()
+	{
+		immutable string generatorName = options.getRemoveGenerator();
+		immutable bool shouldRemove = confirmationPrompt("Are you sure you want to remove " ~ generatorName ~ " (y/n): ");
+
+		if(shouldRemove)
+		{
+			immutable string generatorToRemove = buildNormalizedPath(_AppPaths.getBaseAddonDir(), generatorName);
+
+			if(generatorToRemove.exists)
+			{
+				writeln("Removing ", generatorToRemove);
+			}
+			else
+			{
+				writeln(generatorName, "does not exist!");
+			}
 		}
 	}
 
