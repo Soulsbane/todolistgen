@@ -1,14 +1,14 @@
-#Description
+# Description
 Todolistgen is a [dlang](http://dlang.org/) program that scans source code for TODO style tags and generates a file listing of todo tasks.
 
-#Output Formats
+# Output Formats
 Todolistgen will generate a file in the form of todo.**format** where format is json, html etc. The following output formats are included: json, html, markdown, csv and stdout(the default).
 
-#Building
+# Building
 ![Travis CI](https://travis-ci.org/Soulsbane/todolistgen.svg?branch=master)
 You will need a [dlang compiler](http://dlang.org/download.html) and D's build application [DUB](http://code.dlang.org/download). You should also make sure you have Lua version 5.1 library files installed which are needed for addons. To build run *dub* from the command line. This will build the application in debug mode. You should use *dub --build=release.* to create a release build(requires LDC to be installed).
 
-#Todolistgen Options
+# Todolistgen Options
 >
     Usage:
       todolistgen
@@ -25,7 +25,7 @@ You will need a [dlang compiler](http://dlang.org/download.html) and D's build a
       --pattern=<pattern>   Pattern [default: *.*].
       --output<outputpath>   Directory to output the resulting todo file.
 
-#Example Usage
+# Example Usage
 The following will scan the directory where todolistgen was ran from and output results in html.
 >todolistgen --format=html
 
@@ -51,7 +51,7 @@ NOTE | 6|Checkbutton's seem to only align with the checkbox not the checkbox plu
 INFO | 14|Panel is automatically created when including SimpleOptions.lua in your TOC.
 FIXME | 23|This entire project
 
-#Creating An Output Format(Addon)
+# Creating An Output Format(Addon)
 ## Introduction
 Creating an output format is easy. From here on I'll refer to the output format as an addon. Addons are written in the Lua programming language and stored in the addons directory of the todolistgen directory.. If you don't know Lua already you should go [here](http://www.lua.org/pil/contents.html). You can also use [the Lua wiki](http://lua-users.org/wiki/LuaDirectory). The Learn X in Y minutes website also has a section on [Lua](http://learnxinyminutes.com/docs/lua/).
 
