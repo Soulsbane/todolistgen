@@ -23,7 +23,7 @@ You will need a [dlang compiler](http://dlang.org/download.html) and D's build a
       --dir=<dir>   Directory [default: .].
       --format=<json|html|markdown|csv|stdout>   Format [default: stdout].
       --pattern=<pattern>   Pattern [default: *.*].
-      --output<outputpath>   Directory to output the resulting todo file.
+      --create-generator creates a new generator.
 
 # Example Usage
 The following will scan the directory where todolistgen was ran from and output results in html.
@@ -51,14 +51,14 @@ NOTE | 6|Checkbutton's seem to only align with the checkbox not the checkbox plu
 INFO | 14|Panel is automatically created when including SimpleOptions.lua in your TOC.
 FIXME | 23|This entire project
 
-# Creating An Output Format(Addon)
+# Creating An Generator(Addon)
 ## Introduction
 Creating an output format is easy. From here on I'll refer to the output format as an addon. Addons are written in the Lua programming language and stored in the addons directory of the todolistgen directory.. If you don't know Lua already you should go [here](http://www.lua.org/pil/contents.html). You can also use [the Lua wiki](http://lua-users.org/wiki/LuaDirectory). The Learn X in Y minutes website also has a section on [Lua](http://learnxinyminutes.com/docs/lua/).
 
 ## Your First Generator(Addon)
-1. Create a folder in the addons directory of todolistgen. It can be any name but for consistency try to use lowercase. No spaces are allowed either.
-2. In your addons directory create a file with the same name as the directory you just created with the file extension lua.
-3. Open the lua file you just created in your favrorite text editor. Inside this file place the following code:
+1. Use the creator command:
+>todolistgen --create-generator
+2. Open the lua file you just created in your favrorite text editor. Inside this file place the following code:
 
     ```lua
     function ProcessTasks(tasks, fileName, lastFile)
@@ -68,13 +68,12 @@ Creating an output format is easy. From here on I'll refer to the output format 
     end
     ```
 
-    This is the main function that Todolistgen calls to process each file that contains todo tasks.
-    It should be fairly obivious that *ProcessTasks* first argument is a table(tasks) and of course the second argument is the file name.
+    This is the main function todolistgen calls to process each file that contains todo tasks.
+    It should be fairly obivious that *ProcessTasks* first argument is a table(tasks) and of course the second argument is the file name. The final argument is set to true if this is the last file being processed.
 
-4. Optionally your addon can define two more functions named *Initialize* and *Deinitialize*.
-*Intialize* is called before any files have been processed and *Deinitialize* is called after all files have been processed.
-5. All that's left is testing your addon by calling todolistgen with the *--format* option like below:
-
-> todolistgen --format=addonname
+3. Optionally your addon can define two more functions named *OnCreate* and *OnDestroy*.
+*OnCreate* is called before any files have been processed and *OnDestroy* is called after all files have been processed.
+4. All that's left is testing your addon by calling todolistgen like so:
+> todolistgen --format=generatorName
 
 The API can be found [here](https://github.com/Soulsbane/todolistgen/blob/master/API.md)
