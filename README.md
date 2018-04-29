@@ -9,7 +9,7 @@ Todolistgen will generate a file in the form of todo.**format** where format is 
 You will need a [dlang compiler](http://dlang.org/download.html) and D's build application [DUB](http://code.dlang.org/download). You should also make sure you have Lua version 5.1 library files installed which are needed for addons. To build run *dub* from the command line. This will build the application in debug mode. You should use *dub --build=release.* to create a release build(requires LDC to be installed).
 
 # Todolistgen Options
->
+```lua
 Usage:
 	--dir Sets the directory that should be scanned. [Default: .].
 	--pattern--pattern The pattern to use. [Default: *.*]
@@ -21,7 +21,7 @@ Usage:
 	--remove-generator Removes an installed generator.
 	--list Generates a list of installed generators.
 	-h             --help This help information.
-
+```
 
 # Example Usage
 The following will scan the directory where todolistgen was ran from and output results in html.
