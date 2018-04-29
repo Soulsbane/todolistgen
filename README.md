@@ -58,16 +58,16 @@ Creating a generator is easy. Generators are written in the Lua programming lang
 >todolistgen --create-generator
 2. Open the lua file you just created in your favrorite text editor. Inside this file place the following code:
 
-		```lua
-		function ProcessTasks(tasks, fileName, lastFile)
-			for _, task in ipairs(tasks) do
-				print(task.fileName, task.lineNumber, task.tag, task.message)
-			end
+	```lua
+	function ProcessTasks(tasks, fileName, lastFile)
+		for _, task in ipairs(tasks) do
+			print(task.fileName, task.lineNumber, task.tag, task.message)
 		end
-		```
+	end
+	```
 
-		This is the main function todolistgen calls to process each file that contains todo tasks.
-		It should be fairly obivious that *ProcessTasks* first argument is a table(tasks) and of course the second argument is the file name. The final argument is set to true if this is the last file being processed.
+	This is the main function todolistgen calls to process each file that contains todo tasks.
+	It should be fairly obivious that *ProcessTasks* first argument is a table(tasks) and of course the second argument is the file name. The final argument is set to true if this is the last file being processed.
 
 3. Optionally your addon can define two more functions named *OnCreate* and *OnDestroy*.
 *OnCreate* is called before any files have been processed and *OnDestroy* is called after all files have been processed.
