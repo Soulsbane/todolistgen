@@ -10,20 +10,18 @@ You will need a [dlang compiler](http://dlang.org/download.html) and D's build a
 
 # Todolistgen Options
 >
-    Usage:
-      todolistgen
-      todolistgen [--dir=<dir>] [--format=<format>] [--pattern=<pattern>] [--output=<outputpath>]
-      todolistgen <filename>
-      todolistgen <filename> [--dir=<dir>] [--format=<format>] [--pattern=<pattern>] [--output=<outputpath>]
-      todolistgen -h | --help
-      todolistgen --version
-    Options:
-      -h --help     Show help.
-      --version     Show version.
-      --dir=<dir>   Directory [default: .].
-      --format=<json|html|markdown|csv|stdout>   Format [default: stdout].
-      --pattern=<pattern>   Pattern [default: *.*].
-      --create-generator creates a new generator.
+Usage:
+	--dir Sets the directory that should be scanned. [Default: .].
+	--pattern--pattern The pattern to use. [Default: *.*]
+	--file Will only search the passed file name.
+	--format The output format the results should be in. [Default: stdout].
+	--ignore A list of file extensions to ignore separated by comma. [d,cpp,rust]
+	--tags Used to display only the tag passed separated by commas. [INFO, FIXME, TODO]
+	--create-generator Starts an interactive session used to create a new generator.
+	--remove-generator Removes an installed generator.
+	--list Generates a list of installed generators.
+	-h             --help This help information.
+
 
 # Example Usage
 The following will scan the directory where todolistgen was ran from and output results in html.
@@ -51,25 +49,25 @@ NOTE | 6|Checkbutton's seem to only align with the checkbox not the checkbox plu
 INFO | 14|Panel is automatically created when including SimpleOptions.lua in your TOC.
 FIXME | 23|This entire project
 
-# Creating An Generator(Addon)
+# Creating A Generator(Addon)
 ## Introduction
-Creating an output format is easy. From here on I'll refer to the output format as an addon. Addons are written in the Lua programming language and stored in the addons directory of the todolistgen directory.. If you don't know Lua already you should go [here](http://www.lua.org/pil/contents.html). You can also use [the Lua wiki](http://lua-users.org/wiki/LuaDirectory). The Learn X in Y minutes website also has a section on [Lua](http://learnxinyminutes.com/docs/lua/).
+Creating a generator is easy. Generators are written in the Lua programming language and stored in the users home directory. If you don't know Lua already you should go [here](http://www.lua.org/pil/contents.html). You can also use [the Lua wiki](http://lua-users.org/wiki/LuaDirectory). The Learn X in Y minutes website also has a section on [Lua](http://learnxinyminutes.com/docs/lua/).
 
 ## Your First Generator(Addon)
 1. Use the creator command:
 >todolistgen --create-generator
 2. Open the lua file you just created in your favrorite text editor. Inside this file place the following code:
 
-    ```lua
-    function ProcessTasks(tasks, fileName, lastFile)
-    	for _, task in ipairs(tasks) do
-    		print(task.fileName, task.lineNumber, task.tag, task.message)
-    	end
-    end
-    ```
+		```lua
+		function ProcessTasks(tasks, fileName, lastFile)
+			for _, task in ipairs(tasks) do
+				print(task.fileName, task.lineNumber, task.tag, task.message)
+			end
+		end
+		```
 
-    This is the main function todolistgen calls to process each file that contains todo tasks.
-    It should be fairly obivious that *ProcessTasks* first argument is a table(tasks) and of course the second argument is the file name. The final argument is set to true if this is the last file being processed.
+		This is the main function todolistgen calls to process each file that contains todo tasks.
+		It should be fairly obivious that *ProcessTasks* first argument is a table(tasks) and of course the second argument is the file name. The final argument is set to true if this is the last file being processed.
 
 3. Optionally your addon can define two more functions named *OnCreate* and *OnDestroy*.
 *OnCreate* is called before any files have been processed and *OnDestroy* is called after all files have been processed.
