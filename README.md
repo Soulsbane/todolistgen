@@ -56,7 +56,8 @@ Creating a generator is easy. Generators are written in the Lua programming lang
 ## Your First Generator(Addon)
 1. Use the creator command:
 >todolistgen --create-generator
-2. Open the lua file you just created in your favrorite text editor. Inside this file place the following code:
+2. A folder will be created in your OS config dir under the name you choose
+from the previous step. Now open [Generator Name].lua and find this function:
 
 	```lua
 	function ProcessTasks(tasks, fileName, lastFile)
