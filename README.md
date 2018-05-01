@@ -5,8 +5,7 @@ Todolistgen is a [dlang](http://dlang.org/) program that scans source code for T
 Todolistgen will generate a file in the form of todo.**format** where format is json, html etc. The following output formats are included: json, html, markdown, csv and stdout(the default).
 
 # Building
-![Travis CI](https://travis-ci.org/Soulsbane/todolistgen.svg?branch=master)
-You will need a [dlang compiler](http://dlang.org/download.html) and D's build application [DUB](http://code.dlang.org/download). You should also make sure you have Lua version 5.1 library files installed which are needed for addons. To build run *dub* from the command line. This will build the application in debug mode. You should use *dub --build=release.* to create a release build(requires LDC to be installed).
+You will need a [dlang compiler](http://dlang.org/download.html). You should also make sure you have Lua version 5.1 library files installed which are needed for addons. To build run *dub* from the command line. This will build the application in debug mode. You should use *dub --build=release.* to create a release build(requires LDC to be installed).
 
 # Todolistgen Options
 ```lua
