@@ -6,11 +6,12 @@ import std.stdio;
 
 import luaaddon.luaconfig;
 import api.path;
-
-Config _Config;
+import dtypeutils.singleton;
 
 class Config : LuaConfig
 {
+	mixin Singleton!Config;
+
 	void load(const string fileName) @trusted
 	{
 		immutable string configPath = _AppPaths.getConfigFilesDir();
@@ -42,9 +43,3 @@ class Config : LuaConfig
 		return getVariableValue!string(name);
 	}
 }
-
-static this()
-{
-	_Config = new Config;
-}
-

@@ -14,5 +14,6 @@ dependency "dfileutils" version="*"
 dependency "dpathutils" version="*"
 dependency "dapplicationbase" version="*"
 dependency "dtermutils" version="*"
+dependency "dtypeutils" version="*"
 
 stringImportPaths "generators" "modules" "source"

@@ -69,11 +69,11 @@ class Generator : LuaAddon
 		registerFunction("Path", "Exists", &_AppPaths.dirExists);
 		registerFunction("Path", "AddonExists", &_AppPaths.addonExists);
 
-		registerFunction("Config", "GetDefaultTodoFileName", &_Config.getDefaultTodoFileName);
-		registerFunction("Config", "GetTableValue", &_Config.getTableValue);
-		registerFunction("Config", "GetValue", &_Config.getValue);
+		registerFunction("Config", "GetDefaultTodoFileName", &config_.getDefaultTodoFileName);
+		registerFunction("Config", "GetTableValue", &config_.getTableValue);
+		registerFunction("Config", "GetValue", &config_.getValue);
 		//FIXME: LuaD is returning a string instead of a LuaTable.
-		//registerFunction("Config", "GetTable", &_Config.getTable);
+		//registerFunction("Config", "GetTable", &config_.getTable);
 
 		registerFunction("InputCollector", "Prompt", &inputCollector_.prompt);
 		registerFunction("InputCollector", "HasValueFor", &inputCollector_.hasValueFor);
@@ -106,9 +106,11 @@ class Generator : LuaAddon
 
 	void loadConfig()
 	{
-		_Config.load("config.lua");
+		config_ = Config.getInstance();
+		config_.load("config.lua");
 	}
 
 private:
 	InputCollector inputCollector_;
+	Config config_;
 }

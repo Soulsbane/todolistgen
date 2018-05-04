@@ -87,7 +87,8 @@ private:
 
 	string[] getConfigPattern() const @trusted
 	{
-		auto variable = _Config.getTable("TodoTaskPatterns");
+		auto config = Config.getInstance();
+		auto variable = config.getTable("TodoTaskPatterns");
 		string[] found;
 
 		foreach(string key, bool value; variable)
