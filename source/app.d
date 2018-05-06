@@ -93,8 +93,8 @@ private:
 
 	void createListOfGenerators()
 	{
-			writeln("The following generators are available:");
-			writeln;
+		writeln("The following generators are available:");
+		writeln;
 
 		foreach(dirName; getDirList(_AppPaths.getBaseAddonDir(), SpanMode.shallow))
 		{
