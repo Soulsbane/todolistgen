@@ -101,7 +101,6 @@ class Generator : LuaAddon
 		loadFile(buildNormalizedPath(_AppPaths.getModuleDir(), "globals.lua"));
 		loadFile(buildNormalizedPath(_AppPaths.getModuleDir(), "helpers.lua"));
 		loadFile(buildNormalizedPath(_AppPaths.getModuleDir(), "resty", "template.lua"));
-		loadFile(buildNormalizedPath(_AppPaths.getModuleDir(), "etlua.lua"));
 	}
 
 	void loadConfig()
