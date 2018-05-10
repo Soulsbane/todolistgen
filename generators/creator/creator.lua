@@ -8,14 +8,21 @@ function OnCreate()
 			HandleAdditionalPrompts()
 			CreateGeneratorDir()
 			ParseTemplates()
+			ConfirmCreation()
 		end
+	end
+end
+
+function ConfirmCreation()
+	if Path.AddonExists(name) then
+		print("Created new generator in " .. Path.Normalize(Path.GetBaseAddonDir(), name))
+	else
+		print("Failed to create generator!")
 	end
 end
 
 function CreateGeneratorDir()
 	local name = InputCollector.GetValueFor("Name")
-
-	print("Created new generator in " .. Path.Normalize(Path.GetBaseAddonDir(), name))
 	Path.EnsurePathExists(Path.Normalize(Path.GetBaseAddonDir(), name))
 end
 
