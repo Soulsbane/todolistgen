@@ -15,7 +15,7 @@ end
 function CreateGeneratorDir()
 	local name = InputCollector.GetValueFor("Name")
 
-	print("Creating..." .. Path.Normalize(Path.GetBaseAddonDir(), name))
+	print("Created new generator in " .. Path.Normalize(Path.GetBaseAddonDir(), name))
 	Path.EnsurePathExists(Path.Normalize(Path.GetBaseAddonDir(), name))
 end
 
