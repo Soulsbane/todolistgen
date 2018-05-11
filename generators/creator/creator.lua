@@ -3,7 +3,7 @@ function OnCreate()
 
 	if InputCollector.HasValueFor("Name") then
 		if Path.AddonExists(InputCollector.GetValueFor("Name")) then
-			print("That generator already exists!")
+			IO.WriteLn("%{red}That generator already exists!")
 		else
 			HandleAdditionalPrompts()
 			CreateGeneratorDir()
@@ -14,10 +14,12 @@ function OnCreate()
 end
 
 function ConfirmCreation()
+	local name = InputCollector.GetValueFor("Name")
+
 	if Path.AddonExists(name) then
 		print("Created new generator in " .. Path.Normalize(Path.GetBaseAddonDir(), name))
 	else
-		print("Failed to create generator!")
+		IO.WriteLn("{red}Failed to create generator!")
 	end
 end
 
