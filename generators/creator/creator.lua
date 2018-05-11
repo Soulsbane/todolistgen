@@ -19,7 +19,7 @@ function ConfirmCreation()
 	if Path.AddonExists(name) then
 		print("Created new generator in " .. Path.Normalize(Path.GetBaseAddonDir(), name))
 	else
-		IO.WriteLn("{red}Failed to create generator!")
+		IO.WriteLn("%{red}Failed to create generator!")
 	end
 end
 
