@@ -100,6 +100,7 @@ class Generator : LuaAddon
 		loadFile(buildNormalizedPath(_AppPaths.getModuleDir(), "ansicolors.lua"));
 		loadFile(buildNormalizedPath(_AppPaths.getModuleDir(), "globals.lua"));
 		loadFile(buildNormalizedPath(_AppPaths.getModuleDir(), "helpers.lua"));
+		loadFile(buildNormalizedPath(_AppPaths.getModuleDir(), "io.lua"));
 		loadFile(buildNormalizedPath(_AppPaths.getModuleDir(), "resty", "template.lua"));
 	}
 

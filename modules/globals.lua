@@ -24,21 +24,3 @@ Time24 = os.date("%X")
 DateAndTime = string.format("%s %s", Date, Time)
 DateAndTime24 = os.date("%c")
 AMOrPM = os.date("p")
-
---INFO: The various write* functions should only be used if you need color in your output.
-function IO.WriteLn(...)
-	print(AnsiColors(...))
-end
-
-function IO.Write(...)
-	io.write(AnsiColors(...))
-end
-
-function IO.WriteF(s, ...)
-	io.write(AnsiColors(s:format(...)))
-end
-
-function IO.WriteFln(s, ...)
-	io.write(AnsiColors(s:format(...)))
-	io.write("\n")
-end
