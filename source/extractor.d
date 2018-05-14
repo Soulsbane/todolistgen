@@ -28,7 +28,6 @@ enum generatorFilesList =
 
 enum moduleFilesList =
 [
-	"fileutils.lua",
 	"ansicolors.lua",
 	"globals.lua",
 	"helpers.lua",
