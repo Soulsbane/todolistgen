@@ -24,3 +24,13 @@ Time24 = os.date("%X")
 DateAndTime = string.format("%s %s", Date, Time)
 DateAndTime24 = os.date("%c")
 AMOrPM = os.date("p")
+
+function table.slice(arr, first, last)
+	local sub = {}
+
+	for i = first, last do
+		sub[#sub + 1] = arr[i]
+	end
+
+	return sub
+end
