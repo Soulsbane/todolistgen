@@ -1,7 +1,7 @@
 local FileHandle, TodoFileName
 
 function OnCreate()
-	FileHandle, TodoFileName = FileUtils.CreateTodoFile("json")
+	FileHandle, TodoFileName = IO.CreateTodoFile("json")
 	FileHandle:write("{\n")
 end
 

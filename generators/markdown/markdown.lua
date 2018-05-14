@@ -1,7 +1,7 @@
 local FileHandle, TodoFileName
 
 function OnCreate()
-	FileHandle, TodoFileName = FileUtils.CreateTodoFile("md")
+	FileHandle, TodoFileName = IO.CreateTodoFile("md")
 end
 
 function OnDestroy()

@@ -5,7 +5,7 @@ local Normalize = Path.Normalize
 function OnCreate()
 	IO.RemoveFileFromOutputDir("default.css")
 
-	FileHandle, TodoFileName = FileUtils.CreateTodoFile("html")
+	FileHandle, TodoFileName = IO.CreateTodoFile("html")
 	FileHandle:write(IO.LoadTemplate("header.html", "default"))
 end
 

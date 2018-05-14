@@ -1,7 +1,7 @@
 local FileHandle, TodoFileName
 
 function OnCreate()
-	FileHandle, TodoFileName = FileUtils.CreateTodoFile("csv")
+	FileHandle, TodoFileName = IO.CreateTodoFile("csv")
 end
 
 function OnDestroy()
