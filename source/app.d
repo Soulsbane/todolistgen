@@ -7,6 +7,7 @@ static import std.parallelism;
 import progress, colored;
 
 import dapplicationbase, dtermutils, luaaddon.tocparser;
+import dfileutils.extractor;
 
 import constants, api.path, todofilereader;
 import generator, extractor;
@@ -80,6 +81,7 @@ private:
 	{
 		_AppPaths.setAddonName(options.getFormat("stdout"));
 		ensureConfigDirExists();
+		extractGenerators();
 	}
 
 	auto getDirList(const string name, SpanMode mode)
@@ -324,12 +326,23 @@ private:
 			writeln(generatorName, " does not exist!");
 		}
 	}
+
+	void extractGenerators()
+	{
+		debug
+		{}
+		else
+		{
+			extractImportFiles!generatorFilesList(_AppPaths.getBaseAddonDir(), Yes.overwrite);
+			extractImportFiles!moduleFilesList(_AppPaths.getModuleDir(), Yes.overwrite);
+		}
+	}
 }
 
 void main(string[] arguments)
 {
 	auto app = new TodoListGenApp;
 
-	extractGenerators();
+	//extractGenerators();
 	app.create(ORGANIZATION_NAME, APPLICATION_NAME, arguments);
 }

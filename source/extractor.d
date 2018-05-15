@@ -1,8 +1,5 @@
 module extractor;
 
-import api.path;
-import dfileutils.extractor;
-
 enum generatorFilesList =
 [
 	"apitest/apitest.lua",
@@ -34,14 +31,3 @@ enum moduleFilesList =
 	"io.lua",
 	"resty/template.lua"
 ];
-
-void extractGenerators()
-{
-	debug
-	{}
-	else
-	{
-		extractImportFiles!generatorFilesList(_AppPaths.getBaseAddonDir(), Yes.overwrite);
-		extractImportFiles!moduleFilesList(_AppPaths.getModuleDir(), Yes.overwrite);
-	}
-}
