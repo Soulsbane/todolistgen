@@ -9,7 +9,7 @@ import progress, colored;
 import dapplicationbase, dtermutils, luaaddon.tocparser;
 
 import constants, api.path, todofilereader;
-import config, generator, extractor;
+import generator, extractor;
 
 @GetOptPassThru
 struct Options
@@ -324,7 +324,6 @@ private:
 			writeln(generatorName, " does not exist!");
 		}
 	}
-
 }
 
 void main(string[] arguments)
