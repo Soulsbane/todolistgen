@@ -342,7 +342,5 @@ private:
 void main(string[] arguments)
 {
 	auto app = new TodoListGenApp;
-
-	//extractGenerators();
 	app.create(ORGANIZATION_NAME, APPLICATION_NAME, arguments);
 }
