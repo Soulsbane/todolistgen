@@ -105,8 +105,11 @@ class Generator : LuaAddon
 
 	void loadConfig()
 	{
+		immutable string configPath = _AppPaths.getConfigFilesDir();
+		immutable string configFile = buildNormalizedPath(configPath, "config.lua");
+
 		config_ = Config.getInstance();
-		config_.load("config.lua");
+		config_.load(configFile);
 	}
 
 private:

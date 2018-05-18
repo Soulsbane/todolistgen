@@ -14,18 +14,15 @@ class Config : LuaConfig
 
 	void load(const string fileName) @trusted
 	{
-		immutable string configPath = _AppPaths.getConfigFilesDir();
-		immutable string configFile = buildNormalizedPath(configPath, fileName);
-
-		if(!configFile.exists)
+		if(!fileName.exists)
 		{
 			immutable string configText = import("default.config.lua");
-			auto file = File(configFile, "w+");
+			auto file = File(fileName, "w+");
 
 			file.write(configText);
 		}
 
-		loadFile(configFile);
+		loadFile(fileName);
 	}
 
 	string getDefaultTodoFileName() @trusted
