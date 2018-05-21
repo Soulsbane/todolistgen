@@ -18,7 +18,7 @@ class Config : LuaConfig
 		{
 			immutable string configText = import("default.config.lua");
 			auto file = File(fileName, "w+");
-			// FIXME: config.lua fails to be created.
+
 			file.write(configText);
 		}
 
