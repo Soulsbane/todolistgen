@@ -80,7 +80,8 @@ private:
 	void setupEnvironment()
 	{
 		paths_ = ApplicationPaths.getInstance();
-
+		// FIXME: Calling create works and uses user's .config dir. Call to setAddonName doesn't?
+		paths_.create(options.getFormat("stdout"));
 		paths_.setAddonName(options.getFormat("stdout"));
 		ensureConfigDirExists();
 		extractGenerators();
