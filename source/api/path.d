@@ -7,13 +7,15 @@ import std.algorithm.searching : canFind;
 import luaaddon.addonpaths;
 import dfileutils;
 import dpathutils;
+import dtypeutils.singleton;
 
 import constants;
 
-ApplicationPaths _AppPaths;
-
 class ApplicationPaths : AddonPaths
 {
+	mixin Singleton!ApplicationPaths;
+
+	this() {}
 
 	this(const string addonName)
 	{
@@ -107,9 +109,4 @@ class ApplicationPaths : AddonPaths
 
 private:
 	FileRemover remover_;
-}
-
-static this()
-{
-	_AppPaths = new ApplicationPaths("stdout");
 }

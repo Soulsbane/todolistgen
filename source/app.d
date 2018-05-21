@@ -79,7 +79,9 @@ public:
 private:
 	void setupEnvironment()
 	{
-		_AppPaths.setAddonName(options.getFormat("stdout"));
+		paths_ = ApplicationPaths.getInstance();
+
+		paths_.setAddonName(options.getFormat("stdout"));
 		ensureConfigDirExists();
 		extractGenerators();
 	}
@@ -98,7 +100,7 @@ private:
 		writeln("The following generators are available:");
 		writeln;
 
-		foreach(dirName; getDirList(_AppPaths.getBaseAddonDir(), SpanMode.shallow))
+		foreach(dirName; getDirList(paths_.getBaseAddonDir(), SpanMode.shallow))
 		{
 			TocParser!() parser;
 			immutable string baseName = dirName.baseName;
@@ -119,7 +121,7 @@ private:
 
 	void ensureConfigDirExists() @trusted
 	{
-		immutable string configPath = _AppPaths.getConfigFilesDir();
+		immutable string configPath = paths_.getConfigFilesDir();
 
 		debug
 		{
@@ -270,7 +272,7 @@ private:
 
 	bool hasGenerator(const string name)
 	{
-		foreach(dirName; getDirList(_AppPaths.getBaseAddonDir(), SpanMode.shallow))
+		foreach(dirName; getDirList(paths_.getBaseAddonDir(), SpanMode.shallow))
 		{
 			if(dirName.baseName == name)
 			{
@@ -284,7 +286,7 @@ private:
 	void createGenerator()
 	{
 		//INFO: We have to set the format here since its not passed when using --create-generator
-		_AppPaths.setAddonName(options.getFormat("creator"));
+		paths_.setAddonName(options.getFormat("creator"));
 		ensureConfigDirExists();
 
 		auto addon = new Generator;
@@ -304,7 +306,7 @@ private:
 	void removeGenerator()
 	{
 		immutable string generatorName = options.getRemoveGenerator();
-		immutable string generatorToRemove = buildNormalizedPath(_AppPaths.getBaseAddonDir(), generatorName);
+		immutable string generatorToRemove = buildNormalizedPath(paths_.getBaseAddonDir(), generatorName);
 
 		if(generatorToRemove.exists)
 		{
@@ -333,10 +335,13 @@ private:
 		{}
 		else
 		{
-			extractImportFiles!generatorFilesList(_AppPaths.getBaseAddonDir(), Yes.overwrite);
-			extractImportFiles!moduleFilesList(_AppPaths.getModuleDir(), Yes.overwrite);
+			extractImportFiles!generatorFilesList(paths_.getBaseAddonDir(), Yes.overwrite);
+			extractImportFiles!moduleFilesList(paths_.getModuleDir(), Yes.overwrite);
 		}
 	}
+
+private:
+	ApplicationPaths paths_;
 }
 
 void main(string[] arguments)
