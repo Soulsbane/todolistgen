@@ -41,12 +41,11 @@ public:
 	override void onCreate()
 	{
 		setupEnvironment();
+		handleArguments();
 	}
 
-	override void onValidArguments()
+	void handleArguments()
 	{
-		setupEnvironment();
-
 		if(options.hasFile()) // --file argument was passed
 		{
 			immutable string fileName = options.getFile();
@@ -68,12 +67,6 @@ public:
 		{
 			processDir();
 		}
-	}
-
-	override void onNoArguments()
-	{
-		setupEnvironment();
-		processDir();
 	}
 
 private:
