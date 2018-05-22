@@ -46,26 +46,29 @@ public:
 
 	void handleArguments()
 	{
-		if(options.hasFile()) // --file argument was passed
+		if(!isHelpCommand())
 		{
-			immutable string fileName = options.getFile();
-			processFile(fileName);
-		}
-		else if(options.hasList())
-		{
-			createListOfGenerators();
-		}
-		else if(options.hasCreateGenerator())
-		{
-			createGenerator();
-		}
-		else if(options.hasRemoveGenerator())
-		{
-			removeGenerator();
-		}
-		else
-		{
-			processDir();
+			if(options.hasFile()) // --file argument was passed
+			{
+				immutable string fileName = options.getFile();
+				processFile(fileName);
+			}
+			else if(options.hasList())
+			{
+				createListOfGenerators();
+			}
+			else if(options.hasCreateGenerator())
+			{
+				createGenerator();
+			}
+			else if(options.hasRemoveGenerator())
+			{
+				removeGenerator();
+			}
+			else
+			{
+				processDir();
+			}
 		}
 	}
 
