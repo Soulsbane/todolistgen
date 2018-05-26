@@ -74,4 +74,5 @@ Creating a generator is easy. Generators are written in the Lua programming lang
 4. All that's left is testing your addon by calling todolistgen like so:
 > todolistgen --format=generatorName
 
+## API
 The API can be found [here](https://github.com/Soulsbane/todolistgen/blob/master/API.md)
