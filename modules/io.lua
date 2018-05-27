@@ -1,5 +1,11 @@
+---Various fuctions for creating, reading and writing files.
 local IO = IO
 
+--[[--
+	Creates a todo file using the fileExt parameter in the filename.
+	@param fileExt The file extension to use for the todo file.
+	@return A file handle to the created todo file and the constructed todo filename string.
+]]
 function IO.CreateTodoFile(fileExt)
 	local fileName = Path.Normalize(Path.GetOutputDir(), Config.GetDefaultTodoFileName() .. "." .. fileExt)
 	fileHandle = io.open(fileName, "w+")
@@ -7,6 +13,12 @@ function IO.CreateTodoFile(fileExt)
 	return fileHandle, fileName
 end
 
+--[[--
+	Creates a file and returns the file handle to the file.
+	@param fileName name of the file to create.
+	@param openMode Mode in which to open the file.
+	@return A file handle to the created file.
+]]
 function IO.CreateFile(fileName, openMode)
 	local mode = openMode or "w+"
 	local fileHandle = io.open(fileName, mode)
@@ -14,18 +26,42 @@ function IO.CreateFile(fileName, openMode)
 	return fileHandle
 end
 
+--[[--
+	Creates a file in the users output directory and returns the file handle to the file.
+	@param fileName name of the file to create.
+	@param openMode Mode in which to open the file.
+	@return A file handle to the created file.
+]]
 function IO.CreateFileInOutputDir(fileName, openMode)
 	return IO.CreateFile(Path.Normalize(Path.GetOutputDir(), fileName), mode)
 end
 
+--[[--
+	Creates a file in the addon directory and returns the file handle to the file.
+	@param fileName name of the file to create.
+	@param openMode Mode in which to open the file.
+	@return A file handle to the created file.
+]]
 function IO.CreateFileInAddonDir(fileName, openMode)
 	return IO.CreateFile(Path.Normalize(Path.GetAddonDir(), fileName), mode)
 end
 
+--[[--
+	Creates a file in the addon's module directory and returns the file handle to the file.
+	@param fileName name of the file to create.
+	@param openMode Mode in which to open the file.
+	@return A file handle to the created file.
+]]
 function IO.CreateFileInAddonModuleDir(fileName, openMode)
 	return IO.CreateFile(Path.Normalize(Path.GetAddonModuleDir(), fileName), mode)
 end
 
+--[[--
+	Creates a file in the base module directory and returns the file handle to the file.
+	@param fileName name of the file to create.
+	@param openMode Mode in which to open the file.
+	@return A file handle to the created file.
+]]
 function IO.CreateFileInBaseAddonDir(fileName, openMode)
 	return IO.CreateFile(Path.Normalize(Path.GetBaseAddonDir(), fileName), mode)
 end
