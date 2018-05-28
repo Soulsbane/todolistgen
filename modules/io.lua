@@ -66,6 +66,11 @@ function IO.CreateFileInBaseAddonDir(fileName, openMode)
 	return IO.CreateFile(Path.Normalize(Path.GetBaseAddonDir(), fileName), mode)
 end
 
+--[[--
+	Loads a template and returns the resulting string.
+	@param fileName name of the file to load.
+	@return The loaded template as a string.
+]]
 function IO.LoadTemplate(fileName, ...)
 	local arguments = {...}
 
@@ -82,6 +87,11 @@ function IO.LoadTemplate(fileName, ...)
 	end
 end
 
+--[[--
+	Loads a template file and parses the result into a string.
+	@param fileName name of the file to load and parse.
+	@return The parsed template as a string.
+]]
 function IO.LoadAndParseTemplate(fileName, ...)
 	local arguments = {...}
 
