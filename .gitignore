@@ -6,6 +6,7 @@ __dummy.html
 todolistgen
 testfiles/
 /foobar/*
+doc/
 .vscode
 data.txt
 default.css
