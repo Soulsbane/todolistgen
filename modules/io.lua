@@ -127,18 +127,36 @@ function IO.LoadAndParseTemplate(fileName, ...)
 end
 
 --INFO: The various write* functions should only be used if you need color in your output.
+--[[--
+	Writes text to stdout with a new line character.
+	@param ... The text to print.
+]]
 function IO.WriteLn(...)
 	print(AnsiColors(...))
 end
 
+--[[--
+	Writes text to stdout.
+	@param ... The text to print.
+]]
 function IO.Write(...)
 	io.write(AnsiColors(...))
 end
 
+--[[--
+	Writes Formatted text to stdout using Lua's format function.
+	@param s The format.
+	@param ... The text to print.
+]]
 function IO.WriteF(s, ...)
 	io.write(AnsiColors(s:format(...)))
 end
 
+--[[--
+	Writes Formatted text to stdout using Lua's format function with a new line character.
+	@param s The format.
+	@param ... The text to print.
+]]
 function IO.WriteFln(s, ...)
 	io.write(AnsiColors(s:format(...)))
 	io.write("\n")
