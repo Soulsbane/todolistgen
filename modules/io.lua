@@ -69,6 +69,7 @@ end
 --[[--
 	Loads a template and returns the resulting string.
 	@param fileName name of the file to load.
+	@param ... Additional directory to look for the template fileName.
 	@return The loaded template as a string.
 ]]
 function IO.LoadTemplate(fileName, ...)
@@ -90,6 +91,7 @@ end
 --[[--
 	Loads a template file and parses the result into a string.
 	@param fileName name of the file to load and parse.
+	@param ... Additional directory to look for the template fileName.
 	@return The parsed template as a string.
 ]]
 function IO.LoadAndParseTemplate(fileName, ...)
