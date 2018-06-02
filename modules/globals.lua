@@ -25,6 +25,13 @@ DateAndTime = string.format("%s %s", Date, Time)
 DateAndTime24 = os.date("%c")
 AMOrPM = os.date("p")
 
+--[[--
+	Get a slice of the given table.
+	@param arr The array to get a slice from.
+	@param first The first element that the slice should contain.
+	@param last The last element that the slice should contain.
+	@return The slice containing all elements from first to last.
+]]
 function table.slice(arr, first, last)
 	local sub = {}
 
