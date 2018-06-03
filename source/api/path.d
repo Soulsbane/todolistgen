@@ -17,16 +17,34 @@ class ApplicationPaths : AddonPaths
 
 	this() {}
 
+	/**
+		Initialize the paths with addonName
+
+		Params:
+			addonName = Name of the addon.
+	*/
 	this(const string addonName)
 	{
 		super(addonName, APPLICATION_NAME, ORGANIZATION_NAME);
 	}
 
+	/**
+		Initialize the paths with addonName
+
+		Params:
+			addonName = Name of the addon.
+	*/
 	void create(const string addonName)
 	{
 		super.create(addonName, APPLICATION_NAME, ORGANIZATION_NAME);
 	}
 
+	/**
+		Directory where files will be written to.
+
+		Returns:
+			The path to the directory to write file to.
+	*/
 	string getOutputDir()
 	{
 		return buildNormalizedPath(getcwd());
@@ -55,11 +73,30 @@ class ApplicationPaths : AddonPaths
 		ensureFileExists(outputFileName, data);
 	}
 
+	/**
+		Remove a directory from the output directory.
+
+		Params:
+			dir = Name of the directory to remove.
+
+		Returns:
+			True if the directory exists false otherwise.
+	*/
 	bool removeDirFromOutputDir(const string dir)
 	{
 		return removePathIfExists(getOutputDir(), dir);
 	}
 
+	/**
+		Determines of a directory can be found in the output directory.
+
+		Params:
+			dir = Name of the directory to remove.
+
+		Returns:
+			True if the directory exists false otherwise.
+
+	*/
 	bool outputDirExists(const string dir)
 	{
 		string file = buildNormalizedPath(getOutputDir(), dir);
