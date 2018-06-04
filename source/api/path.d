@@ -103,16 +103,35 @@ class ApplicationPaths : AddonPaths
 		return file.exists;
 	}
 
+	/**
+		Copy a file from one location to another.
+
+		Params:
+			from = File that should be copied.
+			to = location where the file should be copied to.
+	*/
 	void copyFileTo(string from, string to) @trusted
 	{
 		copy(from, to, PreserveAttributes.yes);
 	}
 
+	/**
+		Copy a file to the output directory.
+
+		Params:
+			fileName = File that should be copied.
+	*/
 	void copyFileToOutputDir(string fileName) @trusted
 	{
 		copy(fileName, buildNormalizedPath(getcwd(), baseName(fileName)), PreserveAttributes.yes);
 	}
 
+	/**
+		Remove a file from an addon directory.
+
+		Params:
+			fileName = Name of the file to remove.
+	*/
 	void removeFileFromAddonDir(string fileName) @trusted
 	{
 		string file = buildNormalizedPath(getAddonDir(), fileName);
@@ -123,6 +142,12 @@ class ApplicationPaths : AddonPaths
 		}
 	}
 
+	/**
+		Remove a file from the output directory.
+
+		Params:
+			fileName = Name of the file to remove.
+	*/
 	void removeFileFromOutputDir(string fileName) @trusted
 	{
 		string file = buildNormalizedPath(getOutputDir(), fileName);
@@ -133,12 +158,23 @@ class ApplicationPaths : AddonPaths
 		}
 	}
 
+	/**
+		Returns the name of the base addon directory.
+
+		Returns:
+			The name of the base addon directory.
+	*/
 	override string getAddonDirName()
 	{
 		return "generators";
 	}
 
+	/**
+		Registers a file for removal that will be removed after all addons have been destoyed.
 
+		Params:
+			fileName = Name of the file to remove.
+	*/
 	void registerFileForRemoval(string fileName)
 	{
 		remover_.add(fileName);
