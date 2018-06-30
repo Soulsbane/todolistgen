@@ -13,7 +13,7 @@ import constants;
 
 class ApplicationPaths : AddonPaths
 {
-	mixin Singleton!ApplicationPaths;
+	mixin MixinSingleton!ApplicationPaths;
 
 	this() {}
 

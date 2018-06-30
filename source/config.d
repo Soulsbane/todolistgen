@@ -10,7 +10,7 @@ import dtypeutils.singleton;
 
 class Config : LuaConfig
 {
-	mixin Singleton!Config;
+	mixin MixinSingleton!Config;
 
 	void load(const string fileName) @trusted
 	{
