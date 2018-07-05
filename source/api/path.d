@@ -50,18 +50,43 @@ class ApplicationPaths : AddonPaths
 		return buildNormalizedPath(getcwd());
 	}
 
+	/**
+		Creater a directory in the selected generatoer's directory.
+
+		Params:
+			params = The name(s) of directories to be created.
+
+		Returns:
+			True if the directories have been created false otherwise.
+	*/
 	bool createDirInGeneratorDir(const(char)[][] params...)
 	{
 		immutable string path = buildNormalizedPath(params);
 		return ensurePathExists(buildNormalizedPath(getBaseAddonDir(), path));
 	}
 
+	/**
+		Creater a directory in the output directory.
+
+		Params:
+			params = The name(s) of directories to be created.
+
+		Returns:
+			True if the directories have been created false otherwise.
+	*/
 	bool createDirInOutputDir(const(char)[][] params...)
 	{
 		immutable string path = buildNormalizedPath(params);
 		return ensurePathExists(buildNormalizedPath(getOutputDir(), path));
 	}
 
+	/**
+		Creates an file in the output directory.
+
+		Params:
+			fileName = The name of the file to be created.
+			data = Data to be written to the fileName.
+	*/
 	void createOutputFile(const string fileName, const string data)
 	{
 		if(fileName.canFind(dirSeparator))
