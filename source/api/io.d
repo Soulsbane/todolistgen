@@ -20,7 +20,7 @@ string readText(const string fileName)
 	Params:
 		fileName = Name of the file to read.
 */
-string[] getLines(string fileName) @safe
+string[] getLines(const string fileName) @safe
 {
 	import std.file : readText;
 	return readText(fileName).splitLines();
