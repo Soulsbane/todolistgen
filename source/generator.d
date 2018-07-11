@@ -43,7 +43,7 @@ class Generator : LuaAddon
 
 	void setupAPIFunctions()
 	{
-		createTable("FileUtils", "Helpers", "Path", "IO", "Config", "Input");
+		createTable("FileUtils", "Helpers", "Path", "IO", "Config", "Input", "Date", "Time", "DateTime");
 
 		registerFunction("IO", "ReadText", &api.io.readText);
 		registerFunction("IO", "GetLines", &api.io.getLines);

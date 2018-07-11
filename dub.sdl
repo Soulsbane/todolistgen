@@ -4,6 +4,7 @@ authors "Paul Crane"
 copyright "Copyright © 2018, Paul Crane"
 license "proprietary"
 
+libs "lua5.1" platform="posix"
 dependency "luad" version="~master"
 dependency "progress" version="~>5.0.1"
 dependency "colored" version="~>0.0.12"

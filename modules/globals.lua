@@ -8,22 +8,43 @@ local function Escape(s, c)
 end
 
 TemplateMod.escape = Escape
+
+local function GetOrdinalIndicator(day)
+	local lastDigit = day % 10
+
+	if lastDigit == 1 and day ~= 11 then
+		return "st"
+	elseif lastDigit == 2 and day ~= 12 then
+		return "nd"
+	elseif lastDigit == 3 and day ~= 13 then
+		return "rd"
+	else
+		return "th"
+	end
+end
+
 --Global Date and Time variables for use in templates.
-Month = os.date("%m")
-Day = os.date("%d")
-Year = os.date("%Y")
+--NOTE: Since these are variables they are initialized once upon loading this module.
+Date.Month = os.date("%m")
+Date.Day = os.date("%d")
+Date.Year = os.date("%Y")
+Date.Now = os.date("%x")
+Date.MonthName = os.date("%B")
+Date.MonthNameShort = os.date("%b")
+Date.Pretty = string.format("%s %d%s, %d", Date.MonthName, Date.Day, GetOrdinalIndicator(Date.Day), Date.Year)
 
-Hour = os.date("%I")
-Hour24 = os.date("%H")
-Minute = os.date("%M")
-Second = os.date("%S")
+Time.Hour = os.date("%I")
+Time.Hour24 = os.date("%H")
+Time.Minute = os.date("%M")
+Time.Second = os.date("%S")
+Time.Meridiem = os.date("%p") --AM or PM string.
+Time.Now = string.format("%d:%d:%d", Time.Hour, Time.Minute, Time.Second)
+Time.Now24 = os.date("%X")
+Time.Pretty = string.format("%d:%s:%s%s", Time.Hour, Time.Minute, Time.Second, Time.Meridiem)
 
-Date = os.date("%x")
-Time = string.format("%d:%d:%d", Hour, Minute, Second)
-Time24 = os.date("%X")
-DateAndTime = string.format("%s %s", Date, Time)
-DateAndTime24 = os.date("%c")
-AMOrPM = os.date("p")
+DateTime.Now = string.format("%s %s", Date.Now, Time.Now)
+DateTime.Pretty = string.format("%s %s", Date.Pretty, Time.Pretty)
+DateTime.Now24 = os.date("%c")
 
 --[[--
 	Get a slice of the given table.
