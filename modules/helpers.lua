@@ -1,7 +1,5 @@
 local Helpers = Helpers
 
-TemplateParser = require "resty.template"
-AnsiColors = require "ansicolors"
 ---These functions are largely deprecated in favor of using the IO.* functions.
 
 --[[--
