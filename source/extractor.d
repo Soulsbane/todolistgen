@@ -27,7 +27,6 @@ enum moduleFilesList =
 [
 	"ansicolors.lua",
 	"globals.lua",
-	"helpers.lua",
 	"io.lua",
 	"resty/template.lua"
 ];

@@ -43,7 +43,7 @@ class Generator : LuaAddon
 
 	void setupAPIFunctions()
 	{
-		createTable("FileUtils", "Helpers", "Path", "IO", "Config", "Input", "Date", "Time", "DateTime");
+		createTable("FileUtils", "Path", "IO", "Config", "Input", "Date", "Time", "DateTime");
 
 		registerFunction("IO", "ReadText", &api.io.readText);
 		registerFunction("IO", "GetLines", &api.io.getLines);
@@ -99,7 +99,6 @@ class Generator : LuaAddon
 	{
 		loadFile(buildNormalizedPath(paths_.getModuleDir(), "ansicolors.lua"));
 		loadFile(buildNormalizedPath(paths_.getModuleDir(), "globals.lua"));
-		loadFile(buildNormalizedPath(paths_.getModuleDir(), "helpers.lua"));
 		loadFile(buildNormalizedPath(paths_.getModuleDir(), "io.lua"));
 		loadFile(buildNormalizedPath(paths_.getModuleDir(), "resty", "template.lua"));
 	}
