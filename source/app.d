@@ -13,7 +13,7 @@ import constants, api.path, todofilereader;
 import generator, extractor;
 
 @GetOptPassThru
-struct Options
+struct CommandLineOptions
 {
 	@GetOptOptions("Sets the directory that should be scanned. [Default: .].")
 	string dir;
@@ -35,7 +35,7 @@ struct Options
 	bool list;
 }
 
-class TodoListGenApp : Application!Options
+class TodoListGenApp : Application!CommandLineOptions
 {
 public:
 	override void onCreate()
@@ -48,20 +48,20 @@ public:
 	{
 		if(!isHelpCommand())
 		{
-			if(options.hasFile()) // --file argument was passed
+			if(Options.hasFile()) // --file argument was passed
 			{
-				immutable string fileName = options.getFile();
+				immutable string fileName = Options.getFile();
 				processFile(fileName);
 			}
-			else if(options.hasList())
+			else if(Options.hasList())
 			{
 				createListOfGenerators();
 			}
-			else if(options.hasCreateGenerator())
+			else if(Options.hasCreateGenerator())
 			{
 				createGenerator();
 			}
-			else if(options.hasRemoveGenerator())
+			else if(Options.hasRemoveGenerator())
 			{
 				removeGenerator();
 			}
@@ -77,8 +77,8 @@ private:
 	{
 		paths_ = ApplicationPaths.getInstance();
 		// FIXME: Calling create works and uses user's .config dir. Call to setAddonName doesn't?
-		paths_.create(options.getFormat("stdout"));
-		paths_.setAddonName(options.getFormat("stdout"));
+		paths_.create(Options.getFormat("stdout"));
+		paths_.setAddonName(Options.getFormat("stdout"));
 		ensureConfigDirExists();
 		extractGenerators();
 	}
@@ -142,7 +142,7 @@ private:
 		if(fileName.exists)
 		{
 			auto addon = new Generator;
-			immutable bool created = addon.create(options.getFormat("stdout"));
+			immutable bool created = addon.create(Options.getFormat("stdout"));
 
 			if(created)
 			{
@@ -164,7 +164,7 @@ private:
 			}
 			else
 			{
-				writeln(options.getFormat("stdout"), " output format not found!");
+				writeln(Options.getFormat("stdout"), " output format not found!");
 			}
 		}
 		else
@@ -176,12 +176,12 @@ private:
 	void processDir() @trusted
 	{
 		auto addon = new Generator;
-		immutable bool created = addon.create(options.getFormat("stdout"));
+		immutable bool created = addon.create(Options.getFormat("stdout"));
 
 		if(created)
 		{
-			immutable string dir = options.getDir(".");
-			immutable string pattern = options.getPattern("*.*");
+			immutable string dir = Options.getDir(".");
+			immutable string pattern = Options.getPattern("*.*");
 			immutable auto filesLength = walkLength(dirEntries(dir, pattern, SpanMode.breadth));
 
 			TaskValues[][string] files;
@@ -207,7 +207,7 @@ private:
 					 // TODO: Find a better way to represent hidden files
 					if(!name.startsWith(".") && !isIgnoredFileType(name))
 					{
-						TaskValues[] tasks = reader.readFile(name, options.getTags());
+						TaskValues[] tasks = reader.readFile(name, Options.getTags());
 
 						if(tasks.length > 0)
 						{
@@ -248,13 +248,13 @@ private:
 		}
 		else
 		{
-			writeln(options.getFormat("stdout"), " output format not found!");
+			writeln(Options.getFormat("stdout"), " output format not found!");
 		}
 	}
 
 	bool isIgnoredFileType(const string fileName)
 	{
-		immutable auto fileExtensions = options.getIgnore("").split(",");
+		immutable auto fileExtensions = Options.getIgnore("").split(",");
 
 		foreach(extension; fileExtensions)
 		{
@@ -283,11 +283,11 @@ private:
 	void createGenerator()
 	{
 		//INFO: We have to set the format here since its not passed when using --create-generator
-		paths_.setAddonName(options.getFormat("creator"));
+		paths_.setAddonName(Options.getFormat("creator"));
 		ensureConfigDirExists();
 
 		auto addon = new Generator;
-		immutable bool created = addon.create(options.getFormat("creator"));
+		immutable bool created = addon.create(Options.getFormat("creator"));
 
 		if(created)
 		{
@@ -302,7 +302,7 @@ private:
 
 	void removeGenerator()
 	{
-		immutable string generatorName = options.getRemoveGenerator();
+		immutable string generatorName = Options.getRemoveGenerator();
 		immutable string generatorToRemove = buildNormalizedPath(paths_.getBaseAddonDir(), generatorName);
 
 		if(generatorToRemove.exists)
