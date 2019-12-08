@@ -83,25 +83,45 @@ private:
 		extractGenerators();
 	}
 
-	auto getDirList(const string name, SpanMode mode)
+	auto getDirEntryList(const string name, SpanMode mode)
 	{
 		auto dirs = dirEntries(name, mode)
 			.filter!(a => a.isDir && !a.name.startsWith("."))
+			.array
+			.sort
 			.array;
 
-		return sort(dirs);
+		return dirs;
 	}
+
+	ulong findMaxDirName(DirEntry[] entries)
+	{
+		immutable maxLength = entries
+			.map!(a => a.name.baseName.length)
+			.maxElement;
+
+		return maxLength;
+	}
+
+	/*string padName()
+	{
+		return string.init;
+	}*/
 
 	void createListOfGenerators()
 	{
 		writeln("The following generators are available:");
 		writeln;
 
-		foreach(dirName; getDirList(paths_.getBaseAddonDir(), SpanMode.shallow))
+		DirEntry[] entries = getDirEntryList(paths_.getBaseAddonDir(), SpanMode.shallow);
+		//immutable ulong max = findMaxDirName(entries);
+		//writeln("MAX = ", max);
+
+		foreach(entry; entries)
 		{
 			TocParser!() parser;
-			immutable string baseName = dirName.baseName;
-			immutable string tocFileName = buildNormalizedPath(dirName, baseName ~ ".toc");
+			immutable string baseName = entry.name.baseName;
+			immutable string tocFileName = buildNormalizedPath(entry.name, baseName ~ ".toc");
 
 			if(tocFileName.exists && baseName != "creator")
 			{
@@ -110,7 +130,7 @@ private:
 				immutable string description = parser.getDescription();
 				immutable string name = parser.getName();
 
-				writeln(name.blue.bold,  " - ", description);
+				writeln(name,  " - ", description);
 			}
 
 		}
@@ -269,9 +289,9 @@ private:
 
 	bool hasGenerator(const string name)
 	{
-		foreach(dirName; getDirList(paths_.getBaseAddonDir(), SpanMode.shallow))
+		foreach(entry; getDirEntryList(paths_.getBaseAddonDir(), SpanMode.shallow))
 		{
-			if(dirName.baseName == name)
+			if(entry.name.baseName == name)
 			{
 				return true;
 			}
