@@ -103,10 +103,10 @@ private:
 		return maxLength;
 	}
 
-	/*string padName()
+	string padString(const ulong maxNameLength, const string name)
 	{
-		return string.init;
-	}*/
+		return name ~ " ".repeat(maxNameLength - name.length).join;
+	}
 
 	void createListOfGenerators()
 	{
@@ -114,8 +114,7 @@ private:
 		writeln;
 
 		DirEntry[] entries = getDirEntryList(paths_.getBaseAddonDir(), SpanMode.shallow);
-		//immutable ulong max = findMaxDirName(entries);
-		//writeln("MAX = ", max);
+		immutable ulong max = findMaxDirName(entries);
 
 		foreach(entry; entries)
 		{
@@ -126,11 +125,9 @@ private:
 			if(tocFileName.exists && baseName != "creator")
 			{
 				parser.loadFile(tocFileName);
-
 				immutable string description = parser.getDescription();
-				immutable string name = parser.getName();
 
-				writeln(name,  " - ", description);
+				writeln(padString(max, baseName), " - ", description);
 			}
 
 		}
