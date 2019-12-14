@@ -110,26 +110,33 @@ private:
 
 	void createListOfGenerators()
 	{
-		writeln("The following generators are available:");
-		writeln;
-
 		DirEntry[] entries = getDirEntryList(paths_.getBaseAddonDir(), SpanMode.shallow);
-		immutable ulong max = findMaxDirName(entries);
 
-		foreach(entry; entries)
+		if(entries.length)
 		{
-			TocParser!() parser;
-			immutable string baseName = entry.name.baseName;
-			immutable string tocFileName = buildNormalizedPath(entry.name, baseName ~ ".toc");
+			immutable ulong max = findMaxDirName(entries);
 
-			if(tocFileName.exists && baseName != "creator")
+			writeln("The following generators are available:");
+			writeln;
+
+			foreach(entry; entries)
 			{
-				parser.loadFile(tocFileName);
-				immutable string description = parser.getDescription();
+				TocParser!() parser;
+				immutable string baseName = entry.name.baseName;
+				immutable string tocFileName = buildNormalizedPath(entry.name, baseName ~ ".toc");
 
-				writeln(padString(max, baseName), " - ", description);
+				if(tocFileName.exists && baseName != "creator")
+				{
+					parser.loadFile(tocFileName);
+					immutable string description = parser.getDescription();
+
+					writeln(padString(max, baseName), " - ", description);
+				}
 			}
-
+		}
+		else
+		{
+			writeln("Failed to find any installed generators!");
 		}
 	}
 
